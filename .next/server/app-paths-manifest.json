@@ -1,6 +1,7 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/map/page": "app/map/page.js",
+  "/license-portal/page": "app/license-portal/page.js",
+  "/license-portal/type-a/page": "app/license-portal/type-a/page.js",
   "/page": "app/page.js"
 }

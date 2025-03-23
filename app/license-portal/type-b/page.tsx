@@ -1,8 +1,9 @@
 
 
 // 'use client'
-// import React, { useState } from 'react'
+// import React, { useState, useEffect, useRef } from 'react'
 // import Navbar from '../../navbar/page'
+// import * as THREE from 'three';
 
 // interface FormData {
 //   explorationLicenseNo: string;
@@ -124,12 +125,115 @@
 //   });
 
 //   const [isDarkMode, setIsDarkMode] = useState(true);
+//   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-//   // Toggle dark/light mode
-//   const toggleTheme = () => {
-//     setIsDarkMode(!isDarkMode);
-//     document.documentElement.classList.toggle('dark');
-//   };
+//   // Listen for theme change event from navbar
+//   useEffect(() => {
+//     const handleThemeChange = (event: CustomEvent) => {
+//       setIsDarkMode(event.detail.isDarkMode);
+//     };
+
+//     window.addEventListener('themeChange', handleThemeChange as EventListener);
+
+//     // Set initial theme based on local storage or system preference
+//     const savedTheme = localStorage.getItem('theme');
+//     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+//     if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+//       setIsDarkMode(true);
+//     } else {
+//       setIsDarkMode(false);
+//     }
+
+//     return () => {
+//       window.removeEventListener('themeChange', handleThemeChange as EventListener);
+//     };
+//   }, []);
+
+//   // Three.js Sand (Particle) Effect
+//   useEffect(() => {
+//     if (!canvasRef.current) return;
+
+//     const scene = new THREE.Scene();
+//     const camera = new THREE.PerspectiveCamera(
+//       75,
+//       window.innerWidth / window.innerHeight,
+//       0.1,
+//       1000
+//     );
+//     const renderer = new THREE.WebGLRenderer({
+//       canvas: canvasRef.current,
+//       alpha: true,
+//     });
+
+//     renderer.setSize(window.innerWidth, window.innerHeight);
+//     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+//     const particlesGeometry = new THREE.BufferGeometry();
+//     const particlesCount = 5000;
+//     const posArray = new Float32Array(particlesCount * 3);
+
+//     for (let i = 0; i < particlesCount * 3; i++) {
+//       posArray[i] = (Math.random() - 0.5) * 5;
+//     }
+//     particlesGeometry.setAttribute(
+//       'position',
+//       new THREE.BufferAttribute(posArray, 3)
+//     );
+
+//     const particlesMaterial = new THREE.PointsMaterial({
+//       size: 0.004,
+//       color: isDarkMode ? 0xD2B48C : 0xFFD700, // Sand color
+//       transparent: true,
+//       blending: THREE.AdditiveBlending,
+//     });
+
+//     const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+//     scene.add(particlesMesh);
+
+//     camera.position.z = 2;
+
+//     let mouseX = 0;
+//     let mouseY = 0;
+
+//     function onDocumentMouseMove(event: MouseEvent) {
+//       mouseX = (event.clientX - window.innerWidth / 2) / 100;
+//       mouseY = (event.clientY - window.innerHeight / 2) / 100;
+//     }
+//     document.addEventListener('mousemove', onDocumentMouseMove);
+
+//     function onWindowResize() {
+//       camera.aspect = window.innerWidth / window.innerHeight;
+//       camera.updateProjectionMatrix();
+//       renderer.setSize(window.innerWidth, window.innerHeight);
+//     }
+//     window.addEventListener('resize', onWindowResize);
+
+//     const animate = () => {
+//       requestAnimationFrame(animate);
+//       particlesMesh.rotation.x += 0.0002 + mouseY * 0.0002; // Slowed down rotation
+//       particlesMesh.rotation.y += 0.0002 + mouseX * 0.0002; // Slowed down rotation
+//       renderer.render(scene, camera);
+//     };
+//     animate();
+
+//     const updateParticleColor = () => {
+//       particlesMaterial.color.set(isDarkMode ? 0xD2B48C : 0xFFD700);
+//     };
+
+//     const themeChangeListener = () => {
+//       updateParticleColor();
+//     };
+//     window.addEventListener('themeChange', themeChangeListener);
+
+//     return () => {
+//       document.removeEventListener('mousemove', onDocumentMouseMove);
+//       window.removeEventListener('resize', onWindowResize);
+//       window.removeEventListener('themeChange', themeChangeListener);
+//       if (particlesGeometry) particlesGeometry.dispose();
+//       if (particlesMaterial) particlesMaterial.dispose();
+//       if (renderer) renderer.dispose();
+//     };
+//   }, [isDarkMode]);
 
 //   const handleSubmit = async (e: React.FormEvent) => {
 //     e.preventDefault();
@@ -189,22 +293,12 @@
 //   };
 
 //   return (
-//     <main className={`${isDarkMode ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
+//     <div className={`relative min-h-screen ${isDarkMode ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} overflow-hidden`}>
 //       <Navbar />
-//       <div className="min-h-screen pt-20"> {/* Added padding-top to create space below navbar */}
+//       <div className="relative z-10 min-h-screen pt-32 pb-16">
 //         <div className="max-w-3xl mx-auto py-6 sm:px-6 lg:px-8">
-//           {/* Dark/Light Mode Toggle Button */}
-//           <button
-//             onClick={toggleTheme}
-//             className={`fixed bottom-8 right-8 p-3 rounded-full shadow-lg z-50 ${
-//               isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'
-//             } hover:opacity-80 transition-all`}
-//           >
-//             {isDarkMode ? '🌞' : '🌙'}
-//           </button>
-
 //           <h1 className={`text-3xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-//             IML Type A License Application
+//             IML Type B License Application
 //           </h1>
 //           <div className={`${isDarkMode ? 'bg-gray-900 bg-opacity-70' : 'bg-white'} shadow-lg rounded-lg p-6`}>
 //             <form onSubmit={handleSubmit} className="space-y-8">
@@ -515,20 +609,25 @@
 //               </div>
 
 //               <div className="pt-5">
-//                 <button
-//                   type="submit"
-//                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-//                 >
-//                   Submit Application
-//                 </button>
-//               </div>
+//   <button
+//     type="submit"
+//     className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+//   >
+//     Submit Application
+//   </button>
+// </div>
+
 //             </form>
 //           </div>
 //         </div>
 //       </div>
-//     </main>
+      
+//       {/* Three.js Canvas Background */}
+//       <canvas ref={canvasRef} className="fixed inset-0 w-full h-full z-0" />
+//     </div>
 //   );
 // }
+
 
 'use client'
 import React, { useState, useEffect, useRef } from 'react'
@@ -765,36 +864,120 @@ export default function TypeALicense() {
     };
   }, [isDarkMode]);
 
+  // Updated handleSubmit function to properly map form fields to API expectations
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Create FormData object for file uploads
     const data = new FormData();
     
-    // Append all form data
-    Object.entries(formData).forEach(([key, value]) => {
-      if (value instanceof File) {
-        data.append(key, value);
-      } else if (typeof value === 'object') {
-        data.append(key, JSON.stringify(value));
-      } else {
-        data.append(key, value.toString());
-      }
-    });
+    // Handle simple fields at the root level
+    data.append('exploration_license_no', formData.explorationLicenseNo);
+    data.append('minerals_to_be_mined', formData.mineralsToMine);
+    data.append('nature_of_bound', formData.bondDetails);
+    
+    // Handle individual details
+    data.append('applicant_name', formData.individualDetails.applicantName);
+    data.append('national_id', formData.individualDetails.nationalIdNo);
+    data.append('address', formData.individualDetails.address);
+    data.append('nationality', formData.individualDetails.nationality);
+    data.append('employment', formData.individualDetails.employment);
+    data.append('place_of_business', formData.individualDetails.sriLankaDetails.placeBusiness);
+    data.append('residence', formData.individualDetails.sriLankaDetails.residence);
+    
+    // Handle corporation details
+    data.append('company_name', formData.corporationDetails.companyName);
+    data.append('country_of_incorporation', formData.corporationDetails.countryIncorporation);
+    data.append('head_office_address', formData.corporationDetails.headOffice);
+    data.append('registered_address_in_sri_lanka', formData.corporationDetails.sriLankaAddress);
+    data.append('capitalization', formData.corporationDetails.legalFinancialData.capitalization);
+    
+    // Handle industrial mining operation details
+    data.append('blasting_method', formData.industrialMiningOperation.blastingMethod);
+    data.append('depth_of_borehole', formData.industrialMiningOperation.boreHoleDepth);
+    data.append('production_volume', formData.industrialMiningOperation.productionVolume);
+    data.append('machinery_used', formData.industrialMiningOperation.machineryUsed);
+    data.append('underground_mining_depth', formData.industrialMiningOperation.shaftDepth);
+    data.append('explosives_type', formData.industrialMiningOperation.explosivesType);
+    
+    // Handle license area details
+    data.append('land_name', formData.licenseAreaDetails.landName);
+    data.append('land_owner_name', formData.licenseAreaDetails.landOwner);
+    data.append('village_name', formData.licenseAreaDetails.villageName);
+    data.append('grama_niladhari_division', formData.licenseAreaDetails.gramaNiladhariDivision);
+    data.append('divisional_secretary_division', formData.licenseAreaDetails.divisionalSecretary);
+    data.append('administrative_district', formData.licenseAreaDetails.administrativeDistrict);
+    
+    // Handle declaration fields
+    data.append('applicant_signature', formData.declaration.signature);
+    data.append('mine_manager_signature', formData.declaration.mineManager);
+    
+    // Set placeholder values for required fields not explicitly in the form
+    data.append('industrial_mining_license_no', '');  // Or use a generated/default value
+    data.append('period_of_validity', '5');  // Default to 5 years
+    data.append('royalty_payable', '0');  // Default value
+    
+    // Handle file uploads
+    // Corporation documents
+    if (formData.corporationDetails.legalFinancialData.articlesOfAssociation) {
+      data.append('articles_of_association', formData.corporationDetails.legalFinancialData.articlesOfAssociation);
+    }
+    if (formData.corporationDetails.legalFinancialData.annualReports) {
+      data.append('annual_reports', formData.corporationDetails.legalFinancialData.annualReports);
+    }
+    
+    // Technical documents
+    if (formData.technicalData.licensedBoundarySurvey) {
+      data.append('licensed_boundary_survey', formData.technicalData.licensedBoundarySurvey);
+    }
+    if (formData.technicalData.projectTeamCredentials) {
+      data.append('project_team_credentials', formData.technicalData.projectTeamCredentials);
+    }
+    if (formData.technicalData.economicViabilityReport) {
+      data.append('economic_viability_report', formData.technicalData.economicViabilityReport);
+    }
+    
+    // License area documents
+    if (formData.licenseAreaDetails.deedCopy) {
+      data.append('deed_copy', formData.licenseAreaDetails.deedCopy);
+    }
+    if (formData.licenseAreaDetails.surveyPlan) {
+      data.append('survey_plan', formData.licenseAreaDetails.surveyPlan);
+    }
+    if (formData.licenseAreaDetails.leaseAgreement) {
+      data.append('lease_agreement', formData.licenseAreaDetails.leaseAgreement);
+    }
+    
+    // Other documents
+    if (formData.mineRestorationPlan) {
+      data.append('mine_restoration_plan', formData.mineRestorationPlan);
+    }
+    if (formData.licenseFeeReceipt) {
+      data.append('license_fee_receipt', formData.licenseFeeReceipt);
+    }
 
     try {
-      const response = await fetch('http://localhost:5000/api/licenses/type-a', {
+      // Add a console log to help with debugging
+      console.log('Submitting form data to API...');
+      
+      // Use a relative URL instead of hardcoded localhost:5000
+      const response = await fetch('/api/submit', {
         method: 'POST',
         body: data,
       });
       
       if (response.ok) {
         alert('License application submitted successfully!');
+        console.log('Response:', await response.json());
       } else {
-        alert('Failed to submit license application');
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        console.error('Submission error:', errorData);
+        alert(`Failed to submit license application: ${errorData.error || 'Unknown error'}`);
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('Error submitting license application');
+      console.error('Fetch error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Network or server error';
+      alert(`Error submitting license application: ${errorMessage}`);
     }
   };
 
@@ -809,7 +992,7 @@ export default function TypeALicense() {
       } else {
         // Handle nested file fields
         setFormData(prev => {
-          const sectionData = prev[section] as Record<string, any>;
+          const sectionData = prev[section] as Record<string, unknown>;
           return {
             ...prev,
             [section]: {
@@ -828,7 +1011,7 @@ export default function TypeALicense() {
       <div className="relative z-10 min-h-screen pt-32 pb-16">
         <div className="max-w-3xl mx-auto py-6 sm:px-6 lg:px-8">
           <h1 className={`text-3xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-            IML Type B License Application
+            IML Type A License Application
           </h1>
           <div className={`${isDarkMode ? 'bg-gray-900 bg-opacity-70' : 'bg-white'} shadow-lg rounded-lg p-6`}>
             <form onSubmit={handleSubmit} className="space-y-8">
@@ -1129,31 +1312,49 @@ export default function TypeALicense() {
                         isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'
                       } shadow-sm focus:border-indigo-500 focus:ring-indigo-500`}
                       value={formData.declaration.mineManager}
-                      onChange={(e) => setFormData({
-                        ...formData,
-                        declaration: { ...formData.declaration, mineManager: e.target.value }
-                      })}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-5">
-  <button
-    type="submit"
-    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
-  >
-    Submit Application
-  </button>
+onChange={(e) => setFormData({
+  ...formData,
+  declaration: { ...formData.declaration, mineManager: e.target.value }
+})}
+/>
+</div>
+<div>
+<label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+  Signature (Type your name to sign)
+</label>
+<input
+  type="text"
+  className={`mt-1 block w-full rounded-md ${
+    isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'
+  } shadow-sm focus:border-indigo-500 focus:ring-indigo-500`}
+  value={formData.declaration.signature}
+  onChange={(e) => setFormData({
+    ...formData,
+    declaration: { ...formData.declaration, signature: e.target.value }
+  })}
+/>
+</div>
+</div>
 </div>
 
-            </form>
-          </div>
-        </div>
-      </div>
-      
-      {/* Three.js Canvas Background */}
-      <canvas ref={canvasRef} className="fixed inset-0 w-full h-full z-0" />
-    </div>
-  );
+{/* Submit Button */}
+<div className="border-t pt-6">
+<button
+  type="submit"
+  className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
+    isDarkMode ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-blue-600 hover:bg-blue-700'
+  } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+>
+  Submit License Application
+</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+
+{/* Background Three.js Canvas */}
+<canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full pointer-events-none" />
+</div>
+);
 }
