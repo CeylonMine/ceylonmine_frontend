@@ -30,13 +30,13 @@ export default function MineBot() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // AI-powered response generation using Gemini
+  // AI-powered response generation
   const generateAIResponse = async (userMessage: string) => {
     setIsTyping(true);
     setIsError(false);
     
     try {
-      const response = await fetch('/api/chat', {
+      const response = await fetch('/.netlify/functions/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
