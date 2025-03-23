@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { useParams } from 'next/navigation'
-import styles from '../../page.module.css'
+
 
 function ResetPasswordPage() {
   const params = useParams()
