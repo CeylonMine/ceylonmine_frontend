@@ -31,6 +31,7 @@ function Navbar() {
     const [isLoggedIn, setIsLoggedIn] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false) // Authentication state
     ;
     const [profileDropdownOpen, setProfileDropdownOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [userData, setUserData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const dropdownRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     // Scroll effect for background color
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
@@ -67,69 +68,85 @@ function Navbar() {
             })["Navbar.useEffect"];
         }
     }["Navbar.useEffect"], []);
-    // For demo purposes - this would normally be handled by your auth system
-    // In a real app, you'd check auth tokens, session cookies, etc.
+    // Check authentication status on component mount
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Navbar.useEffect": ()=>{
-            // Check if user is logged in from localStorage or your auth system
-            const userAuthStatus = localStorage.getItem('isLoggedIn') === 'true';
-            setIsLoggedIn(userAuthStatus);
+            const checkAuth = {
+                "Navbar.useEffect.checkAuth": ()=>{
+                    const token = document.cookie.split('; ').find({
+                        "Navbar.useEffect.checkAuth": (row)=>row.startsWith('token=')
+                    }["Navbar.useEffect.checkAuth"])?.split('=')[1];
+                    const storedUser = localStorage.getItem('user');
+                    if (token && storedUser) {
+                        setIsLoggedIn(true);
+                        try {
+                            const userData = JSON.parse(storedUser);
+                            setUserData(userData);
+                        } catch (e) {
+                            console.error('Error parsing user data:', e);
+                        }
+                    } else {
+                        setIsLoggedIn(false);
+                        setUserData(null);
+                    }
+                }
+            }["Navbar.useEffect.checkAuth"];
+            checkAuth();
+            // Listen for auth changes
+            window.addEventListener('storage', checkAuth);
+            window.addEventListener('authChange', checkAuth);
+            return ({
+                "Navbar.useEffect": ()=>{
+                    window.removeEventListener('storage', checkAuth);
+                    window.removeEventListener('authChange', checkAuth);
+                }
+            })["Navbar.useEffect"];
         }
     }["Navbar.useEffect"], []);
     // Handle logout
     const handleLogout = ()=>{
+        // Clear auth token cookie
+        document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=strict';
+        // Clear user data from localStorage
+        localStorage.removeItem('user');
         setIsLoggedIn(false);
-        localStorage.setItem('isLoggedIn', 'false');
+        setUserData(null);
         setProfileDropdownOpen(false);
-    // You would also clear auth tokens, cookies, etc. here
-    // window.location.href = '/' // Redirect to home page if needed
+        // Dispatch auth change event
+        window.dispatchEvent(new CustomEvent('authChange'));
+        // Redirect to home page
+        window.location.href = '/';
     };
-    // Handle login (for demo purposes)
-    const simulateLogin = ()=>{
-        setIsLoggedIn(true);
-        localStorage.setItem('isLoggedIn', 'true');
-    };
-    // ----------------------------
-    // THEME TOGGLE LOGIC
-    // ----------------------------
+    // Theme toggle logic
     const toggleTheme = ()=>{
         const newTheme = !isDarkMode;
         setIsDarkMode(newTheme);
-        // Apply to <html> element
         if (newTheme) {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
         }
-        // Save preference
         localStorage.setItem('theme', newTheme ? 'dark' : 'light');
-        // Emit themeChange event
-        const event = new CustomEvent('themeChange', {
+        window.dispatchEvent(new CustomEvent('themeChange', {
             detail: {
                 isDarkMode: newTheme
             }
-        });
-        window.dispatchEvent(event);
+        }));
     };
-    // ----------------------------
-    // LANGUAGE TOGGLE / SWITCH
-    // ----------------------------
+    // Language toggle logic
     const toggleLanguage = ()=>{
         const newLang = language === 'en' ? 'si' : 'en';
         setLanguage(newLang);
         localStorage.setItem('language', newLang);
-        // Emit languageChange event
-        const event = new CustomEvent('languageChange', {
+        window.dispatchEvent(new CustomEvent('languageChange', {
             detail: {
                 language: newLang
             }
-        });
-        window.dispatchEvent(event);
+        }));
     };
     // Initialize theme & language from localStorage or system preference
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Navbar.useEffect": ()=>{
-            // THEME
             const savedTheme = localStorage.getItem('theme');
             const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const isDark = savedTheme === 'dark' || !savedTheme && systemPrefersDark;
@@ -139,13 +156,11 @@ function Navbar() {
             } else {
                 document.documentElement.classList.remove('dark');
             }
-            // Emit initial theme event
             window.dispatchEvent(new CustomEvent('themeChange', {
                 detail: {
                     isDarkMode: isDark
                 }
             }));
-            // LANGUAGE
             const savedLang = localStorage.getItem('language') || 'en';
             setLanguage(savedLang);
             window.dispatchEvent(new CustomEvent('languageChange', {
@@ -155,10 +170,7 @@ function Navbar() {
             }));
         }
     }["Navbar.useEffect"], []);
-    // ----------------------------
-    // NAVIGATION ITEMS
-    // ----------------------------
-    // Example: different text per language
+    // Navigation items
     const navItemsEn = [
         {
             name: 'Home',
@@ -197,8 +209,6 @@ function Navbar() {
             path: '/contact'
         }
     ];
-    // For demonstration, let's provide a Sinhala version of the same links
-    // (Feel free to replace with actual translations)
     const navItemsSi = [
         {
             name: 'මුල් පිටුව',
@@ -244,6 +254,13 @@ function Navbar() {
         dashboard: language === 'en' ? 'Dashboard' : 'උපකරණ පුවරුව',
         logout: language === 'en' ? 'Logout' : 'පිටවීම',
         profile: language === 'en' ? 'Profile' : 'පැතිකඩ'
+    };
+    // Get display name
+    const getDisplayName = ()=>{
+        if (userData && userData.firstName) {
+            return `${userData.firstName}`;
+        }
+        return authText.profile;
     };
     // Framer Motion variants
     const navAnimation = {
@@ -299,22 +316,22 @@ function Navbar() {
                                         className: "mr-2 hover:scale-105 transition-transform duration-200"
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 202,
+                                        lineNumber: 226,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 201,
+                                    lineNumber: 225,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/navbar/page.tsx",
-                                lineNumber: 200,
+                                lineNumber: 224,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/navbar/page.tsx",
-                            lineNumber: 196,
+                            lineNumber: 220,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -345,22 +362,22 @@ function Navbar() {
                                             children: item.name
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 225,
+                                            lineNumber: 249,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 224,
+                                        lineNumber: 248,
                                         columnNumber: 17
                                     }, this)
                                 }, item.path, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 219,
+                                    lineNumber: 243,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/app/navbar/page.tsx",
-                            lineNumber: 214,
+                            lineNumber: 238,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -383,7 +400,7 @@ function Navbar() {
                                     children: language === 'en' ? 'EN' : 'සි'
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 249,
+                                    lineNumber: 273,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].button, {
@@ -403,46 +420,10 @@ function Navbar() {
                                     children: isDarkMode ? '🌞' : '🌙'
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 264,
+                                    lineNumber: 288,
                                     columnNumber: 13
                                 }, this),
-                                !isLoggedIn ? // Not logged in - show only signup button
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "hidden md:flex items-center",
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
-                                        variants: itemAnimation,
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                            href: "/sign",
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].span, {
-                                                whileHover: {
-                                                    scale: 1.05
-                                                },
-                                                whileTap: {
-                                                    scale: 0.95
-                                                },
-                                                className: "bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg  hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer font-semibold",
-                                                onClick: ()=>simulateLogin(),
-                                                children: authText.signup
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/navbar/page.tsx",
-                                                lineNumber: 285,
-                                                columnNumber: 21
-                                            }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 284,
-                                            columnNumber: 19
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 283,
-                                        columnNumber: 17
-                                    }, this)
-                                }, void 0, false, {
-                                    fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 281,
-                                    columnNumber: 15
-                                }, this) : // Logged in - show profile dropdown
+                                isLoggedIn ? // Logged in - show profile dropdown
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "hidden md:block relative",
                                     ref: dropdownRef,
@@ -475,20 +456,20 @@ function Navbar() {
                                                         d: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/navbar/page.tsx",
-                                                        lineNumber: 320,
+                                                        lineNumber: 325,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 313,
+                                                    lineNumber: 318,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     className: "text-[#FFA500] font-medium",
-                                                    children: authText.profile
+                                                    children: getDisplayName()
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 327,
+                                                    lineNumber: 332,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -504,18 +485,18 @@ function Navbar() {
                                                         d: "M19 9l-7 7-7-7"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/navbar/page.tsx",
-                                                        lineNumber: 337,
+                                                        lineNumber: 342,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 330,
+                                                    lineNumber: 335,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 301,
+                                            lineNumber: 306,
                                             columnNumber: 17
                                         }, this),
                                         profileDropdownOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -547,15 +528,16 @@ function Navbar() {
                           ${isDarkMode ? 'text-[#E6F1FF] hover:bg-[#1D3557]' : 'text-gray-700 hover:bg-gray-100'}
                           cursor-pointer
                         `,
+                                                        onClick: ()=>setProfileDropdownOpen(false),
                                                         children: authText.dashboard
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/navbar/page.tsx",
-                                                        lineNumber: 359,
+                                                        lineNumber: 364,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 358,
+                                                    lineNumber: 363,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -567,19 +549,54 @@ function Navbar() {
                                                     children: authText.logout
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 369,
+                                                    lineNumber: 375,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 348,
+                                            lineNumber: 353,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 300,
+                                    lineNumber: 305,
+                                    columnNumber: 15
+                                }, this) : // Not logged in - show signup button
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "hidden md:flex items-center",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
+                                        variants: itemAnimation,
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                            href: "/sign",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].span, {
+                                                whileHover: {
+                                                    scale: 1.05
+                                                },
+                                                whileTap: {
+                                                    scale: 0.95
+                                                },
+                                                className: "bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg  hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer font-semibold",
+                                                children: authText.signup
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/navbar/page.tsx",
+                                                lineNumber: 392,
+                                                columnNumber: 21
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/navbar/page.tsx",
+                                            lineNumber: 391,
+                                            columnNumber: 19
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/navbar/page.tsx",
+                                        lineNumber: 390,
+                                        columnNumber: 17
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/navbar/page.tsx",
+                                    lineNumber: 389,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -604,34 +621,34 @@ function Navbar() {
                                                 d: "M4 6h16M4 12h16m-7 6h7"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/navbar/page.tsx",
-                                                lineNumber: 400,
+                                                lineNumber: 423,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 393,
+                                            lineNumber: 416,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 385,
+                                        lineNumber: 408,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 384,
+                                    lineNumber: 407,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/navbar/page.tsx",
-                            lineNumber: 247,
+                            lineNumber: 271,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/navbar/page.tsx",
-                    lineNumber: 194,
+                    lineNumber: 218,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -669,60 +686,25 @@ function Navbar() {
                                             children: item.name
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 430,
+                                            lineNumber: 453,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 429,
+                                        lineNumber: 452,
                                         columnNumber: 17
                                     }, this)
                                 }, item.path, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 424,
+                                    lineNumber: 447,
                                     columnNumber: 15
                                 }, this)),
-                            !isLoggedIn ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "space-y-2 pt-2",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
-                                    whileTap: {
-                                        scale: 0.95
-                                    },
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                        href: "/signup",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: `
-                        block w-full text-center bg-[#FFA500] text-[#0A192F]
-                        px-4 py-2 rounded-lg hover:bg-[#FFD700]
-                        transition-colors duration-200 font-semibold
-                      `,
-                                            onClick: ()=>simulateLogin(),
-                                            children: authText.signup
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 451,
-                                            columnNumber: 21
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 450,
-                                        columnNumber: 19
-                                    }, this)
-                                }, void 0, false, {
-                                    fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 449,
-                                    columnNumber: 17
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/app/navbar/page.tsx",
-                                lineNumber: 447,
-                                columnNumber: 15
-                            }, this) : // Mobile profile options when logged in
+                            isLoggedIn ? // Mobile profile options when logged in
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "space-y-2 pt-2",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                        href: "/dashboard",
+                                        href: "/constructor",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             className: `
                       block w-full text-center border border-[#FFA500]
@@ -734,12 +716,12 @@ function Navbar() {
                                             children: authText.dashboard
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 468,
+                                            lineNumber: 473,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 467,
+                                        lineNumber: 472,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -752,39 +734,74 @@ function Navbar() {
                                         children: authText.logout
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 481,
+                                        lineNumber: 486,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/navbar/page.tsx",
-                                lineNumber: 466,
+                                lineNumber: 471,
+                                columnNumber: 15
+                            }, this) : // Not logged in - show signup button
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "space-y-2 pt-2",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
+                                    whileTap: {
+                                        scale: 0.95
+                                    },
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                        href: "/sign",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: `
+                        block w-full text-center bg-[#FFA500] text-[#0A192F]
+                        px-4 py-2 rounded-lg hover:bg-[#FFD700]
+                        transition-colors duration-200 font-semibold
+                      `,
+                                            children: authText.signup
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/navbar/page.tsx",
+                                            lineNumber: 502,
+                                            columnNumber: 21
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/navbar/page.tsx",
+                                        lineNumber: 501,
+                                        columnNumber: 19
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/navbar/page.tsx",
+                                    lineNumber: 500,
+                                    columnNumber: 17
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/navbar/page.tsx",
+                                lineNumber: 499,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/navbar/page.tsx",
-                        lineNumber: 422,
+                        lineNumber: 445,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/navbar/page.tsx",
-                    lineNumber: 413,
+                    lineNumber: 436,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/navbar/page.tsx",
-            lineNumber: 193,
+            lineNumber: 217,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/navbar/page.tsx",
-        lineNumber: 181,
+        lineNumber: 205,
         columnNumber: 5
     }, this);
 }
-_s(Navbar, "a36TnVuA+eOD01/5Km5/JwF3ABI=");
+_s(Navbar, "LoFvSqnH/p6/039OQ2ZDY/wtA2k=");
 _c = Navbar;
 var _c;
 __turbopack_context__.k.register(_c, "Navbar");
