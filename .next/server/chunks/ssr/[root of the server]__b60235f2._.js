@@ -1563,10 +1563,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navi
 ;
 ;
 ;
-const MapComponent = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$shared$2f$lib$2f$app$2d$dynamic$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"])(()=>__turbopack_context__.r("[project]/app/components/LeafletMap.js [app-ssr] (ecmascript, next/dynamic entry, async loader)")(__turbopack_context__.i), {
+const MapComponent = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$shared$2f$lib$2f$app$2d$dynamic$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"])(()=>__turbopack_context__.r("[project]/app/components/LeafletMap.tsx [app-ssr] (ecmascript, next/dynamic entry, async loader)")(__turbopack_context__.i), {
     loadableGenerated: {
         modules: [
-            "[project]/app/components/LeafletMap.js [app-client] (ecmascript, next/dynamic entry)"
+            "[project]/app/components/LeafletMap.tsx [app-client] (ecmascript, next/dynamic entry)"
         ]
     },
     ssr: false

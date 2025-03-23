@@ -1,11 +1,9 @@
 {
-  "[project]/app/components/LeafletMap.js [app-client] (ecmascript, next/dynamic entry)": {
-    "id": "[project]/app/components/LeafletMap.js [app-client] (ecmascript, next/dynamic entry)",
+  "[project]/app/components/LeafletMap.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/app/components/LeafletMap.tsx [app-client] (ecmascript, next/dynamic entry)",
     "files": [
-      "static/chunks/node_modules_3374daba._.js",
-      "static/chunks/app_components_LeafletMap_dca40dfa.js",
-      "static/chunks/_791e2dc0._.css",
-      "static/chunks/app_components_LeafletMap_c841dff8.js"
+      "static/chunks/app_components_LeafletMap_tsx_a660d0e8._.js",
+      "static/chunks/app_components_LeafletMap_tsx_c841dff8._.js"
     ]
   }
 }
