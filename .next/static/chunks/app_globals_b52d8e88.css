@@ -619,10 +619,6 @@ img, video {
   margin-bottom: 2rem;
 }
 
-.me-auto {
-  margin-inline-end: auto;
-}
-
 .ml-2 {
   margin-left: .5rem;
 }
@@ -2175,6 +2171,11 @@ img, video {
   padding-bottom: .75rem;
 }
 
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -2195,6 +2196,10 @@ img, video {
 
 .pb-3 {
   padding-bottom: .75rem;
+}
+
+.pb-4 {
+  padding-bottom: 1rem;
 }
 
 .pb-6 {
@@ -2726,11 +2731,6 @@ img, video {
   --tw-ring-opacity: .5;
 }
 
-.blur {
-  --tw-blur: blur(8px);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
 .blur-3xl {
   --tw-blur: blur(64px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -2969,6 +2969,10 @@ img, video {
 .hover\:bg-gray-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-gray-100\/50:hover {
+  background-color: #f3f4f680;
 }
 
 .hover\:bg-gray-300:hover {

@@ -1,9 +1,8 @@
 
 
 // 'use client'
-// import React, { useState, useEffect, useRef } from 'react'
+// import React, { useState } from 'react'
 // import Navbar from '../../navbar/page'
-// import * as THREE from 'three';
 
 // interface FormData {
 //   explorationLicenseNo: string;
@@ -125,115 +124,12 @@
 //   });
 
 //   const [isDarkMode, setIsDarkMode] = useState(true);
-//   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-//   // Listen for theme change event from navbar
-//   useEffect(() => {
-//     const handleThemeChange = (event: CustomEvent) => {
-//       setIsDarkMode(event.detail.isDarkMode);
-//     };
-
-//     window.addEventListener('themeChange', handleThemeChange as EventListener);
-
-//     // Set initial theme based on local storage or system preference
-//     const savedTheme = localStorage.getItem('theme');
-//     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-//     if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-//       setIsDarkMode(true);
-//     } else {
-//       setIsDarkMode(false);
-//     }
-
-//     return () => {
-//       window.removeEventListener('themeChange', handleThemeChange as EventListener);
-//     };
-//   }, []);
-
-//   // Three.js Sand (Particle) Effect
-//   useEffect(() => {
-//     if (!canvasRef.current) return;
-
-//     const scene = new THREE.Scene();
-//     const camera = new THREE.PerspectiveCamera(
-//       75,
-//       window.innerWidth / window.innerHeight,
-//       0.1,
-//       1000
-//     );
-//     const renderer = new THREE.WebGLRenderer({
-//       canvas: canvasRef.current,
-//       alpha: true,
-//     });
-
-//     renderer.setSize(window.innerWidth, window.innerHeight);
-//     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-//     const particlesGeometry = new THREE.BufferGeometry();
-//     const particlesCount = 5000;
-//     const posArray = new Float32Array(particlesCount * 3);
-
-//     for (let i = 0; i < particlesCount * 3; i++) {
-//       posArray[i] = (Math.random() - 0.5) * 5;
-//     }
-//     particlesGeometry.setAttribute(
-//       'position',
-//       new THREE.BufferAttribute(posArray, 3)
-//     );
-
-//     const particlesMaterial = new THREE.PointsMaterial({
-//       size: 0.004,
-//       color: isDarkMode ? 0xD2B48C : 0xFFD700, // Sand color
-//       transparent: true,
-//       blending: THREE.AdditiveBlending,
-//     });
-
-//     const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-//     scene.add(particlesMesh);
-
-//     camera.position.z = 2;
-
-//     let mouseX = 0;
-//     let mouseY = 0;
-
-//     function onDocumentMouseMove(event: MouseEvent) {
-//       mouseX = (event.clientX - window.innerWidth / 2) / 100;
-//       mouseY = (event.clientY - window.innerHeight / 2) / 100;
-//     }
-//     document.addEventListener('mousemove', onDocumentMouseMove);
-
-//     function onWindowResize() {
-//       camera.aspect = window.innerWidth / window.innerHeight;
-//       camera.updateProjectionMatrix();
-//       renderer.setSize(window.innerWidth, window.innerHeight);
-//     }
-//     window.addEventListener('resize', onWindowResize);
-
-//     const animate = () => {
-//       requestAnimationFrame(animate);
-//       particlesMesh.rotation.x += 0.0002 + mouseY * 0.0002; // Slowed down rotation
-//       particlesMesh.rotation.y += 0.0002 + mouseX * 0.0002; // Slowed down rotation
-//       renderer.render(scene, camera);
-//     };
-//     animate();
-
-//     const updateParticleColor = () => {
-//       particlesMaterial.color.set(isDarkMode ? 0xD2B48C : 0xFFD700);
-//     };
-
-//     const themeChangeListener = () => {
-//       updateParticleColor();
-//     };
-//     window.addEventListener('themeChange', themeChangeListener);
-
-//     return () => {
-//       document.removeEventListener('mousemove', onDocumentMouseMove);
-//       window.removeEventListener('resize', onWindowResize);
-//       window.removeEventListener('themeChange', themeChangeListener);
-//       if (particlesGeometry) particlesGeometry.dispose();
-//       if (particlesMaterial) particlesMaterial.dispose();
-//       if (renderer) renderer.dispose();
-//     };
-//   }, [isDarkMode]);
+//   // Toggle dark/light mode
+//   const toggleTheme = () => {
+//     setIsDarkMode(!isDarkMode);
+//     document.documentElement.classList.toggle('dark');
+//   };
 
 //   const handleSubmit = async (e: React.FormEvent) => {
 //     e.preventDefault();
@@ -293,12 +189,22 @@
 //   };
 
 //   return (
-//     <div className={`relative min-h-screen ${isDarkMode ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} overflow-hidden`}>
+//     <main className={`${isDarkMode ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
 //       <Navbar />
-//       <div className="relative z-10 min-h-screen pt-32 pb-16">
+//       <div className="min-h-screen pt-20"> {/* Added padding-top to create space below navbar */}
 //         <div className="max-w-3xl mx-auto py-6 sm:px-6 lg:px-8">
+//           {/* Dark/Light Mode Toggle Button */}
+//           <button
+//             onClick={toggleTheme}
+//             className={`fixed bottom-8 right-8 p-3 rounded-full shadow-lg z-50 ${
+//               isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'
+//             } hover:opacity-80 transition-all`}
+//           >
+//             {isDarkMode ? '🌞' : '🌙'}
+//           </button>
+
 //           <h1 className={`text-3xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-//             IML Type B License Application
+//             IML Type A License Application
 //           </h1>
 //           <div className={`${isDarkMode ? 'bg-gray-900 bg-opacity-70' : 'bg-white'} shadow-lg rounded-lg p-6`}>
 //             <form onSubmit={handleSubmit} className="space-y-8">
@@ -609,25 +515,20 @@
 //               </div>
 
 //               <div className="pt-5">
-//   <button
-//     type="submit"
-//     className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
-//   >
-//     Submit Application
-//   </button>
-// </div>
-
+//                 <button
+//                   type="submit"
+//                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+//                 >
+//                   Submit Application
+//                 </button>
+//               </div>
 //             </form>
 //           </div>
 //         </div>
 //       </div>
-      
-//       {/* Three.js Canvas Background */}
-//       <canvas ref={canvasRef} className="fixed inset-0 w-full h-full z-0" />
-//     </div>
+//     </main>
 //   );
 // }
-
 
 'use client'
 import React, { useState, useEffect, useRef } from 'react'
