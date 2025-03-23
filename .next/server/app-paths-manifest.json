@@ -1,5 +1,11 @@
 {
-  "/api/chat/route": "app/api/chat/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/about/page": "app/about/page.js",
+  "/contact/page": "app/contact/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/minebot/page": "app/minebot/page.js"
+  "/login/page": "app/login/page.js",
+  "/map/page": "app/map/page.js",
+  "/page": "app/page.js",
+  "/royalty/page": "app/royalty/page.js",
+  "/sign/page": "app/sign/page.js"
 }
