@@ -50,7 +50,12 @@ export default function MineBot() {
       const data = await response.json();
 
       if (!response.ok) {
+        console.error('API Error:', data);
         throw new Error(data.error || 'Failed to get response from AI');
+      }
+
+      if (!data.message || !data.message.content) {
+        throw new Error('Invalid response format from API');
       }
 
       setTimeout(() => {
@@ -68,7 +73,7 @@ export default function MineBot() {
       setMessages(prev => [...prev, { 
         id: Date.now(), 
         role: 'assistant',
-        content: "I apologize, but I encountered an issue processing your request. Please try asking again."
+        content: `I apologize, but I encountered an issue: ${error instanceof Error ? error.message : 'Unknown error occurred'}. Please try again.`
       }]);
       setIsTyping(false);
     }
