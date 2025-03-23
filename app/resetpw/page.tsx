@@ -1,4 +1,3 @@
-
 // "use client";
 
 // import React, { useEffect, useRef, useState } from 'react';
@@ -8,25 +7,37 @@
 // import * as THREE from 'three';
 // import Link from 'next/link';
 
+// interface ThemeChangeEvent extends CustomEvent {
+//   detail: {
+//     isDarkMode: boolean;
+//   };
+// }
+
+// interface LanguageChangeEvent extends CustomEvent {
+//   detail: {
+//     language: string;
+//   };
+// }
+
 // export default function ForgotPasswordPage() {
 //   const [isDarkMode, setIsDarkMode] = useState(true);
-//   const [language, setLanguage] = useState('en');
-//   const canvasRef = useRef(null);
+//   const [language, setLanguage] = useState<'en' | 'si'>('en');
+//   const canvasRef = useRef<HTMLCanvasElement>(null);
 //   const [email, setEmail] = useState('');
 //   const [message, setMessage] = useState('');
 //   const [messageType, setMessageType] = useState(''); // 'success' or 'error'
 
 //   useEffect(() => {
-//     const handleThemeChange = (event) => {
+//     const handleThemeChange = (event: ThemeChangeEvent) => {
 //       setIsDarkMode(event.detail.isDarkMode);
 //     };
 
-//     const handleLanguageChange = (event) => {
-//       setLanguage(event.detail.language);
+//     const handleLanguageChange = (event: LanguageChangeEvent) => {
+//       setLanguage(event.detail.language as 'en' | 'si');
 //     };
 
-//     window.addEventListener('themeChange', handleThemeChange);
-//     window.addEventListener('languageChange', handleLanguageChange);
+//     window.addEventListener('themeChange', handleThemeChange as EventListener);
+//     window.addEventListener('languageChange', handleLanguageChange as EventListener);
 
 //     // Set initial theme based on local storage or system preference
 //     const savedTheme = localStorage.getItem('theme');
@@ -46,8 +57,8 @@
 //     }
 
 //     return () => {
-//       window.removeEventListener('themeChange', handleThemeChange);
-//       window.removeEventListener('languageChange', handleLanguageChange);
+//       window.removeEventListener('themeChange', handleThemeChange as EventListener);
+//       window.removeEventListener('languageChange', handleLanguageChange as EventListener);
 //     };
 //   }, []);
 
@@ -97,7 +108,7 @@
 //     let mouseX = 0;
 //     let mouseY = 0;
 
-//     function onDocumentMouseMove(event) {
+//     function onDocumentMouseMove(event: MouseEvent) {
 //       mouseX = (event.clientX - window.innerWidth / 2) / 100;
 //       mouseY = (event.clientY - window.innerHeight / 2) / 100;
 //     }
@@ -158,10 +169,10 @@
 
 //   const t = translations[language];
 
-//   const handleSubmit = async (e) => {
+//   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 //     e.preventDefault();
 //     try {
-//       const response = await fetch('http://localhost:8080/api/request-reset', {
+//       const response = await fetch('https://ceylonminebackend.up.railway.app/auth/request-reset', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -176,7 +187,7 @@
 //       if (response.ok) {
 //         setEmail('');
 //       }
-//     } catch (error) {
+//     } catch {
 //       setMessage('Error connecting to server');
 //       setMessageType('error');
 //     }
@@ -245,7 +256,7 @@
 //                       ? 'bg-gray-800 border border-gray-700 focus:border-orange-500' 
 //                       : 'bg-gray-50 border border-gray-200 focus:border-orange-500'
 //                   }`}
-//                   placeholder="john@example.com"
+//                   placeholder="name@example.com"
 //                   required
 //                 />
 //               </div>
@@ -281,22 +292,7 @@
 //         </div>
 //       </main>
 
-//       <footer
-//         className={`relative z-10 py-8 ${
-//           isDarkMode ? 'bg-gray-900' : 'bg-gray-800'
-//         }`}
-//       >
-//         <div className="container mx-auto px-4 text-center">
-//           <p
-//             className={`text-sm ${
-//               isDarkMode ? 'text-gray-400' : 'text-gray-300'
-//             }`}
-//           >
-//             &copy; {new Date().getFullYear()} CeylonMine. {t.allRightsReserved}
-//           </p>
-//         </div>
-//       </footer>
-
+  
 //       {/* Three.js Canvas Background */}
 //       <canvas ref={canvasRef} className="fixed inset-0 w-full h-full z-0" />
 //     </div>
@@ -328,9 +324,15 @@ export default function ForgotPasswordPage() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [language, setLanguage] = useState<'en' | 'si'>('en');
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState(''); // 'success' or 'error'
+  
+  // Updated form data to include the new password field
+  const [formData, setFormData] = useState({
+    email: '',
+    newPassword: '',
+    confirmPassword: ''
+  });
 
   useEffect(() => {
     const handleThemeChange = (event: ThemeChangeEvent) => {
@@ -456,43 +458,83 @@ export default function ForgotPasswordPage() {
   const translations = {
     en: {
       resetPassword: "Reset Password",
-      resetPasswordDescription: "Enter your email address below and we'll send you a link to reset your password.",
+      resetPasswordDescription: "Enter your email address and new password below.",
       email: "Email Address",
-      sendResetLink: "Send Reset Link",
+      newPassword: "New Password",
+      confirmPassword: "Confirm New Password",
+      updatePassword: "Update Password",
       backToLogin: "Back to Login",
       allRightsReserved: "All rights reserved.",
+      passwordsDoNotMatch: "Passwords do not match",
+      passwordUpdated: "Password updated successfully! You can now login with your new password."
     },
     si: {
       resetPassword: "මුරපදය යළි සකසන්න",
-      resetPasswordDescription: "ඔබගේ විද්‍යුත් තැපැල් ලිපිනය පහතින් ඇතුළත් කරන්න, අපි ඔබට මුරපදය යළි පිහිටුවීම සඳහා සබැඳියක් යවන්නෙමු.",
+      resetPasswordDescription: "ඔබගේ විද්‍යුත් තැපැල් ලිපිනය සහ නව මුරපදය පහතින් ඇතුළත් කරන්න.",
       email: "විද්‍යුත් තැපැල් ලිපිනය",
-      sendResetLink: "යළි පිහිටුවීමේ සබැඳිය යවන්න",
+      newPassword: "නව මුරපදය",
+      confirmPassword: "නව මුරපදය තහවුරු කරන්න",
+      updatePassword: "මුරපදය යාවත්කාලීන කරන්න",
       backToLogin: "ලොග් වීමට ආපසු යන්න",
       allRightsReserved: "සියලු හිමිකම් ඇවිරිණි.",
+      passwordsDoNotMatch: "මුරපද නොගැලපේ",
+      passwordUpdated: "මුරපදය සාර්ථකව යාවත්කාලීන කරන ලදී! ඔබට දැන් ඔබේ නව මුරපදය සමඟ පිවිසිය හැකිය."
     }
   };
 
   const t = translations[language];
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  // Handle form field changes
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Updated reset password handler to save directly to users table
+  const handleResetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setMessage('');
+    setMessageType('');
+    
+    // Check if passwords match
+    if (formData.newPassword !== formData.confirmPassword) {
+      setMessage(t.passwordsDoNotMatch);
+      setMessageType('error');
+      return;
+    }
+
     try {
-      const response = await fetch('http://localhost:8080/api/request-reset', {
+      const response = await fetch('https://ceylonminebackend.up.railway.app/auth/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({
+          email: formData.email,
+          newPassword: formData.newPassword
+        }),
       });
       
       const data = await response.json();
-      setMessage(data.message);
-      setMessageType(response.ok ? 'success' : 'error');
       
       if (response.ok) {
-        setEmail('');
+        setMessage(t.passwordUpdated);
+        setMessageType('success');
+        // Clear form
+        setFormData({
+          email: '',
+          newPassword: '',
+          confirmPassword: ''
+        });
+      } else {
+        setMessage(data.message || 'Failed to reset password');
+        setMessageType('error');
       }
-    } catch {
+    } catch (error) {
+      console.error('Error:', error);
       setMessage('Error connecting to server');
       setMessageType('error');
     }
@@ -534,6 +576,7 @@ export default function ForgotPasswordPage() {
             >
               {t.resetPassword}
             </motion.h1>
+            
             <motion.p
               className={`text-lg max-w-3xl mx-auto mb-8 text-center ${
                 isDarkMode ? 'opacity-80' : 'opacity-90'
@@ -545,7 +588,8 @@ export default function ForgotPasswordPage() {
               {t.resetPasswordDescription}
             </motion.p>
             
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            {/* Simplified Reset Password Form */}
+            <form className="space-y-6" onSubmit={handleResetPassword}>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium mb-2">
                   {t.email}
@@ -554,8 +598,8 @@ export default function ForgotPasswordPage() {
                   type="email"
                   id="email"
                   name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={formData.email}
+                  onChange={handleChange}
                   className={`w-full px-4 py-3 rounded-md focus:outline-none ${
                     isDarkMode 
                       ? 'bg-gray-800 border border-gray-700 focus:border-orange-500' 
@@ -567,13 +611,53 @@ export default function ForgotPasswordPage() {
               </div>
               
               <div>
+                <label htmlFor="newPassword" className="block text-sm font-medium mb-2">
+                  {t.newPassword}
+                </label>
+                <input
+                  type="password"
+                  id="newPassword"
+                  name="newPassword"
+                  value={formData.newPassword}
+                  onChange={handleChange}
+                  className={`w-full px-4 py-3 rounded-md focus:outline-none ${
+                    isDarkMode 
+                      ? 'bg-gray-800 border border-gray-700 focus:border-orange-500' 
+                      : 'bg-gray-50 border border-gray-200 focus:border-orange-500'
+                  }`}
+                  required
+                  minLength={8}
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="confirmPassword" className="block text-sm font-medium mb-2">
+                  {t.confirmPassword}
+                </label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  className={`w-full px-4 py-3 rounded-md focus:outline-none ${
+                    isDarkMode 
+                      ? 'bg-gray-800 border border-gray-700 focus:border-orange-500' 
+                      : 'bg-gray-50 border border-gray-200 focus:border-orange-500'
+                  }`}
+                  required
+                  minLength={8}
+                />
+              </div>
+              
+              <div>
                 <motion.button
                   type="submit"
                   className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-8 rounded-md text-lg font-medium transition-colors"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {t.sendResetLink}
+                  {t.updatePassword}
                 </motion.button>
               </div>
               
@@ -597,7 +681,6 @@ export default function ForgotPasswordPage() {
         </div>
       </main>
 
-  
       {/* Three.js Canvas Background */}
       <canvas ref={canvasRef} className="fixed inset-0 w-full h-full z-0" />
     </div>

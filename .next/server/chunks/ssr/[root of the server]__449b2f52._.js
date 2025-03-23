@@ -37,503 +37,6 @@ module.exports = mod;
 
 var { g: global, __dirname } = __turbopack_context__;
 {
-// "use client"
-// import Link from 'next/link'
-// import Image from 'next/image'
-// import { motion } from 'framer-motion'
-// import { useState, useEffect, useRef } from 'react'
-// export default function Navbar() {
-//   const [isOpen, setIsOpen] = useState(false)
-//   const [scrolled, setScrolled] = useState(false)
-//   const [isDarkMode, setIsDarkMode] = useState(true) // Default to dark mode
-//   const [language, setLanguage] = useState('en')     // Default language
-//   const [isLoggedIn, setIsLoggedIn] = useState(false) // Authentication state
-//   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false)
-//   const dropdownRef = useRef(null)
-//   // Scroll effect for background color
-//   useEffect(() => {
-//     const handleScroll = () => {
-//       const isScrolled = window.scrollY > 20
-//       if (isScrolled !== scrolled) {
-//         setScrolled(isScrolled)
-//       }
-//     }
-//     window.addEventListener('scroll', handleScroll)
-//     return () => window.removeEventListener('scroll', handleScroll)
-//   }, [scrolled])
-//   // Close dropdown when clicking outside
-//   useEffect(() => {
-//     const handleClickOutside = (event) => {
-//       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-//         setProfileDropdownOpen(false)
-//       }
-//     }
-//     document.addEventListener("mousedown", handleClickOutside)
-//     return () => document.removeEventListener("mousedown", handleClickOutside)
-//   }, [])
-//   // For demo purposes - this would normally be handled by your auth system
-//   // In a real app, you'd check auth tokens, session cookies, etc.
-//   useEffect(() => {
-//     // Check if user is logged in from localStorage or your auth system
-//     const userAuthStatus = localStorage.getItem('isLoggedIn') === 'true'
-//     setIsLoggedIn(userAuthStatus)
-//   }, [])
-//   // Handle logout
-//   const handleLogout = () => {
-//     setIsLoggedIn(false)
-//     localStorage.setItem('isLoggedIn', 'false')
-//     setProfileDropdownOpen(false)
-//     // You would also clear auth tokens, cookies, etc. here
-//     // window.location.href = '/' // Redirect to home page if needed
-//   }
-//   // Handle login (for demo purposes)
-//   const simulateLogin = () => {
-//     setIsLoggedIn(true)
-//     localStorage.setItem('isLoggedIn', 'true')
-//   }
-//   // ----------------------------
-//   // THEME TOGGLE LOGIC
-//   // ----------------------------
-//   const toggleTheme = () => {
-//     const newTheme = !isDarkMode
-//     setIsDarkMode(newTheme)
-//     // Apply to <html> element
-//     if (newTheme) {
-//       document.documentElement.classList.add('dark')
-//     } else {
-//       document.documentElement.classList.remove('dark')
-//     }
-//     // Save preference
-//     localStorage.setItem('theme', newTheme ? 'dark' : 'light')
-//     // Emit themeChange event
-//     const event = new CustomEvent('themeChange', { detail: { isDarkMode: newTheme } })
-//     window.dispatchEvent(event)
-//   }
-//   // ----------------------------
-//   // LANGUAGE TOGGLE / SWITCH
-//   // ----------------------------
-//   const toggleLanguage = () => {
-//     const newLang = language === 'en' ? 'si' : 'en'
-//     setLanguage(newLang)
-//     localStorage.setItem('language', newLang)
-//     // Emit languageChange event
-//     const event = new CustomEvent('languageChange', { detail: { language: newLang } })
-//     window.dispatchEvent(event)
-//   }
-//   // Initialize theme & language from localStorage or system preference
-//   useEffect(() => {
-//     // THEME
-//     const savedTheme = localStorage.getItem('theme')
-//     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-//     const isDark = savedTheme === 'dark' || (!savedTheme && systemPrefersDark)
-//     setIsDarkMode(isDark)
-//     if (isDark) {
-//       document.documentElement.classList.add('dark')
-//     } else {
-//       document.documentElement.classList.remove('dark')
-//     }
-//     // Emit initial theme event
-//     window.dispatchEvent(new CustomEvent('themeChange', { detail: { isDarkMode: isDark } }))
-//     // LANGUAGE
-//     const savedLang = localStorage.getItem('language') || 'en'
-//     setLanguage(savedLang)
-//     window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: savedLang } }))
-//   }, [])
-//   // ----------------------------
-//   // NAVIGATION ITEMS
-//   // ----------------------------
-//   // Example: different text per language
-//   const navItemsEn = [
-//     { name: 'Home', path: '/' },
-//     { name: 'Map', path: '/map' },
-//     { name: 'Minebot', path: '/minebot' },
-//     { name: 'Royalty', path: '/royalty' },
-//     { name: 'Complains', path: '/complains' },
-//     { name: 'License Portal', path: '/license-portal' },
-//     { name: 'Minemore', path: '/minemore' },
-//     { name: 'About Us', path: '/about' },
-//     { name: 'Contact Us', path: '/contact' }
-//   ]
-//   // For demonstration, let's provide a Sinhala version of the same links
-//   // (Feel free to replace with actual translations)
-//   const navItemsSi = [
-//     { name: 'මුල් පිටුව', path: '/' },
-//     { name: 'සිතියම', path: '/map' },
-//     { name: 'Minebot', path: '/minebot' },
-//     { name: 'Royalty', path: '/royalty' },
-//     { name: 'Complains', path: '/complains' },
-//     { name: 'License Portal', path: '/license-portal' },
-//     { name: 'Minemore', path: '/minemore' },
-//     { name: 'අපි ගැන', path: '/about' },
-//     { name: 'අප හා සම්බන්ධ වන්න', path: '/contact' }
-//   ]
-//   const navItems = language === 'en' ? navItemsEn : navItemsSi
-//   // Auth related text based on language
-//   const authText = {
-//     login: language === 'en' ? 'Login' : 'පිවිසෙන්න',
-//     signup: language === 'en' ? 'Sign Up' : 'ලියාපදිංචි වන්න',
-//     dashboard: language === 'en' ? 'Dashboard' : 'උපකරණ පුවරුව',
-//     logout: language === 'en' ? 'Logout' : 'පිටවීම',
-//     profile: language === 'en' ? 'Profile' : 'පැතිකඩ'
-//   }
-//   // Framer Motion variants
-//   const navAnimation = {
-//     hidden: { y: -20, opacity: 0 },
-//     show: {
-//       y: 0,
-//       opacity: 1,
-//       transition: {
-//         duration: 0.5,
-//         staggerChildren: 0.1,
-//       },
-//     },
-//   }
-//   const itemAnimation = {
-//     hidden: { y: -20, opacity: 0 },
-//     show: { y: 0, opacity: 1 },
-//   }
-//   return (
-//     <motion.div
-//       initial="hidden"
-//       animate="show"
-//       variants={navAnimation}
-//       className={`
-//         fixed w-full z-50 transition-all duration-300 shadow-lg
-//         ${scrolled
-//           ? (isDarkMode ? 'bg-[#0A192F]' : 'bg-white')
-//           : 'bg-transparent'
-//         }
-//       `}
-//     >
-//       <div className="max-w-7xl mx-auto px-4">
-//         <div className="flex justify-between items-center h-16">
-//           {/* Logo Section */}
-//           <motion.div
-//             variants={itemAnimation}
-//             className="flex-shrink-0 flex items-center"
-//           >
-//             <Link href="/">
-//               <div className="flex items-center cursor-pointer">
-//                 <Image 
-//                   src="/favicon.ico" 
-//                   alt="Logo" 
-//                   width={62} 
-//                   height={62} 
-//                   className="mr-2 hover:scale-105 transition-transform duration-200"
-//                 />
-//               </div>
-//             </Link>
-//           </motion.div>
-//           {/* Desktop Navigation */}
-//           <motion.div 
-//             variants={itemAnimation}
-//             className="hidden md:flex items-center space-x-4"
-//           >
-//             {navItems.map((item) => (
-//               <motion.div
-//                 key={item.path}
-//                 whileHover={{ scale: 1.05 }}
-//                 whileTap={{ scale: 0.95 }}
-//               >
-//                 <Link href={item.path}>
-//                   <span
-//                     className={`
-//                       px-3 py-2 
-//                       ${isDarkMode ? 'text-[#E6F1FF]' : 'text-gray-900'} 
-//                       hover:text-[#FFA500] 
-//                       hover:bg-[rgba(255,165,0,0.1)] 
-//                       rounded-md transition-all duration-200
-//                       relative after:content-[''] 
-//                       after:absolute after:bottom-0 after:left-0 
-//                       after:w-0 after:h-[2px] after:bg-[#FFA500] 
-//                       after:transition-all after:duration-300 
-//                       hover:after:w-full
-//                     `}
-//                   >
-//                     {item.name}
-//                   </span>
-//                 </Link>
-//               </motion.div>
-//             ))}
-//           </motion.div>
-//           {/* Right Side (Theme Toggle, Language Switch, Auth Buttons) */}
-//           <div className="flex items-center space-x-4">
-//             {/* Language Toggle (simple approach: just toggles between EN & SI) */}
-//             <motion.button
-//               onClick={toggleLanguage}
-//               whileHover={{ scale: 1.05 }}
-//               whileTap={{ scale: 0.95 }}
-//               className={`
-//                 p-2 rounded-full
-//                 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}
-//                 hover:opacity-80 transition-all
-//               `}
-//               title="Switch Language"
-//             >
-//               {language === 'en' ? 'EN' : 'සි'}
-//             </motion.button>
-//             {/* Theme Toggle Button */}
-//             <motion.button
-//               onClick={toggleTheme}
-//               whileHover={{ scale: 1.05 }}
-//               whileTap={{ scale: 0.95 }}
-//               className={`
-//                 p-2 rounded-full
-//                 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}
-//                 hover:opacity-80 transition-all
-//               `}
-//               title="Toggle Dark/Light Mode"
-//             >
-//               {isDarkMode ? '🌞' : '🌙'}
-//             </motion.button>
-//             {/* Authentication Section - Conditional Rendering */}
-//             {!isLoggedIn ? (
-//               // Not logged in - show login & signup buttons
-//               <div className="hidden md:flex items-center space-x-3">
-//                 {/* Login Button */}
-//                 <motion.div variants={itemAnimation}>
-//                   <Link href="/login">
-//                     <motion.span
-//                       whileHover={{ scale: 1.05 }}
-//                       whileTap={{ scale: 0.95 }}
-//                       className={`
-//                         border-2 border-[#FFA500] 
-//                         ${isDarkMode ? 'text-[#FFA500]' : 'text-[#FFA500]'}
-//                         px-4 py-1.5 rounded-lg hover:bg-[rgba(255,165,0,0.1)]
-//                         transition-colors duration-200 cursor-pointer font-medium
-//                       `}
-//                       onClick={() => simulateLogin()} // For demo purposes
-//                     >
-//                       {authText.login}
-//                     </motion.span>
-//                   </Link>
-//                 </motion.div>
-//                 {/* Sign Up Button */}
-//                 <motion.div variants={itemAnimation}>
-//                   <Link href="/signup">
-//                     <motion.span
-//                       whileHover={{ scale: 1.05 }}
-//                       whileTap={{ scale: 0.95 }}
-//                       className="bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg 
-//                         hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer
-//                         font-semibold"
-//                     >
-//                       {authText.signup}
-//                     </motion.span>
-//                   </Link>
-//                 </motion.div>
-//               </div>
-//             ) : (
-//               // Logged in - show profile dropdown
-//               <div className="hidden md:block relative" ref={dropdownRef}>
-//                 <motion.button
-//                   onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-//                   whileHover={{ scale: 1.05 }}
-//                   whileTap={{ scale: 0.95 }}
-//                   className={`
-//                     p-2 rounded-full flex items-center space-x-2
-//                     ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}
-//                     hover:bg-[rgba(255,165,0,0.2)] transition-all
-//                     border-2 border-[#FFA500]
-//                   `}
-//                 >
-//                   {/* Profile Icon */}
-//                   <svg 
-//                     xmlns="http://www.w3.org/2000/svg" 
-//                     className="h-6 w-6" 
-//                     fill="none" 
-//                     viewBox="0 0 24 24" 
-//                     stroke="currentColor"
-//                   >
-//                     <path 
-//                       strokeLinecap="round" 
-//                       strokeLinejoin="round" 
-//                       strokeWidth={2} 
-//                       d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" 
-//                     />
-//                   </svg>
-//                   <span className="text-[#FFA500] font-medium">{authText.profile}</span>
-//                   {/* Dropdown Arrow */}
-//                   <svg 
-//                     xmlns="http://www.w3.org/2000/svg" 
-//                     className={`h-4 w-4 transition-transform duration-200 ${profileDropdownOpen ? 'rotate-180' : ''}`}
-//                     fill="none" 
-//                     viewBox="0 0 24 24" 
-//                     stroke="currentColor"
-//                   >
-//                     <path 
-//                       strokeLinecap="round" 
-//                       strokeLinejoin="round" 
-//                       strokeWidth={2} 
-//                       d="M19 9l-7 7-7-7" 
-//                     />
-//                   </svg>
-//                 </motion.button>
-//                 {/* Profile Dropdown Menu */}
-//                 {profileDropdownOpen && (
-//                   <motion.div
-//                     initial={{ opacity: 0, y: -10 }}
-//                     animate={{ opacity: 1, y: 0 }}
-//                     exit={{ opacity: 0, y: -10 }}
-//                     transition={{ duration: 0.2 }}
-//                     className={`
-//                       absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1
-//                       ${isDarkMode ? 'bg-[#112240] border border-gray-700' : 'bg-white border border-gray-200'}
-//                     `}
-//                   >
-//                     <Link href="/dashboard">
-//                       <span 
-//                         className={`
-//                           block px-4 py-2 text-sm
-//                           ${isDarkMode ? 'text-[#E6F1FF] hover:bg-[#1D3557]' : 'text-gray-700 hover:bg-gray-100'}
-//                           cursor-pointer
-//                         `}
-//                       >
-//                         {authText.dashboard}
-//                       </span>
-//                     </Link>
-//                     <button 
-//                       onClick={handleLogout}
-//                       className={`
-//                         block w-full text-left px-4 py-2 text-sm
-//                         ${isDarkMode ? 'text-[#E6F1FF] hover:bg-[#1D3557]' : 'text-gray-700 hover:bg-gray-100'}
-//                       `}
-//                     >
-//                       {authText.logout}
-//                     </button>
-//                   </motion.div>
-//                 )}
-//               </div>
-//             )}
-//             {/* Mobile Menu Button */}
-//             <div className="md:hidden">
-//               <button
-//                 onClick={() => setIsOpen(!isOpen)}
-//                 className={`
-//                   p-2 rounded-md
-//                   ${isDarkMode ? 'text-[#FFA500]' : 'text-gray-900'}
-//                   hover:bg-[rgba(255,165,0,0.1)]
-//                 `}
-//               >
-//                 <svg
-//                   className="w-6 h-6"
-//                   fill="none"
-//                   stroke="currentColor"
-//                   viewBox="0 0 24 24"
-//                   xmlns="http://www.w3.org/2000/svg"
-//                 >
-//                   <path
-//                     strokeLinecap="round"
-//                     strokeLinejoin="round"
-//                     strokeWidth="2"
-//                     d="M4 6h16M4 12h16m-7 6h7"
-//                   />
-//                 </svg>
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//         {/* Mobile Navigation Menu */}
-//         <motion.div
-//           initial={false}
-//           animate={isOpen ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
-//           className={`
-//             md:hidden overflow-hidden transition-all duration-300 ease-in-out
-//             ${isDarkMode ? 'bg-[#112240]' : 'bg-gray-100'}
-//             rounded-b-lg
-//           `}
-//         >
-//           <div className="px-2 pt-2 pb-3 space-y-1">
-//             {navItems.map((item) => (
-//               <motion.div
-//                 key={item.path}
-//                 variants={itemAnimation}
-//                 whileTap={{ scale: 0.95 }}
-//               >
-//                 <Link href={item.path}>
-//                   <span
-//                     className={`
-//                       block px-3 py-2
-//                       ${isDarkMode ? 'text-[#E6F1FF]' : 'text-gray-900'}
-//                       hover:text-[#FFA500]
-//                       hover:bg-[rgba(255,165,0,0.1)]
-//                       rounded-md transition-all duration-200
-//                     `}
-//                   >
-//                     {item.name}
-//                   </span>
-//                 </Link>
-//               </motion.div>
-//             ))}
-//             {/* Mobile Auth Buttons */}
-//             {!isLoggedIn ? (
-//               <div className="space-y-2 pt-2">
-//                 {/* Login Button */}
-//                 <motion.div whileTap={{ scale: 0.95 }}>
-//                   <Link href="/login">
-//                     <span
-//                       className={`
-//                         block w-full text-center border-2 border-[#FFA500]
-//                         ${isDarkMode ? 'text-[#FFA500]' : 'text-[#FFA500]'}
-//                         px-4 py-2 rounded-lg
-//                         hover:bg-[rgba(255,165,0,0.1)]
-//                         transition-colors duration-200 font-medium
-//                       `}
-//                       onClick={() => simulateLogin()} // For demo purposes
-//                     >
-//                       {authText.login}
-//                     </span>
-//                   </Link>
-//                 </motion.div>
-//                 {/* Sign Up Button */}
-//                 <motion.div whileTap={{ scale: 0.95 }}>
-//                   <Link href="/signup">
-//                     <span
-//                       className={`
-//                         block w-full text-center bg-[#FFA500] text-[#0A192F]
-//                         px-4 py-2 rounded-lg hover:bg-[#FFD700]
-//                         transition-colors duration-200 font-semibold
-//                       `}
-//                     >
-//                       {authText.signup}
-//                     </span>
-//                   </Link>
-//                 </motion.div>
-//               </div>
-//             ) : (
-//               // Mobile profile options when logged in
-//               <div className="space-y-2 pt-2">
-//                 <Link href="/dashboard">
-//                   <span
-//                     className={`
-//                       block w-full text-center border border-[#FFA500]
-//                       ${isDarkMode ? 'text-[#E6F1FF]' : 'text-gray-900'}
-//                       px-4 py-2 rounded-lg
-//                       hover:bg-[rgba(255,165,0,0.1)]
-//                       transition-colors duration-200
-//                     `}
-//                   >
-//                     {authText.dashboard}
-//                   </span>
-//                 </Link>
-//                 <button
-//                   onClick={handleLogout}
-//                   className={`
-//                     block w-full text-center bg-[#FFA500] text-[#0A192F]
-//                     px-4 py-2 rounded-lg hover:bg-[#FFD700]
-//                     transition-colors duration-200 font-semibold
-//                   `}
-//                 >
-//                   {authText.logout}
-//                 </button>
-//               </div>
-//             )}
-//           </div>
-//         </motion.div>
-//       </div>
-//     </motion.div>
-//   )
-// }
 __turbopack_context__.s({
     "default": (()=>Navbar)
 });
@@ -810,22 +313,22 @@ function Navbar() {
                                         className: "mr-2 hover:scale-105 transition-transform duration-200"
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 734,
+                                        lineNumber: 202,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 733,
+                                    lineNumber: 201,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/navbar/page.tsx",
-                                lineNumber: 732,
+                                lineNumber: 200,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/navbar/page.tsx",
-                            lineNumber: 728,
+                            lineNumber: 196,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -856,22 +359,22 @@ function Navbar() {
                                             children: item.name
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 757,
+                                            lineNumber: 225,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 756,
+                                        lineNumber: 224,
                                         columnNumber: 17
                                     }, this)
                                 }, item.path, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 751,
+                                    lineNumber: 219,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/app/navbar/page.tsx",
-                            lineNumber: 746,
+                            lineNumber: 214,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -894,7 +397,7 @@ function Navbar() {
                                     children: language === 'en' ? 'EN' : 'සි'
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 781,
+                                    lineNumber: 249,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].button, {
@@ -914,7 +417,7 @@ function Navbar() {
                                     children: isDarkMode ? '🌞' : '🌙'
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 796,
+                                    lineNumber: 264,
                                     columnNumber: 13
                                 }, this),
                                 !isLoggedIn ? // Not logged in - show only signup button
@@ -936,22 +439,22 @@ function Navbar() {
                                                 children: authText.signup
                                             }, void 0, false, {
                                                 fileName: "[project]/app/navbar/page.tsx",
-                                                lineNumber: 817,
+                                                lineNumber: 285,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 816,
+                                            lineNumber: 284,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 815,
+                                        lineNumber: 283,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 813,
+                                    lineNumber: 281,
                                     columnNumber: 15
                                 }, this) : // Logged in - show profile dropdown
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -986,12 +489,12 @@ function Navbar() {
                                                         d: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/navbar/page.tsx",
-                                                        lineNumber: 852,
+                                                        lineNumber: 320,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 845,
+                                                    lineNumber: 313,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -999,7 +502,7 @@ function Navbar() {
                                                     children: authText.profile
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 859,
+                                                    lineNumber: 327,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -1015,18 +518,18 @@ function Navbar() {
                                                         d: "M19 9l-7 7-7-7"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/navbar/page.tsx",
-                                                        lineNumber: 869,
+                                                        lineNumber: 337,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 862,
+                                                    lineNumber: 330,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 833,
+                                            lineNumber: 301,
                                             columnNumber: 17
                                         }, this),
                                         profileDropdownOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1061,12 +564,12 @@ function Navbar() {
                                                         children: authText.dashboard
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/navbar/page.tsx",
-                                                        lineNumber: 891,
+                                                        lineNumber: 359,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 890,
+                                                    lineNumber: 358,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1078,19 +581,19 @@ function Navbar() {
                                                     children: authText.logout
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 901,
+                                                    lineNumber: 369,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 880,
+                                            lineNumber: 348,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 832,
+                                    lineNumber: 300,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1115,34 +618,34 @@ function Navbar() {
                                                 d: "M4 6h16M4 12h16m-7 6h7"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/navbar/page.tsx",
-                                                lineNumber: 932,
+                                                lineNumber: 400,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 925,
+                                            lineNumber: 393,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 917,
+                                        lineNumber: 385,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 916,
+                                    lineNumber: 384,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/navbar/page.tsx",
-                            lineNumber: 779,
+                            lineNumber: 247,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/navbar/page.tsx",
-                    lineNumber: 726,
+                    lineNumber: 194,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1180,17 +683,17 @@ function Navbar() {
                                             children: item.name
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 962,
+                                            lineNumber: 430,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 961,
+                                        lineNumber: 429,
                                         columnNumber: 17
                                     }, this)
                                 }, item.path, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 956,
+                                    lineNumber: 424,
                                     columnNumber: 15
                                 }, this)),
                             !isLoggedIn ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1211,22 +714,22 @@ function Navbar() {
                                             children: authText.signup
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 983,
+                                            lineNumber: 451,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 982,
+                                        lineNumber: 450,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 981,
+                                    lineNumber: 449,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/navbar/page.tsx",
-                                lineNumber: 979,
+                                lineNumber: 447,
                                 columnNumber: 15
                             }, this) : // Mobile profile options when logged in
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1245,12 +748,12 @@ function Navbar() {
                                             children: authText.dashboard
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 1000,
+                                            lineNumber: 468,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 999,
+                                        lineNumber: 467,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1263,35 +766,35 @@ function Navbar() {
                                         children: authText.logout
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 1013,
+                                        lineNumber: 481,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/navbar/page.tsx",
-                                lineNumber: 998,
+                                lineNumber: 466,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/navbar/page.tsx",
-                        lineNumber: 954,
+                        lineNumber: 422,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/navbar/page.tsx",
-                    lineNumber: 945,
+                    lineNumber: 413,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/navbar/page.tsx",
-            lineNumber: 725,
+            lineNumber: 193,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/navbar/page.tsx",
-        lineNumber: 713,
+        lineNumber: 181,
         columnNumber: 5
     }, this);
 }
@@ -1308,22 +811,32 @@ var { g: global, __dirname } = __turbopack_context__;
 // import { motion } from 'framer-motion';
 // import * as THREE from 'three';
 // import Link from 'next/link';
+// interface ThemeChangeEvent extends CustomEvent {
+//   detail: {
+//     isDarkMode: boolean;
+//   };
+// }
+// interface LanguageChangeEvent extends CustomEvent {
+//   detail: {
+//     language: string;
+//   };
+// }
 // export default function ForgotPasswordPage() {
 //   const [isDarkMode, setIsDarkMode] = useState(true);
-//   const [language, setLanguage] = useState('en');
-//   const canvasRef = useRef(null);
+//   const [language, setLanguage] = useState<'en' | 'si'>('en');
+//   const canvasRef = useRef<HTMLCanvasElement>(null);
 //   const [email, setEmail] = useState('');
 //   const [message, setMessage] = useState('');
 //   const [messageType, setMessageType] = useState(''); // 'success' or 'error'
 //   useEffect(() => {
-//     const handleThemeChange = (event) => {
+//     const handleThemeChange = (event: ThemeChangeEvent) => {
 //       setIsDarkMode(event.detail.isDarkMode);
 //     };
-//     const handleLanguageChange = (event) => {
-//       setLanguage(event.detail.language);
+//     const handleLanguageChange = (event: LanguageChangeEvent) => {
+//       setLanguage(event.detail.language as 'en' | 'si');
 //     };
-//     window.addEventListener('themeChange', handleThemeChange);
-//     window.addEventListener('languageChange', handleLanguageChange);
+//     window.addEventListener('themeChange', handleThemeChange as EventListener);
+//     window.addEventListener('languageChange', handleLanguageChange as EventListener);
 //     // Set initial theme based on local storage or system preference
 //     const savedTheme = localStorage.getItem('theme');
 //     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -1340,8 +853,8 @@ var { g: global, __dirname } = __turbopack_context__;
 //       setLanguage('en');
 //     }
 //     return () => {
-//       window.removeEventListener('themeChange', handleThemeChange);
-//       window.removeEventListener('languageChange', handleLanguageChange);
+//       window.removeEventListener('themeChange', handleThemeChange as EventListener);
+//       window.removeEventListener('languageChange', handleLanguageChange as EventListener);
 //     };
 //   }, []);
 //   // Three.js Sand (Particle) Effect
@@ -1381,7 +894,7 @@ var { g: global, __dirname } = __turbopack_context__;
 //     camera.position.z = 2;
 //     let mouseX = 0;
 //     let mouseY = 0;
-//     function onDocumentMouseMove(event) {
+//     function onDocumentMouseMove(event: MouseEvent) {
 //       mouseX = (event.clientX - window.innerWidth / 2) / 100;
 //       mouseY = (event.clientY - window.innerHeight / 2) / 100;
 //     }
@@ -1434,10 +947,10 @@ var { g: global, __dirname } = __turbopack_context__;
 //     }
 //   };
 //   const t = translations[language];
-//   const handleSubmit = async (e) => {
+//   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 //     e.preventDefault();
 //     try {
-//       const response = await fetch('http://localhost:8080/api/request-reset', {
+//       const response = await fetch('https://ceylonminebackend.up.railway.app/auth/request-reset', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -1450,7 +963,7 @@ var { g: global, __dirname } = __turbopack_context__;
 //       if (response.ok) {
 //         setEmail('');
 //       }
-//     } catch (error) {
+//     } catch {
 //       setMessage('Error connecting to server');
 //       setMessageType('error');
 //     }
@@ -1515,7 +1028,7 @@ var { g: global, __dirname } = __turbopack_context__;
 //                       ? 'bg-gray-800 border border-gray-700 focus:border-orange-500' 
 //                       : 'bg-gray-50 border border-gray-200 focus:border-orange-500'
 //                   }`}
-//                   placeholder="john@example.com"
+//                   placeholder="name@example.com"
 //                   required
 //                 />
 //               </div>
@@ -1547,21 +1060,6 @@ var { g: global, __dirname } = __turbopack_context__;
 //           </motion.div>
 //         </div>
 //       </main>
-//       <footer
-//         className={`relative z-10 py-8 ${
-//           isDarkMode ? 'bg-gray-900' : 'bg-gray-800'
-//         }`}
-//       >
-//         <div className="container mx-auto px-4 text-center">
-//           <p
-//             className={`text-sm ${
-//               isDarkMode ? 'text-gray-400' : 'text-gray-300'
-//             }`}
-//           >
-//             &copy; {new Date().getFullYear()} CeylonMine. {t.allRightsReserved}
-//           </p>
-//         </div>
-//       </footer>
 //       {/* Three.js Canvas Background */}
 //       <canvas ref={canvasRef} className="fixed inset-0 w-full h-full z-0" />
 //     </div>
@@ -1590,9 +1088,14 @@ function ForgotPasswordPage() {
     const [isDarkMode, setIsDarkMode] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
     const [language, setLanguage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('en');
     const canvasRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
-    const [email, setEmail] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [message, setMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [messageType, setMessageType] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(''); // 'success' or 'error'
+    // Updated form data to include the new password field
+    const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({
+        email: '',
+        newPassword: '',
+        confirmPassword: ''
+    });
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const handleThemeChange = (event)=>{
             setIsDarkMode(event.detail.isDarkMode);
@@ -1690,41 +1193,76 @@ function ForgotPasswordPage() {
     const translations = {
         en: {
             resetPassword: "Reset Password",
-            resetPasswordDescription: "Enter your email address below and we'll send you a link to reset your password.",
+            resetPasswordDescription: "Enter your email address and new password below.",
             email: "Email Address",
-            sendResetLink: "Send Reset Link",
+            newPassword: "New Password",
+            confirmPassword: "Confirm New Password",
+            updatePassword: "Update Password",
             backToLogin: "Back to Login",
-            allRightsReserved: "All rights reserved."
+            allRightsReserved: "All rights reserved.",
+            passwordsDoNotMatch: "Passwords do not match",
+            passwordUpdated: "Password updated successfully! You can now login with your new password."
         },
         si: {
             resetPassword: "මුරපදය යළි සකසන්න",
-            resetPasswordDescription: "ඔබගේ විද්‍යුත් තැපැල් ලිපිනය පහතින් ඇතුළත් කරන්න, අපි ඔබට මුරපදය යළි පිහිටුවීම සඳහා සබැඳියක් යවන්නෙමු.",
+            resetPasswordDescription: "ඔබගේ විද්‍යුත් තැපැල් ලිපිනය සහ නව මුරපදය පහතින් ඇතුළත් කරන්න.",
             email: "විද්‍යුත් තැපැල් ලිපිනය",
-            sendResetLink: "යළි පිහිටුවීමේ සබැඳිය යවන්න",
+            newPassword: "නව මුරපදය",
+            confirmPassword: "නව මුරපදය තහවුරු කරන්න",
+            updatePassword: "මුරපදය යාවත්කාලීන කරන්න",
             backToLogin: "ලොග් වීමට ආපසු යන්න",
-            allRightsReserved: "සියලු හිමිකම් ඇවිරිණි."
+            allRightsReserved: "සියලු හිමිකම් ඇවිරිණි.",
+            passwordsDoNotMatch: "මුරපද නොගැලපේ",
+            passwordUpdated: "මුරපදය සාර්ථකව යාවත්කාලීන කරන ලදී! ඔබට දැන් ඔබේ නව මුරපදය සමඟ පිවිසිය හැකිය."
         }
     };
     const t = translations[language];
-    const handleSubmit = async (e)=>{
+    // Handle form field changes
+    const handleChange = (e)=>{
+        const { name, value } = e.target;
+        setFormData((prev)=>({
+                ...prev,
+                [name]: value
+            }));
+    };
+    // Updated reset password handler to save directly to users table
+    const handleResetPassword = async (e)=>{
         e.preventDefault();
+        setMessage('');
+        setMessageType('');
+        // Check if passwords match
+        if (formData.newPassword !== formData.confirmPassword) {
+            setMessage(t.passwordsDoNotMatch);
+            setMessageType('error');
+            return;
+        }
         try {
-            const response = await fetch('http://localhost:8080/api/request-reset', {
+            const response = await fetch('https://ceylonminebackend.up.railway.app/auth/reset-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    email
+                    email: formData.email,
+                    newPassword: formData.newPassword
                 })
             });
             const data = await response.json();
-            setMessage(data.message);
-            setMessageType(response.ok ? 'success' : 'error');
             if (response.ok) {
-                setEmail('');
+                setMessage(t.passwordUpdated);
+                setMessageType('success');
+                // Clear form
+                setFormData({
+                    email: '',
+                    newPassword: '',
+                    confirmPassword: ''
+                });
+            } else {
+                setMessage(data.message || 'Failed to reset password');
+                setMessageType('error');
             }
-        } catch  {
+        } catch (error) {
+            console.error('Error:', error);
             setMessage('Error connecting to server');
             setMessageType('error');
         }
@@ -1738,7 +1276,7 @@ function ForgotPasswordPage() {
                         children: "Reset Password | CeylonMine"
                     }, void 0, false, {
                         fileName: "[project]/app/resetpw/page.tsx",
-                        lineNumber: 508,
+                        lineNumber: 550,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1746,7 +1284,7 @@ function ForgotPasswordPage() {
                         content: "Reset your password for CeylonMine account"
                     }, void 0, false, {
                         fileName: "[project]/app/resetpw/page.tsx",
-                        lineNumber: 509,
+                        lineNumber: 551,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("link", {
@@ -1754,18 +1292,18 @@ function ForgotPasswordPage() {
                         href: "/favicon.ico"
                     }, void 0, false, {
                         fileName: "[project]/app/resetpw/page.tsx",
-                        lineNumber: 513,
+                        lineNumber: 555,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/resetpw/page.tsx",
-                lineNumber: 507,
+                lineNumber: 549,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$navbar$2f$page$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/resetpw/page.tsx",
-                lineNumber: 516,
+                lineNumber: 558,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1802,7 +1340,7 @@ function ForgotPasswordPage() {
                                 children: t.resetPassword
                             }, void 0, false, {
                                 fileName: "[project]/app/resetpw/page.tsx",
-                                lineNumber: 529,
+                                lineNumber: 571,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].p, {
@@ -1822,12 +1360,12 @@ function ForgotPasswordPage() {
                                 children: t.resetPasswordDescription
                             }, void 0, false, {
                                 fileName: "[project]/app/resetpw/page.tsx",
-                                lineNumber: 537,
+                                lineNumber: 580,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                                 className: "space-y-6",
-                                onSubmit: handleSubmit,
+                                onSubmit: handleResetPassword,
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         children: [
@@ -1837,27 +1375,89 @@ function ForgotPasswordPage() {
                                                 children: t.email
                                             }, void 0, false, {
                                                 fileName: "[project]/app/resetpw/page.tsx",
-                                                lineNumber: 550,
+                                                lineNumber: 594,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                 type: "email",
                                                 id: "email",
                                                 name: "email",
-                                                value: email,
-                                                onChange: (e)=>setEmail(e.target.value),
+                                                value: formData.email,
+                                                onChange: handleChange,
                                                 className: `w-full px-4 py-3 rounded-md focus:outline-none ${isDarkMode ? 'bg-gray-800 border border-gray-700 focus:border-orange-500' : 'bg-gray-50 border border-gray-200 focus:border-orange-500'}`,
                                                 placeholder: "name@example.com",
                                                 required: true
                                             }, void 0, false, {
                                                 fileName: "[project]/app/resetpw/page.tsx",
-                                                lineNumber: 553,
+                                                lineNumber: 597,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/resetpw/page.tsx",
-                                        lineNumber: 549,
+                                        lineNumber: 593,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                htmlFor: "newPassword",
+                                                className: "block text-sm font-medium mb-2",
+                                                children: t.newPassword
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/resetpw/page.tsx",
+                                                lineNumber: 614,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                type: "password",
+                                                id: "newPassword",
+                                                name: "newPassword",
+                                                value: formData.newPassword,
+                                                onChange: handleChange,
+                                                className: `w-full px-4 py-3 rounded-md focus:outline-none ${isDarkMode ? 'bg-gray-800 border border-gray-700 focus:border-orange-500' : 'bg-gray-50 border border-gray-200 focus:border-orange-500'}`,
+                                                required: true,
+                                                minLength: 8
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/resetpw/page.tsx",
+                                                lineNumber: 617,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/resetpw/page.tsx",
+                                        lineNumber: 613,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                htmlFor: "confirmPassword",
+                                                className: "block text-sm font-medium mb-2",
+                                                children: t.confirmPassword
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/resetpw/page.tsx",
+                                                lineNumber: 634,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                type: "password",
+                                                id: "confirmPassword",
+                                                name: "confirmPassword",
+                                                value: formData.confirmPassword,
+                                                onChange: handleChange,
+                                                className: `w-full px-4 py-3 rounded-md focus:outline-none ${isDarkMode ? 'bg-gray-800 border border-gray-700 focus:border-orange-500' : 'bg-gray-50 border border-gray-200 focus:border-orange-500'}`,
+                                                required: true,
+                                                minLength: 8
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/resetpw/page.tsx",
+                                                lineNumber: 637,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/resetpw/page.tsx",
+                                        lineNumber: 633,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1870,15 +1470,15 @@ function ForgotPasswordPage() {
                                             whileTap: {
                                                 scale: 0.95
                                             },
-                                            children: t.sendResetLink
+                                            children: t.updatePassword
                                         }, void 0, false, {
                                             fileName: "[project]/app/resetpw/page.tsx",
-                                            lineNumber: 570,
+                                            lineNumber: 654,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/resetpw/page.tsx",
-                                        lineNumber: 569,
+                                        lineNumber: 653,
                                         columnNumber: 15
                                     }, this),
                                     message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1886,7 +1486,7 @@ function ForgotPasswordPage() {
                                         children: message
                                     }, void 0, false, {
                                         fileName: "[project]/app/resetpw/page.tsx",
-                                        lineNumber: 581,
+                                        lineNumber: 665,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1897,34 +1497,34 @@ function ForgotPasswordPage() {
                                             children: t.backToLogin
                                         }, void 0, false, {
                                             fileName: "[project]/app/resetpw/page.tsx",
-                                            lineNumber: 591,
+                                            lineNumber: 675,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/resetpw/page.tsx",
-                                        lineNumber: 590,
+                                        lineNumber: 674,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/resetpw/page.tsx",
-                                lineNumber: 548,
+                                lineNumber: 592,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/resetpw/page.tsx",
-                        lineNumber: 521,
+                        lineNumber: 563,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/resetpw/page.tsx",
-                    lineNumber: 519,
+                    lineNumber: 561,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/resetpw/page.tsx",
-                lineNumber: 518,
+                lineNumber: 560,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("canvas", {
@@ -1932,13 +1532,13 @@ function ForgotPasswordPage() {
                 className: "fixed inset-0 w-full h-full z-0"
             }, void 0, false, {
                 fileName: "[project]/app/resetpw/page.tsx",
-                lineNumber: 602,
+                lineNumber: 685,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/resetpw/page.tsx",
-        lineNumber: 502,
+        lineNumber: 544,
         columnNumber: 5
     }, this);
 }
