@@ -6,6 +6,11 @@
   package = "@netlify/plugin-nextjs"
 
 [[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/nextjs-server"
+  status = 200
+
+[[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200

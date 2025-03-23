@@ -7,23 +7,38 @@ interface Message {
   content: string;
 }
 
+// Ensure API key is available
 if (!process.env.OPENAI_API_KEY) {
-  throw new Error("OPENAI_API_KEY environment variable is not set");
+  console.error("OPENAI_API_KEY is not set");
 }
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// Common headers for all responses
+const headers = {
+  "Content-Type": "application/json",
+  "Cache-Control": "no-store, no-cache, must-revalidate",
+};
+
 export async function POST(request: Request) {
   try {
+    // Check API key
+    if (!process.env.OPENAI_API_KEY) {
+      return NextResponse.json(
+        { error: "OpenAI API key is not configured" },
+        { status: 500, headers }
+      );
+    }
+
     const body = await request.json();
     const { messages, input } = body;
 
     if (!input) {
       return NextResponse.json(
         { error: "Input message is required" },
-        { status: 400 }
+        { status: 400, headers }
       );
     }
 
@@ -50,14 +65,18 @@ export async function POST(request: Request) {
     const response = completion.choices[0]?.message?.content;
 
     if (!response) {
-      throw new Error("Empty response from OpenAI API");
+      return NextResponse.json(
+        { error: "Empty response from OpenAI API" },
+        { status: 500, headers }
+      );
     }
 
     console.log("Received response from OpenAI");
 
-    return NextResponse.json({
-      message: { role: "assistant", content: response },
-    });
+    return NextResponse.json(
+      { message: { role: "assistant", content: response } },
+      { headers }
+    );
   } catch (error: any) {
     console.error("Error in chat API:", error);
 
@@ -67,7 +86,7 @@ export async function POST(request: Request) {
           error: "Invalid JSON in request body",
           details: error.message,
         },
-        { status: 400 }
+        { status: 400, headers }
       );
     }
 
@@ -77,7 +96,7 @@ export async function POST(request: Request) {
           error: "Authentication error with OpenAI",
           details: error.message,
         },
-        { status: error.status }
+        { status: error.status, headers }
       );
     }
 
@@ -86,7 +105,7 @@ export async function POST(request: Request) {
         error: "Failed to generate response",
         details: error.message || "Unknown error occurred",
       },
-      { status: 500 }
+      { status: 500, headers }
     );
   }
 }
