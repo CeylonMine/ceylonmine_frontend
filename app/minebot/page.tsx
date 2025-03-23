@@ -1,15 +1,30 @@
 'use client';
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ThemeContext } from './layout';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import Image from 'next/image';
 
 interface Message {
   id: number;
   role: 'user' | 'assistant';
   content: string;
 }
+
+const LoadingSpinner = () => (
+  <div className="animate-spin rounded-full border-2 border-gray-300 border-t-orange-500 h-full w-full"/>
+);
+
+const StatusDot = ({ isAvailable, isDarkMode }: { isAvailable: boolean; isDarkMode: boolean }) => (
+  <div 
+    className={`absolute bottom-[-2px] right-[-2px] w-3 h-3 rounded-full border-2 ${
+      isDarkMode ? 'border-gray-900' : 'border-white'
+    } ${
+      isAvailable ? 'bg-green-500' : 'bg-red-500'
+    } z-10 shadow-sm`}
+  />
+);
 
 export default function MineBot() {
   const { isDarkMode } = useContext(ThemeContext);
@@ -23,11 +38,35 @@ export default function MineBot() {
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
+  const [isApiAvailable, setIsApiAvailable] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to bottom of messages
+  // Check API availability
+  const checkApiAvailability = async () => {
+    try {
+      const response = await fetch('/api/health-check', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      setIsApiAvailable(response.ok);
+    } catch (error) {
+      setIsApiAvailable(false);
+    }
+  };
+
+  // Initial API check and periodic polling
+  useEffect(() => {
+    checkApiAvailability();
+    const interval = setInterval(checkApiAvailability, 30000); // Check every 30 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+  // Auto-scroll to bottom of messages - removed smooth behavior
   React.useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView();
   }, [messages]);
 
   // AI-powered response generation
@@ -137,49 +176,104 @@ export default function MineBot() {
               {messages.map(message => (
                 <div 
                   key={message.id} 
-                  className={`mb-4 max-w-[80%] ${message.role === 'assistant' ? 'mr-auto' : 'ml-auto'}`}
+                  className={`mb-4 flex items-start ${message.role === 'assistant' ? 'justify-start' : 'justify-end'}`}
                 >
-                  <div 
-                    className={`rounded-lg px-4 py-3 ${
-                      message.role === 'assistant'
-                        ? isDarkMode 
-                          ? 'bg-gray-800 text-white prose prose-invert max-w-none' 
-                          : 'bg-gray-100 text-gray-900 prose max-w-none'
-                        : 'bg-orange-500 text-white'
-                    } ${isError && message.role === 'assistant' ? 'border-red-500 border' : ''}`}
-                  >
-                    {message.role === 'assistant' ? (
-                      <div className="break-words">
-                        <ReactMarkdown 
-                          remarkPlugins={[remarkGfm]}
-                          components={{
-                            p: ({children}) => <p className="mb-1 last:mb-0">{children}</p>,
-                            ul: ({children}) => <ul className="mb-1 last:mb-0 pl-4">{children}</ul>,
-                            ol: ({children}) => <ol className="mb-1 last:mb-0 pl-4">{children}</ol>,
-                            li: ({children}) => <li className="mb-0.5">{children}</li>,
-                            code: ({node, children}) => (
-                              <code 
-                                className={node?.position?.start.line === node?.position?.end.line 
-                                  ? "px-1 py-0.5 rounded bg-gray-700 text-gray-100"
-                                  : "block p-2 rounded bg-gray-700 text-gray-100 overflow-x-auto"
-                                }
-                              >
-                                {children}
-                              </code>
-                            )
-                          }}
-                        >
-                          {message.content}
-                        </ReactMarkdown>
+                  {message.role === 'assistant' && (
+                    <div className="flex-shrink-0 mr-3 relative">
+                      <div className="w-8 h-8 rounded-full overflow-hidden bg-orange-500 flex items-center justify-center relative">
+                        {imageLoading && <LoadingSpinner />}
+                        <Image
+                          src="/favicon.ico"
+                          alt="MineBot Avatar"
+                          width={32}
+                          height={32}
+                          className={`object-fill ${imageLoading ? 'opacity-0' : 'opacity-100'}`}
+                          onLoadingComplete={() => setImageLoading(false)}
+                          onError={() => setImageLoading(false)}
+                          priority
+                        />
                       </div>
-                    ) : (
-                      message.content
-                    )}
+                      <StatusDot isAvailable={isApiAvailable} isDarkMode={isDarkMode} />
+                    </div>
+                  )}
+                  
+                  <div className={`max-w-[75%]`}>
+                    <div 
+                      className={`rounded-lg px-4 py-3 ${
+                        message.role === 'assistant'
+                          ? isDarkMode 
+                            ? 'bg-gray-800 text-white prose prose-invert max-w-none' 
+                            : 'bg-gray-100 text-gray-900 prose max-w-none'
+                          : 'bg-orange-500 text-white'
+                      } ${isError && message.role === 'assistant' ? 'border-red-500 border' : ''}`}
+                    >
+                      {message.role === 'assistant' ? (
+                        <div className="break-words">
+                          <ReactMarkdown 
+                            remarkPlugins={[remarkGfm]}
+                            components={{
+                              p: ({children}) => <p className="mb-1 last:mb-0">{children}</p>,
+                              ul: ({children}) => <ul className="mb-1 last:mb-0 pl-4">{children}</ul>,
+                              ol: ({children}) => <ol className="mb-1 last:mb-0 pl-4">{children}</ol>,
+                              li: ({children}) => <li className="mb-0.5">{children}</li>,
+                              code: ({node, children}) => (
+                                <code 
+                                  className={node?.position?.start.line === node?.position?.end.line 
+                                    ? "px-1 py-0.5 rounded bg-gray-700 text-gray-100"
+                                    : "block p-2 rounded bg-gray-700 text-gray-100 overflow-x-auto"
+                                  }
+                                >
+                                  {children}
+                                </code>
+                              )
+                            }}
+                          >
+                            {message.content}
+                          </ReactMarkdown>
+                        </div>
+                      ) : (
+                        message.content
+                      )}
+                    </div>
                   </div>
+
+                  {message.role === 'user' && (
+                    <div className="flex-shrink-0 ml-3">
+                      <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-600 flex items-center justify-center">
+                        <svg 
+                          className="w-5 h-5 text-white" 
+                          fill="currentColor" 
+                          viewBox="0 0 20 20"
+                        >
+                          <path 
+                            fillRule="evenodd" 
+                            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" 
+                            clipRule="evenodd" 
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
               {isTyping && (
-                <div className="mb-4 max-w-[80%] mr-auto">
+                <div className="mb-4 flex items-start">
+                  <div className="flex-shrink-0 mr-3">
+                    <div className="w-8 h-8 rounded-full overflow-hidden bg-orange-500 flex items-center justify-center relative">
+                      {imageLoading && <LoadingSpinner />}
+                      <Image
+                        src="/favicon.ico"
+                        alt="MineBot Avatar"
+                        width={32}
+                        height={32}
+                        className={`object-fill ${imageLoading ? 'opacity-0' : 'opacity-100'}`}
+                        onLoadingComplete={() => setImageLoading(false)}
+                        onError={() => setImageLoading(false)}
+                        priority
+                      />
+                      <StatusDot isAvailable={isApiAvailable} isDarkMode={isDarkMode} />
+                    </div>
+                  </div>
                   <div className={`rounded-lg px-4 py-3 ${
                     isDarkMode ? 'bg-gray-800' : 'bg-gray-100'
                   }`}>
@@ -237,14 +331,14 @@ export default function MineBot() {
             <h3 className="text-xl font-bold mb-4">Try asking:</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                "Tell me about sustainable gold mining",
-                "How do you protect the environment?",
-                "What technologies do you use in mining?",
-                "What investment opportunities are available?",
-                "How do you support local communities?",
-                "What are rare earth elements used for?",
-                "Tell me about your AI-driven mining operations",
-                "What is the future of sustainable mining?"
+                "How do I apply for a mining license?",
+                "What is the GSMB and what are its functions?",
+                "How can I report illegal mining activities?",
+                "How does the royalty calculation system work?",
+                "What are the steps in the license application process?",
+                "How can I track my license application status?",
+                "What security measures does CeylonMine implement?",
+                "How does CeylonMine protect the environment?"
               ].map((question, index) => (
                 <button
                   key={index}

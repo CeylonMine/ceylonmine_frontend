@@ -1,0 +1,143 @@
+# CeylonMine Platform Overview
+
+## Introduction
+CeylonMine is a software solution designed to address the challenges faced by the Sri Lankan
+mining industry. The platform focuses on improving transparency, efficiency, and environmental
+sustainability by tackling issues such as illegal mining, lengthy licensing procedures, royalty
+payment confusion, and environmental degradation.
+
+## Key Features
+
+### 1. Online license application through the License Portal
+- Unlicensed miners can apply for new licenses, and licensed miners can renew
+their licenses through CeylonMine.
+
+### 2. License process tracking
+- Simplifies licensing procedures with a user-friendly application process.
+- Provides license status updates and export tracking.
+- Ensures compliance by setting reminders for license renewal.
+- Offers a detailed guide on required documentation, such as geological surveys,
+environmental impact assessments, and ownership proof.
+- Supports secure digital signature integration for faster approval.
+
+### 3. Royalty Calculator
+- Centralizes royalty calculations and payment tracking.
+- Ensures transparency by recording transactions and providing downloadable reports.
+- Notifies stakeholders of upcoming payments to avoid penalties.
+
+### 4. Illegal Mining Reporting and Complaint Submission
+- Allows users and the general public to report unauthorized mining activities and any complaints they have regarding ongoing mining projects in their area.
+- Provides anonymity options for whistleblowers to encourage reporting.
+
+### 5. Data Management
+- Maintains up-to-date geological data and mining records
+- Facilitates decision-making with data analytics and historical data insights
+- Offers customizable dashboards for different user roles
+
+### 6. MineMore - Educational Page
+- Users and the general public accessing the platform can learn about the different license types, the license process, etc. from the MineMore page.
+
+### 7. MineBot - AI-powered chatbot:
+- Users and the general public can clarify any doubts regarding the different
+license types, the licensing process, etc, and the CeylonMine platform through
+the MineBot chatbot.
+
+## MineMap - GIS-powered geological map:
+- Users and the general public can view the mining sites located around the
+country with the MineMap feature.
+
+## Detailed Licensing Process
+
+### 1. Registration
+- Users must create an account on CeylonMine with valid identification.
+
+### 2. Application Submission
+- Fill out the license application form, including mining site details, proposed
+operations, and duration.
+- Upload required documents such as geological reports, environmental impact
+assessments (EIA), ownership proof, and financial statements.
+
+### 3. Application Review
+- Authorities review the submission for completeness and accuracy.
+- The system tracks review progress and provides real-time updates.
+
+### 4. Inspection and Verification
+- An on-site inspection is scheduled for environmental and regulatory compliance
+verification.
+- Reports are uploaded to the platform for transparency.
+
+### 5. Approval or Rejection
+- Once all criteria are met, the license is approved, and a digital certificate is
+issued.
+- If rejected, the platform provides reasons and guidance for resubmission.
+
+### 6. Post-Approval Monitoring
+- CeylonMine tracks ongoing compliance and sends reminders for license renewal.
+
+## Common Questions and Answers
+
+### 1. Platform Purpose
+- CeylonMine aims to streamline mining processes, improve transparency, and promote sustainable environmental practices.
+
+### 2. License Application Process
+- Users can apply for licenses through the platform by filling out the required forms and submitting necessary documentation.
+- The system provides step-by-step guidance throughout the process.
+
+### 3. Environmental Impact Tracking
+- The platform uses real-time data collection and AR/Google Maps integration to monitor land usage, emissions, and degradation.
+
+### 4. Illegal Mining Reporting
+- Users can report incidents via the "Report Illegal Mining" feature.
+- Reports are sent to relevant authorities for immediate action.
+
+### 5. Royalty Payment Tracking
+- Royalties are automatically calculated, recorded, and made visible to stakeholders, ensuring transparency.
+- Users can set payment reminders.
+
+### 6. Platform Accessibility
+- CeylonMine is accessible to mining companies, government authorities, environmentalists, and the general public concerned with sustainable mining.
+
+### 7. Customer Support
+- CeylonMine provides 24/7 customer support through chat, email, and phone.
+
+### 8. Security Measures
+- CeylonMine implements robust security features including:
+  - Multi-factor authentication (MFA)
+  - End-to-end encryption
+  - Secure cloud storage
+
+## User Scenarios
+
+### 1. Mining Company License Management
+- Scenario: A mining company wants to apply for a license and track its status.
+- Solution: Use the licensing module to apply and monitor real-time updates.
+
+### 2. Citizen Reporting
+- Scenario: A citizen reports illegal mining in their locality.
+- Solution: Report the issue using the "Report Illegal Mining" feature.
+
+### 3. Environmental Impact Analysis
+- Scenario: An environmentalist wants to analyze the environmental impact of mining.
+- Solution: Access real-time environmental data and analytics.
+
+### 4. Financial Tracking
+- Scenario: A company needs to track royalty payments and generate reports for audits.
+- Solution: Use the royalty management module to record transactions and download financial reports.
+
+### 5. Regulatory Compliance
+- Scenario: A government authority wants to ensure compliance and manage license renewals.
+- Solution: Use the dashboard for compliance tracking and receive automatic renewal reminders.
+
+## GSMB Overview
+GSMB (Geological Survey and Mines Bureau) is a government organization in Sri Lanka responsible for regulating and managing the country's mineral resources. The GSMB plays a crucial role in issuing mining licenses, monitoring mining activities, and ensuring sustainable and environmentally responsible mining practices.
+
+### Key Functions
+- Issuing Mining Licenses: Grants licenses for exploration, mining, trading, and transportation of minerals.
+- Regulating Mining Activities: Ensures mining operations follow legal and environmental guidelines.
+- Environmental Protection: Monitors the environmental impact of mining activities to prevent degradation.
+- Geological Surveys: Conducts geological and mineralogical surveys for resource mapping and evaluation.
+- Research and Development: Provides data and research on mineral resources to support sustainable development.
+
+## Conclusion
+CeylonMine aims to create a more accountable, transparent, and sustainable mining industry in Sri Lanka by leveraging technology for better resource management and environmental conservation. By streamlining licensing, enhancing environmental monitoring, and promoting transparency, it ensures all stakeholders are well-informed and compliant.
+
