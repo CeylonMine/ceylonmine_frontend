@@ -661,7 +661,10 @@ function Navbar() {
             name: 'Home',
             path: '/'
         },
-        // { name: 'Map', path: '/map' },
+        {
+            name: 'Map',
+            path: '/map'
+        },
         {
             name: 'Minebot',
             path: '/minebot'
@@ -698,7 +701,10 @@ function Navbar() {
             name: 'මුල් පිටුව',
             path: '/'
         },
-        // { name: 'සිතියම', path: '/map' },
+        {
+            name: 'සිතියම',
+            path: '/map'
+        },
         {
             name: 'Minebot',
             path: '/minebot'

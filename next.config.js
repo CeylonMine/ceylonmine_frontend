@@ -12,7 +12,16 @@ const nextConfig = {
   // Enable experimental features if needed
   experimental: {
     turbopack: true,
+    externalDir: true,
+    serverComponentsExternalPackages: ['go'],
   },
+  webpack: (config, { isServer }) => {
+    // Handle Go-related imports
+    if (isServer) {
+      config.externals.push('go');
+    }
+    return config;
+  }
 };
 
 module.exports = nextConfig;
