@@ -657,7 +657,7 @@ export default function Navbar() {
   // Example: different text per language
   const navItemsEn = [
     { name: 'Home', path: '/' },
-    { name: 'Map', path: '/map' },
+    // { name: 'Map', path: '/map' },
     { name: 'Minebot', path: '/minebot' },
     { name: 'Royalty', path: '/royalty' },
     { name: 'Complains', path: '/complains' },
@@ -671,7 +671,7 @@ export default function Navbar() {
   // (Feel free to replace with actual translations)
   const navItemsSi = [
     { name: 'මුල් පිටුව', path: '/' },
-    { name: 'සිතියම', path: '/map' },
+    // { name: 'සිතියම', path: '/map' },
     { name: 'Minebot', path: '/minebot' },
     { name: 'Royalty', path: '/royalty' },
     { name: 'Complains', path: '/complains' },
