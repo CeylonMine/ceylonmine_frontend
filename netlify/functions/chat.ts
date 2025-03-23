@@ -7,10 +7,12 @@ interface Message {
   content: string;
 }
 
+if (!process.env.OPENAI_API_KEY) {
+  throw new Error("OPENAI_API_KEY environment variable is not set");
+}
+
 const openai = new OpenAI({
-  apiKey:
-    process.env.OPENAI_API_KEY ||
-    "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",
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 const headers = {
