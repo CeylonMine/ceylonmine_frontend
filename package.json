@@ -11,8 +11,10 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@google/generative-ai": "0.22.0",
     "@mui/icons-material": "^6.4.5",
     "@mui/material": "^6.4.5",
+    "@netlify/functions": "3.0.4",
     "@react-spring/web": "^9.7.5",
     "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.13.5",
@@ -26,6 +28,7 @@
     "leaflet.fullscreen": "^3.0.2",
     "leaflet.markercluster": "^1.5.3",
     "next": "^15.1.7",
+    "openai": "4.86.1",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-datepicker": "^8.1.0",
@@ -33,11 +36,14 @@
     "react-hot-toast": "^2.5.2",
     "react-icons": "^5.4.0",
     "react-intersection-observer": "^9.16.0",
+    "react-markdown": "10.0.0",
+    "remark-gfm": "4.0.0",
     "sweetalert2": "^11.17.2",
     "three": "^0.173.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@netlify/plugin-nextjs": "5.10.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
