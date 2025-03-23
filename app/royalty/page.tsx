@@ -438,38 +438,20 @@ export default function Home() {
           isDarkMode ? 'bg-gray-900' : 'bg-gray-800'
         }`}
       >
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p
-              className={`text-sm ${
-                isDarkMode ? 'text-gray-400' : 'text-gray-300'
-              }`}
-            >
-              {t.copyright}
-            </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link href="/terms" className={`text-sm ${
-                isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-300 hover:text-white'
-              }`}>
-                {t.terms}
-              </Link>
-              <Link href="/privacy" className={`text-sm ${
-                isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-300 hover:text-white'
-              }`}>
-                {t.privacy}
-              </Link>
-              <Link href="/contact" className={`text-sm ${
-                isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-300 hover:text-white'
-              }`}>
-                {t.contact}
-              </Link>
-            </div>
-          </div>
+        <div className="container mx-auto px-4 text-center">
+          <p
+            className={`text-sm ${
+              isDarkMode ? 'text-gray-400' : 'text-gray-300'
+            }`}
+          >
+            &copy; {new Date().getFullYear()} CeylonMine. All rights reserved.
+          </p>
         </div>
       </footer>
 
       {/* Three.js Canvas Background */}
       <canvas ref={canvasRef} className="fixed inset-0 w-full h-full z-0" />
+      
     </div>
   );
 }

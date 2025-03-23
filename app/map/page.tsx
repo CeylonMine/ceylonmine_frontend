@@ -388,31 +388,7 @@ export default function MapPage() {
 
       <Navbar />
 
-      {/* Tab Navigation */}
-      <div className="relative z-10 container mx-auto px-4 pt-24">
-        <div className="flex space-x-4 mb-6">
-          <button
-            className={`px-4 py-2 rounded ${
-              activeTab === "map"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-800"
-            }`}
-            onClick={() => handleTabChange("map")}
-          >
-            Map View
-          </button>
-          <button
-            className={`px-4 py-2 rounded ${
-              activeTab === "details"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-800"
-            }`}
-            onClick={() => handleTabChange("details")}
-          >
-            Details
-          </button>
-        </div>
-      </div>
+      
       
       {/* Content Container */}
       <div className="relative z-10 pt-32 pb-16">
@@ -426,6 +402,18 @@ export default function MapPage() {
 
       {/* Three.js Canvas */}
       <canvas ref={canvasRef} className="fixed inset-0 w-full h-full z-0" />
+
+      <footer
+      className={`relative z-10 py-8 ${isDarkMode ? 'bg-gray-900' : 'bg-gray-800'}`}
+    >
+        <div className="container mx-auto px-4 text-center">
+          <p
+            className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-300'}`}
+          >
+            &copy; {new Date().getFullYear()} CeylonMine. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

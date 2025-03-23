@@ -1294,380 +1294,6 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 
 var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
-// 'use client';
-// import React, { useState, useRef, useEffect } from 'react';
-// import Navbar from '../navbar/page';
-// import Link from 'next/link';
-// import { motion } from 'framer-motion';
-// import * as THREE from 'three';
-// // ArrowIcon component
-// const ArrowIcon = ({ rotated }) => (
-//   <svg
-//     className={`w-6 h-6 transform transition-transform duration-200 ${rotated ? 'rotate-180' : ''}`}
-//     fill="none"
-//     stroke="currentColor"
-//     viewBox="0 0 24 24"
-//     xmlns="http://www.w3.org/2000/svg"
-//   >
-//     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-//   </svg>
-// );
-// export default function LicensePortal() {
-//   const [isDarkMode, setIsDarkMode] = useState(true);
-//   const [expandedCase, setExpandedCase] = useState(null);
-//   const [selectedStory, setSelectedStory] = useState(null);
-//   const canvasRef = useRef(null);
-//   // Initialize theme from localStorage on component mount
-//   useEffect(() => {
-//     const savedTheme = localStorage.getItem('theme');
-//     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-//     const initialDarkMode = savedTheme === 'dark' || (!savedTheme && systemPrefersDark);
-//     setIsDarkMode(initialDarkMode);
-//     // Apply theme class to document
-//     if (initialDarkMode) {
-//       document.documentElement.classList.add('dark');
-//     } else {
-//       document.documentElement.classList.remove('dark');
-//     }
-//     // Listen for theme changes from other components
-//     const handleThemeChange = (event) => {
-//       setIsDarkMode(event.detail.isDarkMode);
-//       // Apply to html element
-//       if (event.detail.isDarkMode) {
-//         document.documentElement.classList.add('dark');
-//       } else {
-//         document.documentElement.classList.remove('dark');
-//       }
-//     };
-//     window.addEventListener('themeChange', handleThemeChange);
-//     return () => {
-//       window.removeEventListener('themeChange', handleThemeChange);
-//     };
-//   }, []);
-//   // Toggle dark/light mode
-//   const toggleTheme = () => {
-//     const newTheme = !isDarkMode;
-//     setIsDarkMode(newTheme);
-//     // Apply to html element
-//     if (newTheme) {
-//       document.documentElement.classList.add('dark');
-//     } else {
-//       document.documentElement.classList.remove('dark');
-//     }
-//     // Save preference
-//     localStorage.setItem('theme', newTheme ? 'dark' : 'light');
-//     // Emit themeChange event for other components
-//     const event = new CustomEvent('themeChange', { detail: { isDarkMode: newTheme } });
-//     window.dispatchEvent(event);
-//   };
-//   // Licenses data
-//   const licenses = [
-//     {
-//       id: 1,
-//       name: 'IML Type A License',
-//       description: 'Standard mining operations license for small-scale projects.',
-//       features: ['Suitable for operations under 5 hectares', 'Valid for 3 years', 'Basic environmental compliance'],
-//       path: '/license-portal/type-a',
-//       color: 'bg-amber-500'
-//     },
-//     {
-//       id: 2,
-//       name: 'IML Type B License',
-//       description: 'Advanced license for medium-scale mineral extraction operations.',
-//       features: ['Operations between 5-20 hectares', 'Valid for 5 years', 'Advanced safety protocols required'],
-//       path: '/license-portal/type-b',
-//       color: 'bg-amber-500'
-//     },
-//     {
-//       id: 3,
-//       name: 'IML Type C License',
-//       description: 'Comprehensive license for large-scale mining operations.',
-//       features: ['Operations over 20 hectares', 'Valid for 7 years', 'Full environmental impact assessment required'],
-//       path: '/license-portal/type-c',
-//       color: 'bg-amber-500'
-//     },
-//     {
-//       id: 4,
-//       name: 'IML Type D License',
-//       description: 'Specialized license for rare minerals and precious metals.',
-//       features: ['For restricted minerals and metals', 'Valid for 10 years', 'Requires enhanced security measures'],
-//       path: '/license-portal/type-d',
-//       color: 'bg-amber-500'
-//     }
-//   ];
-//   // Success stories data
-//   const successStories = [
-//     {
-//       title: "Sierra Gold Mining Corp",
-//       region: "Western Mountains",
-//       license: "Type C License",
-//       description: "Achieved a 40% increase in operational efficiency while reducing environmental impact by 35% through our comprehensive licensing framework.",
-//       fullCaseStudy: "Detailed case study about Sierra Gold Mining Corp's success story..."
-//     },
-//     {
-//       title: "Blue Ocean Minerals",
-//       region: "Coastal Lowlands",
-//       license: "Type B License",
-//       description: "Streamlined their medium-scale operations, reducing approval and compliance time by 60%.",
-//       fullCaseStudy: "Detailed case study about Blue Ocean Minerals' success story..."
-//     },
-//     {
-//       title: "Northern Light Rare Metals",
-//       region: "Arctic Circle",
-//       license: "Type D License",
-//       description: "Secured expedited approval for specialized rare earth mineral extraction.",
-//       fullCaseStudy: "Detailed case study about Northern Light Rare Metals' success story..."
-//     },
-//     {
-//       title: "Greenfield Mining Cooperative",
-//       region: "Central Valley",
-//       license: "Type A License",
-//       description: "A small-scale community-based operation that achieved full compliance within 30 days.",
-//       fullCaseStudy: "Detailed case study about Greenfield Mining Cooperative's success story..."
-//     }
-//   ];
-//   // Enhanced 3D background effect (same as homepage)
-//   useEffect(() => {
-//     if (!canvasRef.current) return;
-//     const scene = new THREE.Scene();
-//     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-//     const renderer = new THREE.WebGLRenderer({
-//       canvas: canvasRef.current,
-//       alpha: true,
-//       antialias: true,
-//     });
-//     renderer.setSize(window.innerWidth, window.innerHeight);
-//     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-//     const particlesGeometry = new THREE.BufferGeometry();
-//     const particlesCount = 5000;
-//     const posArray = new Float32Array(particlesCount * 3);
-//     for (let i = 0; i < particlesCount * 3; i++) {
-//       posArray[i] = (Math.random() - 0.5) * 5;
-//     }
-//     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-//     const particlesMaterial = new THREE.PointsMaterial({
-//       size: 0.004,
-//       color: isDarkMode ? 0xD2B48C : 0xFFD700,
-//       transparent: true,
-//       blending: THREE.AdditiveBlending,
-//     });
-//     const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-//     scene.add(particlesMesh);
-//     camera.position.z = 2;
-//     let mouseX = 0;
-//     let mouseY = 0;
-//     function onDocumentMouseMove(event) {
-//       mouseX = (event.clientX - window.innerWidth / 2) / 100;
-//       mouseY = (event.clientY - window.innerHeight / 2) / 100;
-//     }
-//     document.addEventListener('mousemove', onDocumentMouseMove);
-//     function onWindowResize() {
-//       camera.aspect = window.innerWidth / window.innerHeight;
-//       camera.updateProjectionMatrix();
-//       renderer.setSize(window.innerWidth, window.innerHeight);
-//     }
-//     window.addEventListener('resize', onWindowResize);
-//     const animate = () => {
-//       requestAnimationFrame(animate);
-//       particlesMesh.rotation.x += 0.0002 + mouseY * 0.0002;
-//       particlesMesh.rotation.y += 0.0002 + mouseX * 0.0002;
-//       renderer.render(scene, camera);
-//     };
-//     animate();
-//     // Function to update particle color based on theme
-//     const updateParticleColor = () => {
-//       particlesMaterial.color.set(isDarkMode ? 0xD2B48C : 0xFFD700);
-//     };
-//     // Listen for theme changes
-//     const themeChangeListener = (event) => {
-//       if (event.detail && event.detail.hasOwnProperty('isDarkMode')) {
-//         updateParticleColor();
-//       }
-//     };
-//     window.addEventListener('themeChange', themeChangeListener);
-//     return () => {
-//       document.removeEventListener('mousemove', onDocumentMouseMove);
-//       window.removeEventListener('resize', onWindowResize);
-//       window.removeEventListener('themeChange', themeChangeListener);
-//       particlesGeometry.dispose();
-//       particlesMaterial.dispose();
-//       renderer.dispose();
-//     };
-//   }, [isDarkMode]);
-//   return (
-//     <div className={`relative min-h-screen ${isDarkMode ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} overflow-hidden`}>
-//       <Navbar />
-//       {/* 3D Background Canvas */}
-//       <canvas ref={canvasRef} className="fixed inset-0 w-full h-full z-0" />
-//       {/* Dark/Light Mode Toggle */}
-//       <motion.button
-//         onClick={toggleTheme}
-//         whileHover={{ scale: 1.1, rotate: isDarkMode ? 180 : 0 }}
-//         whileTap={{ scale: 0.9 }}
-//         className={`fixed bottom-8 right-8 p-4 rounded-full shadow-lg z-50 transition-all duration-300 ${
-//           isDarkMode ? 'bg-gray-800 text-yellow-400' : 'bg-white text-gray-800'
-//         }`}
-//       >
-//         {isDarkMode ? '🌞' : '🌙'}
-//       </motion.button>
-//       {/* Main Content */}
-//       <main className="relative z-10 pt-28 pb-16">
-//         <div className="container mx-auto px-4">
-//           {/* Hero Section */}
-//           <div className="text-center mb-20">
-//             <motion.h1
-//               className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight"
-//               initial={{ opacity: 0, y: 20 }}
-//               animate={{ opacity: 1, y: 0 }}
-//               transition={{ duration: 0.8 }}
-//             >
-//               LICENSE PORTAL
-//             </motion.h1>
-//             <motion.p
-//               className="text-xl md:text-2xl max-w-3xl mx-auto"
-//               initial={{ opacity: 0, y: 20 }}
-//               animate={{ opacity: 1, y: 0 }}
-//               transition={{ duration: 0.8, delay: 0.2 }}
-//             >
-//               Streamlined management of mining permits and licenses for optimal operational efficiency.
-//             </motion.p>
-//           </div>
-//           {/* License Cards Section */}
-//           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-//             {licenses.map((license, index) => (
-//               <Link href={license.path} key={license.id} legacyBehavior>
-//                 <a className="block">
-//                   <motion.div
-//                     className={`rounded-xl overflow-hidden h-full ${isDarkMode ? 'bg-gray-800/80 hover:bg-gray-700/90' : 'bg-white/90 hover:bg-gray-50/95'} border border-opacity-10 ${isDarkMode ? 'border-gray-700' : 'border-gray-200'} shadow-xl transition-all backdrop-blur-sm`}
-//                     initial={{ opacity: 0, y: 20 }}
-//                     whileInView={{ opacity: 1, y: 0 }}
-//                     transition={{ duration: 0.5, delay: index * 0.1 }}
-//                     viewport={{ once: true }}
-//                   >
-//                     <div className={`${license.color} h-2 w-full`} />
-//                     <div className="p-8">
-//                       <h3 className="text-2xl font-bold mb-3">{license.name}</h3>
-//                       <p className={`mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{license.description}</p>
-//                       <ul className={`mb-8 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-//                         {license.features.map((feature, i) => (
-//                           <motion.li 
-//                             key={i} 
-//                             className="flex items-start mb-2"
-//                             initial={{ opacity: 0, x: -10 }}
-//                             whileInView={{ opacity: 1, x: 0 }}
-//                             transition={{ delay: 0.1 * i, duration: 0.3 }}
-//                             viewport={{ once: true }}
-//                           >
-//                             <span className="text-green-500 mr-2">✓</span>
-//                             <span>{feature}</span>
-//                           </motion.li>
-//                         ))}
-//                       </ul>
-//                       <motion.button 
-//                         className={`${license.color} text-white py-3 px-8 rounded-md text-lg font-medium transition-all relative overflow-hidden`}
-//                         whileHover={{ scale: 1.05 }}
-//                         whileTap={{ scale: 0.98 }}
-//                       >
-//                         Learn More
-//                       </motion.button>
-//                     </div>
-//                   </motion.div>
-//                 </a>
-//               </Link>
-//             ))}
-//           </div>
-//           {/* Success Stories Section */}
-//           <div className="mt-24 mb-20">
-//             <div className="text-center mb-16">
-//               <motion.h2
-//                 className="text-4xl md:text-5xl font-bold mb-6"
-//                 initial={{ opacity: 0 }}
-//                 whileInView={{ opacity: 1 }}
-//                 transition={{ duration: 0.6 }}
-//                 viewport={{ once: true }}
-//               >
-//                 SUCCESS STORIES
-//               </motion.h2>
-//               <motion.p
-//                 className={`text-lg md:text-xl max-w-3xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}
-//                 initial={{ opacity: 0 }}
-//                 whileInView={{ opacity: 1 }}
-//                 transition={{ duration: 0.6, delay: 0.2 }}
-//                 viewport={{ once: true }}
-//               >
-//                 See how our licensing framework has helped businesses achieve their goals while maintaining regulatory compliance.
-//               </motion.p>
-//             </div>
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-//               {successStories.map((story, index) => (
-//                 <motion.div
-//                   key={index}
-//                   className={`p-8 rounded-xl ${isDarkMode ? 'bg-gray-800/80' : 'bg-white/90'} border border-opacity-10 ${isDarkMode ? 'border-gray-700' : 'border-gray-200'} shadow-lg backdrop-blur-sm`}
-//                   initial={{ opacity: 0, y: 20 }}
-//                   whileInView={{ opacity: 1, y: 0 }}
-//                   transition={{ duration: 0.5, delay: index * 0.1 }}
-//                   viewport={{ once: true }}
-//                 >
-//                   <h3 className="text-2xl font-bold mb-2">{story.title}</h3>
-//                   <div className="flex flex-wrap gap-3 mb-4">
-//                     <span className={`inline-block px-3 py-1 rounded-full text-sm ${isDarkMode ? 'bg-gray-700 text-gray-200' : 'bg-gray-200 text-gray-800'}`}>
-//                       {story.region}
-//                     </span>
-//                     <span className={`inline-block px-3 py-1 rounded-full text-sm ${isDarkMode ? 'bg-amber-800 text-amber-100' : 'bg-amber-100 text-amber-800'}`}>
-//                       {story.license}
-//                     </span>
-//                   </div>
-//                   <p className={`mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-//                     {story.description}
-//                   </p>
-//                   <button
-//                     onClick={() => setSelectedStory(story)}
-//                     className="text-amber-500 font-medium hover:text-amber-600 transition-colors"
-//                   >
-//                     Read full case study →
-//                   </button>
-//                 </motion.div>
-//               ))}
-//             </div>
-//           </div>
-//         </div>
-//       </main>
-//       {/* Case Study Modal */}
-//       {selectedStory && (
-//         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-//           <motion.div
-//             className={`rounded-xl overflow-hidden ${isDarkMode ? 'bg-gray-800' : 'bg-white'} max-w-2xl w-full`}
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//           >
-//             <div className="p-6">
-//               <h3 className="text-2xl font-bold mb-4">{selectedStory.title}</h3>
-//               <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{selectedStory.fullCaseStudy}</p>
-//               <button
-//                 className="mt-6 text-amber-500 font-medium hover:text-amber-600"
-//                 onClick={() => setSelectedStory(null)}
-//               >
-//                 Close
-//               </button>
-//             </div>
-//           </motion.div>
-//         </div>
-//       )}
-//       {/* Footer Section */}
-//       <footer className={`mt-20 py-8 border-t border-opacity-10 ${isDarkMode ? 'border-gray-800' : 'border-gray-200'} text-center`}>
-//         <motion.p
-//           className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}
-//           initial={{ opacity: 0, y: 20 }}
-//           whileInView={{ opacity: 1, y: 0 }}
-//           transition={{ duration: 0.8 }}
-//           viewport={{ once: true }}
-//         >
-//           &copy; {new Date().getFullYear()} License Portal. All rights reserved.
-//         </motion.p>
-//       </footer>
-//     </div>
-//   );
-// }
 __turbopack_context__.s({
     "default": (()=>LicensePortal)
 });
@@ -1686,34 +1312,9 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-// ArrowIcon component with proper typing
-const ArrowIcon = ({ rotated })=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-        className: `w-6 h-6 transform transition-transform duration-200 ${rotated ? 'rotate-180' : ''}`,
-        fill: "none",
-        stroke: "currentColor",
-        viewBox: "0 0 24 24",
-        xmlns: "http://www.w3.org/2000/svg",
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-            strokeLinecap: "round",
-            strokeLinejoin: "round",
-            strokeWidth: 2,
-            d: "M19 9l-7 7-7-7"
-        }, void 0, false, {
-            fileName: "[project]/app/license-portal/page.tsx",
-            lineNumber: 434,
-            columnNumber: 5
-        }, this)
-    }, void 0, false, {
-        fileName: "[project]/app/license-portal/page.tsx",
-        lineNumber: 427,
-        columnNumber: 3
-    }, this);
-_c = ArrowIcon;
 function LicensePortal() {
     _s();
     const [isDarkMode, setIsDarkMode] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
-    // Using this state for accordion functionality in FAQ section
-    const [expandedFaq, setExpandedFaq] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [selectedStory, setSelectedStory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const canvasRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     // Initialize theme from localStorage on component mount
@@ -1823,32 +1424,32 @@ function LicensePortal() {
     // Success stories data
     const successStories = [
         {
-            title: "Sierra Gold Mining Corp",
-            region: "Western Mountains",
-            license: "Type C License",
-            description: "Achieved a 40% increase in operational efficiency while reducing environmental impact by 35% through our comprehensive licensing framework.",
-            fullCaseStudy: "Detailed case study about Sierra Gold Mining Corp's success story..."
+            "title": "Bogala Mining Corp",
+            "region": "Western Mountains",
+            "license": "Type C License",
+            "description": "Achieved a 40% increase in operational efficiency while reducing environmental impact by 35% through our comprehensive licensing framework.",
+            "fullCaseStudy": "Sierra Gold Mining Corp has successfully transformed its operations in the challenging terrains of the Western Mountains through innovative technologies and a rigorous licensing framework. The company adopted advanced mining techniques that improved extraction efficiency while simultaneously reducing its environmental impact. By investing in eco-friendly practices such as waste recycling, water conservation, and emission controls, Sierra Gold Mining Corp achieved significant operational gains. Extensive staff training ensured adherence to strict safety and environmental protocols, reinforcing a commitment to sustainable practices. Collaborative efforts with local stakeholders further optimized resource use and minimized ecological disruption. This comprehensive approach has positioned the company as a leader in responsible mining, setting new industry standards and inspiring similar practices across the sector. The strategic blend of technology, training, and community engagement continues to drive both economic growth and environmental stewardship."
         },
         {
-            title: "Blue Ocean Minerals",
-            region: "Coastal Lowlands",
-            license: "Type B License",
-            description: "Streamlined their medium-scale operations, reducing approval and compliance time by 60%.",
-            fullCaseStudy: "Detailed case study about Blue Ocean Minerals' success story..."
+            "title": "Kiridiwalla Minerals",
+            "region": "Coastal Lowlands",
+            "license": "Type B License",
+            "description": "Streamlined their medium-scale operations, reducing approval and compliance time by 60%.",
+            "fullCaseStudy": "Blue Ocean Minerals redefined its operational framework along the Coastal Lowlands by implementing streamlined processes that significantly reduced approval and compliance times. The company integrated state-of-the-art management systems that allowed for real-time monitoring and prompt regulatory reporting. This initiative not only enhanced operational efficiency but also ensured that environmental and safety standards were rigorously upheld. Collaborations with local authorities and industry experts helped develop a robust compliance protocol, enabling swift responses to emerging challenges. This agile approach optimized resource allocation and improved project turnaround times while maintaining high environmental stewardship. The proactive measures have positioned Blue Ocean Minerals as an innovator in the medium-scale mining sector, setting new benchmarks for operational speed, efficiency, and regulatory adherence."
         },
         {
-            title: "Northern Light Rare Metals",
-            region: "Arctic Circle",
-            license: "Type D License",
-            description: "Secured expedited approval for specialized rare earth mineral extraction.",
-            fullCaseStudy: "Detailed case study about Northern Light Rare Metals' success story..."
+            "title": "Northern Mine",
+            "region": "Arctic Circle",
+            "license": "Type D License",
+            "description": "Secured expedited approval for specialized rare earth mineral extraction.",
+            "fullCaseStudy": "Operating in the demanding conditions of the Arctic Circle, Northern Light Rare Metals embarked on a pioneering project to extract rare earth minerals using cutting-edge technology. The company secured expedited approval through a collaborative regulatory approach that prioritized both rapid project initiation and environmental protection. Leveraging specialized extraction techniques designed for extreme climates, the project minimized energy consumption and reduced environmental disturbances. Significant investments in research and development allowed adaptation to unique challenges such as permafrost preservation and wildlife conservation. Northern Light Rare Metals’ commitment to sustainable practices resulted in a successful balance between operational excellence and environmental care. This project stands as a testament to the potential of innovative mining practices in harsh environments, setting a new industry standard for rare earth mineral extraction in the Arctic."
         },
         {
-            title: "Greenfield Mining Cooperative",
-            region: "Central Valley",
-            license: "Type A License",
-            description: "A small-scale community-based operation that achieved full compliance within 30 days.",
-            fullCaseStudy: "Detailed case study about Greenfield Mining Cooperative's success story..."
+            "title": "Kahatagala Mining Cooperative",
+            "region": "Central Valley",
+            "license": "Type A License",
+            "description": "A small-scale community-based operation that achieved full compliance within 30 days.",
+            "fullCaseStudy": "Greenfield Mining Cooperative, a community-based operation in the heart of Central Valley, has demonstrated that size does not limit impact. By engaging directly with local authorities and environmental agencies, the cooperative rapidly achieved full regulatory compliance. Adopting a proactive strategy, it combined traditional mining knowledge with modern safety and environmental practices. This approach enabled the operation to meet stringent regulatory standards within an unprecedented 30-day period while fostering strong community relationships based on trust and shared goals. The cooperative’s model emphasizes transparency, collaborative planning, and local engagement, which not only accelerated compliance but also promoted sustainable development. Today, Greenfield Mining Cooperative serves as a beacon for responsible mining practices, balancing economic progress with environmental and social stewardship."
         }
     ];
     // Enhanced 3D background effect (same as homepage)
@@ -1936,7 +1537,7 @@ function LicensePortal() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$navbar$2f$page$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/license-portal/page.tsx",
-                lineNumber: 660,
+                lineNumber: 226,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("canvas", {
@@ -1944,23 +1545,7 @@ function LicensePortal() {
                 className: "fixed inset-0 w-full h-full z-0"
             }, void 0, false, {
                 fileName: "[project]/app/license-portal/page.tsx",
-                lineNumber: 663,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].button, {
-                onClick: toggleTheme,
-                whileHover: {
-                    scale: 1.1,
-                    rotate: isDarkMode ? 180 : 0
-                },
-                whileTap: {
-                    scale: 0.9
-                },
-                className: `fixed bottom-8 right-8 p-4 rounded-full shadow-lg z-50 transition-all duration-300 ${isDarkMode ? 'bg-gray-800 text-yellow-400' : 'bg-white text-gray-800'}`,
-                children: isDarkMode ? '🌞' : '🌙'
-            }, void 0, false, {
-                fileName: "[project]/app/license-portal/page.tsx",
-                lineNumber: 666,
+                lineNumber: 229,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1987,7 +1572,7 @@ function LicensePortal() {
                                     children: "LICENSE PORTAL"
                                 }, void 0, false, {
                                     fileName: "[project]/app/license-portal/page.tsx",
-                                    lineNumber: 682,
+                                    lineNumber: 241,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
@@ -2007,14 +1592,97 @@ function LicensePortal() {
                                     children: "Streamlined management of mining permits and licenses for optimal operational efficiency."
                                 }, void 0, false, {
                                     fileName: "[project]/app/license-portal/page.tsx",
-                                    lineNumber: 690,
+                                    lineNumber: 249,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/license-portal/page.tsx",
-                            lineNumber: 681,
+                            lineNumber: 240,
                             columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center justify-between p-3 rounded-lg shadow-sm border border-gray-200 max-w-sm mx-auto",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex-1",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                            className: "text-base font-semibold mb-1",
+                                            children: "Check Form Status"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/license-portal/page.tsx",
+                                            lineNumber: 261,
+                                            columnNumber: 5
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: `text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`,
+                                            children: "View your submission status"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/license-portal/page.tsx",
+                                            lineNumber: 262,
+                                            columnNumber: 5
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/license-portal/page.tsx",
+                                    lineNumber: 260,
+                                    columnNumber: 3
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                    href: "/unlicense",
+                                    legacyBehavior: true,
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                        className: `flex items-center justify-center px-4 py-2 rounded text-sm font-medium ${isDarkMode ? 'bg-amber-600 hover:bg-amber-700' : 'bg-amber-500 hover:bg-amber-600'} text-white transition-colors`,
+                                        children: [
+                                            "Status",
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                                xmlns: "http://www.w3.org/2000/svg",
+                                                className: "h-4 w-4 ml-1",
+                                                fill: "none",
+                                                viewBox: "0 0 24 24",
+                                                stroke: "currentColor",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                    strokeLinecap: "round",
+                                                    strokeLinejoin: "round",
+                                                    strokeWidth: 2,
+                                                    d: "M9 5l7 7-7 7"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/license-portal/page.tsx",
+                                                    lineNumber: 272,
+                                                    columnNumber: 9
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/license-portal/page.tsx",
+                                                lineNumber: 271,
+                                                columnNumber: 7
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/license-portal/page.tsx",
+                                        lineNumber: 267,
+                                        columnNumber: 5
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/license-portal/page.tsx",
+                                    lineNumber: 266,
+                                    columnNumber: 3
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/license-portal/page.tsx",
+                            lineNumber: 259,
+                            columnNumber: 12
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
+                            fileName: "[project]/app/license-portal/page.tsx",
+                            lineNumber: 276,
+                            columnNumber: 7
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
+                            fileName: "[project]/app/license-portal/page.tsx",
+                            lineNumber: 276,
+                            columnNumber: 16
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "grid grid-cols-1 md:grid-cols-2 gap-8 mb-20",
@@ -2045,7 +1713,7 @@ function LicensePortal() {
                                                     className: `${license.color} h-2 w-full`
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/license-portal/page.tsx",
-                                                    lineNumber: 712,
+                                                    lineNumber: 290,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2056,7 +1724,7 @@ function LicensePortal() {
                                                             children: license.name
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/license-portal/page.tsx",
-                                                            lineNumber: 714,
+                                                            lineNumber: 292,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2064,7 +1732,7 @@ function LicensePortal() {
                                                             children: license.description
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/license-portal/page.tsx",
-                                                            lineNumber: 715,
+                                                            lineNumber: 293,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -2092,25 +1760,25 @@ function LicensePortal() {
                                                                             children: "✓"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/license-portal/page.tsx",
-                                                                            lineNumber: 726,
+                                                                            lineNumber: 304,
                                                                             columnNumber: 29
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                             children: feature
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/license-portal/page.tsx",
-                                                                            lineNumber: 727,
+                                                                            lineNumber: 305,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     ]
                                                                 }, i, true, {
                                                                     fileName: "[project]/app/license-portal/page.tsx",
-                                                                    lineNumber: 718,
+                                                                    lineNumber: 296,
                                                                     columnNumber: 27
                                                                 }, this))
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/license-portal/page.tsx",
-                                                            lineNumber: 716,
+                                                            lineNumber: 294,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].button, {
@@ -2124,34 +1792,34 @@ function LicensePortal() {
                                                             children: "Learn More"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/license-portal/page.tsx",
-                                                            lineNumber: 731,
+                                                            lineNumber: 309,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/license-portal/page.tsx",
-                                                    lineNumber: 713,
+                                                    lineNumber: 291,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/license-portal/page.tsx",
-                                            lineNumber: 705,
+                                            lineNumber: 283,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/license-portal/page.tsx",
-                                        lineNumber: 704,
+                                        lineNumber: 282,
                                         columnNumber: 17
                                     }, this)
                                 }, license.id, false, {
                                     fileName: "[project]/app/license-portal/page.tsx",
-                                    lineNumber: 703,
+                                    lineNumber: 281,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/app/license-portal/page.tsx",
-                            lineNumber: 701,
+                            lineNumber: 279,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2177,7 +1845,7 @@ function LicensePortal() {
                                             children: "SUCCESS STORIES"
                                         }, void 0, false, {
                                             fileName: "[project]/app/license-portal/page.tsx",
-                                            lineNumber: 748,
+                                            lineNumber: 326,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
@@ -2198,13 +1866,13 @@ function LicensePortal() {
                                             children: "See how our licensing framework has helped businesses achieve their goals while maintaining regulatory compliance."
                                         }, void 0, false, {
                                             fileName: "[project]/app/license-portal/page.tsx",
-                                            lineNumber: 757,
+                                            lineNumber: 335,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/license-portal/page.tsx",
-                                    lineNumber: 747,
+                                    lineNumber: 325,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2232,7 +1900,7 @@ function LicensePortal() {
                                                     children: story.title
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/license-portal/page.tsx",
-                                                    lineNumber: 778,
+                                                    lineNumber: 356,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2243,7 +1911,7 @@ function LicensePortal() {
                                                             children: story.region
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/license-portal/page.tsx",
-                                                            lineNumber: 780,
+                                                            lineNumber: 358,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2251,13 +1919,13 @@ function LicensePortal() {
                                                             children: story.license
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/license-portal/page.tsx",
-                                                            lineNumber: 783,
+                                                            lineNumber: 361,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/license-portal/page.tsx",
-                                                    lineNumber: 779,
+                                                    lineNumber: 357,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2265,7 +1933,7 @@ function LicensePortal() {
                                                     children: story.description
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/license-portal/page.tsx",
-                                                    lineNumber: 787,
+                                                    lineNumber: 365,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2274,152 +1942,35 @@ function LicensePortal() {
                                                     children: "Read full case study →"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/license-portal/page.tsx",
-                                                    lineNumber: 790,
+                                                    lineNumber: 368,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, index, true, {
                                             fileName: "[project]/app/license-portal/page.tsx",
-                                            lineNumber: 770,
+                                            lineNumber: 348,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/app/license-portal/page.tsx",
-                                    lineNumber: 768,
+                                    lineNumber: 346,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/license-portal/page.tsx",
-                            lineNumber: 746,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "mt-24 mb-10",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "text-center mb-16",
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].h2, {
-                                        className: "text-4xl md:text-5xl font-bold mb-6",
-                                        initial: {
-                                            opacity: 0
-                                        },
-                                        whileInView: {
-                                            opacity: 1
-                                        },
-                                        transition: {
-                                            duration: 0.6
-                                        },
-                                        viewport: {
-                                            once: true
-                                        },
-                                        children: "FREQUENTLY ASKED QUESTIONS"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/license-portal/page.tsx",
-                                        lineNumber: 804,
-                                        columnNumber: 15
-                                    }, this)
-                                }, void 0, false, {
-                                    fileName: "[project]/app/license-portal/page.tsx",
-                                    lineNumber: 803,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: `rounded-xl overflow-hidden ${isDarkMode ? 'bg-gray-800/80' : 'bg-white/90'} border border-opacity-10 ${isDarkMode ? 'border-gray-700' : 'border-gray-200'} shadow-lg backdrop-blur-sm max-w-4xl mx-auto p-6`,
-                                    children: [
-                                        {
-                                            question: "How long does the license application process take?",
-                                            answer: "Standard processing times range from 15-60 days depending on the license type and project complexity."
-                                        },
-                                        {
-                                            question: "What documentation is required for a license application?",
-                                            answer: "Required documents include operational plans, environmental impact assessments, financial statements, and compliance history."
-                                        },
-                                        {
-                                            question: "Can licenses be renewed or extended?",
-                                            answer: "Yes, all licenses can be renewed before expiration. The renewal process typically begins 60 days prior to expiration."
-                                        }
-                                    ].map((faq, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "mb-4 last:mb-0",
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    onClick: ()=>setExpandedFaq(expandedFaq === index ? null : index),
-                                                    className: `w-full text-left py-4 px-6 flex justify-between items-center focus:outline-none ${isDarkMode ? 'hover:bg-gray-700/50' : 'hover:bg-gray-100/50'} rounded-lg transition-colors`,
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "font-medium text-lg",
-                                                            children: faq.question
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/app/license-portal/page.tsx",
-                                                            lineNumber: 836,
-                                                            columnNumber: 21
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ArrowIcon, {
-                                                            rotated: expandedFaq === index
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/app/license-portal/page.tsx",
-                                                            lineNumber: 837,
-                                                            columnNumber: 21
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/app/license-portal/page.tsx",
-                                                    lineNumber: 832,
-                                                    columnNumber: 19
-                                                }, this),
-                                                expandedFaq === index && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
-                                                    initial: {
-                                                        height: 0,
-                                                        opacity: 0
-                                                    },
-                                                    animate: {
-                                                        height: 'auto',
-                                                        opacity: 1
-                                                    },
-                                                    exit: {
-                                                        height: 0,
-                                                        opacity: 0
-                                                    },
-                                                    className: "px-6 pb-4",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: `${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`,
-                                                        children: faq.answer
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/license-portal/page.tsx",
-                                                        lineNumber: 847,
-                                                        columnNumber: 23
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/license-portal/page.tsx",
-                                                    lineNumber: 841,
-                                                    columnNumber: 21
-                                                }, this)
-                                            ]
-                                        }, index, true, {
-                                            fileName: "[project]/app/license-portal/page.tsx",
-                                            lineNumber: 831,
-                                            columnNumber: 17
-                                        }, this))
-                                }, void 0, false, {
-                                    fileName: "[project]/app/license-portal/page.tsx",
-                                    lineNumber: 815,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/app/license-portal/page.tsx",
-                            lineNumber: 802,
+                            lineNumber: 324,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/license-portal/page.tsx",
-                    lineNumber: 679,
+                    lineNumber: 236,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/license-portal/page.tsx",
-                lineNumber: 678,
+                lineNumber: 235,
                 columnNumber: 7
             }, this),
             selectedStory && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2442,7 +1993,7 @@ function LicensePortal() {
                                 children: selectedStory.title
                             }, void 0, false, {
                                 fileName: "[project]/app/license-portal/page.tsx",
-                                lineNumber: 868,
+                                lineNumber: 391,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2450,7 +2001,7 @@ function LicensePortal() {
                                 children: selectedStory.fullCaseStudy
                             }, void 0, false, {
                                 fileName: "[project]/app/license-portal/page.tsx",
-                                lineNumber: 869,
+                                lineNumber: 392,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2459,70 +2010,62 @@ function LicensePortal() {
                                 children: "Close"
                             }, void 0, false, {
                                 fileName: "[project]/app/license-portal/page.tsx",
-                                lineNumber: 870,
+                                lineNumber: 393,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/license-portal/page.tsx",
-                        lineNumber: 867,
+                        lineNumber: 390,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/license-portal/page.tsx",
-                    lineNumber: 862,
+                    lineNumber: 385,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/license-portal/page.tsx",
-                lineNumber: 861,
+                lineNumber: 384,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
-                className: `mt-20 py-8 border-t border-opacity-10 ${isDarkMode ? 'border-gray-800' : 'border-gray-200'} text-center`,
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                    className: `${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`,
-                    initial: {
-                        opacity: 0,
-                        y: 20
-                    },
-                    whileInView: {
-                        opacity: 1,
-                        y: 0
-                    },
-                    transition: {
-                        duration: 0.8
-                    },
-                    viewport: {
-                        once: true
-                    },
-                    children: [
-                        "© ",
-                        new Date().getFullYear(),
-                        " License Portal. All rights reserved."
-                    ]
-                }, void 0, true, {
+                className: `relative z-10 py-8 ${isDarkMode ? 'bg-gray-900' : 'bg-gray-800'}`,
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "container mx-auto px-4 text-center",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: `text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-300'}`,
+                        children: [
+                            "© ",
+                            new Date().getFullYear(),
+                            " CeylonMine. All rights reserved."
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/license-portal/page.tsx",
+                        lineNumber: 411,
+                        columnNumber: 11
+                    }, this)
+                }, void 0, false, {
                     fileName: "[project]/app/license-portal/page.tsx",
-                    lineNumber: 883,
+                    lineNumber: 410,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/license-portal/page.tsx",
-                lineNumber: 882,
+                lineNumber: 405,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/license-portal/page.tsx",
-        lineNumber: 659,
+        lineNumber: 225,
         columnNumber: 5
     }, this);
 }
-_s(LicensePortal, "B/AhPCJidelXFFe9QT4Qlu/Q9+E=");
-_c1 = LicensePortal;
-var _c, _c1;
-__turbopack_context__.k.register(_c, "ArrowIcon");
-__turbopack_context__.k.register(_c1, "LicensePortal");
+_s(LicensePortal, "BuhPDzwHNwFAf2mD5EirKMuO1dw=");
+_c = LicensePortal;
+var _c;
+__turbopack_context__.k.register(_c, "LicensePortal");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(module, globalThis.$RefreshHelpers$);
 }

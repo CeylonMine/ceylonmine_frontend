@@ -1860,7 +1860,7 @@ function ForgotPasswordPage() {
                                                 value: email,
                                                 onChange: (e)=>setEmail(e.target.value),
                                                 className: `w-full px-4 py-3 rounded-md focus:outline-none ${isDarkMode ? 'bg-gray-800 border border-gray-700 focus:border-orange-500' : 'bg-gray-50 border border-gray-200 focus:border-orange-500'}`,
-                                                placeholder: "john@example.com",
+                                                placeholder: "name@example.com",
                                                 required: true
                                             }, void 0, false, {
                                                 fileName: "[project]/app/resetpw/page.tsx",
@@ -1940,39 +1940,12 @@ function ForgotPasswordPage() {
                 lineNumber: 518,
                 columnNumber: 7
             }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
-                className: `relative z-10 py-8 ${isDarkMode ? 'bg-gray-900' : 'bg-gray-800'}`,
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "container mx-auto px-4 text-center",
-                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: `text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-300'}`,
-                        children: [
-                            "© ",
-                            new Date().getFullYear(),
-                            " CeylonMine. ",
-                            t.allRightsReserved
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/resetpw/page.tsx",
-                        lineNumber: 606,
-                        columnNumber: 11
-                    }, this)
-                }, void 0, false, {
-                    fileName: "[project]/app/resetpw/page.tsx",
-                    lineNumber: 605,
-                    columnNumber: 9
-                }, this)
-            }, void 0, false, {
-                fileName: "[project]/app/resetpw/page.tsx",
-                lineNumber: 600,
-                columnNumber: 7
-            }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("canvas", {
                 ref: canvasRef,
                 className: "fixed inset-0 w-full h-full z-0"
             }, void 0, false, {
                 fileName: "[project]/app/resetpw/page.tsx",
-                lineNumber: 617,
+                lineNumber: 602,
                 columnNumber: 7
             }, this)
         ]

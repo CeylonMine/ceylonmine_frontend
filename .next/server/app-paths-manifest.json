@@ -6,10 +6,17 @@
   "/contact/page": "app/contact/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/license-portal/page": "app/license-portal/page.js",
+  "/license-portal/type-a/page": "app/license-portal/type-a/page.js",
+  "/license-portal/type-b/page": "app/license-portal/type-b/page.js",
+  "/license-portal/type-c/page": "app/license-portal/type-c/page.js",
+  "/license-portal/type-d/page": "app/license-portal/type-d/page.js",
   "/login/page": "app/login/page.js",
+  "/map/page": "app/map/page.js",
   "/minebot/page": "app/minebot/page.js",
   "/minemore/page": "app/minemore/page.js",
   "/page": "app/page.js",
   "/resetpw/page": "app/resetpw/page.js",
-  "/sign/page": "app/sign/page.js"
+  "/royalty/page": "app/royalty/page.js",
+  "/sign/page": "app/sign/page.js",
+  "/unlicense/page": "app/unlicense/page.js"
 }

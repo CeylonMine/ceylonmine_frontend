@@ -1328,8 +1328,9 @@ function LicenseTracking() {
     });
     const [attachedFiles, setAttachedFiles] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [successMessage, setSuccessMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
-    const [currentStatus, setCurrentStatus] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(2); // Assuming status 2 (Preliminary Review) for example
-    const [licenseDetails, setLicenseDetails] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
+    const [_currentStatus, setCurrentStatus] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(2); // Using underscore prefix for unused state variable
+    const [_selectedCases, _setSelectedCases] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]); // Using underscore prefix for unused variables
+    const [licenseDetails, _setLicenseDetails] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
         licenseId: "LIC-2025-03452",
         applicantName: "Miner's Association Ltd.",
         applicationType: "Gem Mining",
@@ -1337,7 +1338,7 @@ function LicenseTracking() {
         location: "Ratnapura District, Western Province",
         estimatedCompletionDate: "2025-04-30"
     });
-    const [announcements, setAnnouncements] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([
+    const [announcements, _setAnnouncements] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([
         {
             id: 1,
             date: "2025-03-18",
@@ -1472,21 +1473,23 @@ function LicenseTracking() {
             "end end"
         ]
     });
-    const rotateX = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$transform$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransform"])(scrollYProgress, [
+    // Using underscore prefix to indicate these are unused variables
+    // These transforms could be used for animations but are currently inactive
+    const _rotateX = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$transform$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransform"])(scrollYProgress, [
         0,
         1
     ], [
         0,
         360
     ]);
-    const rotateY = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$transform$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransform"])(scrollYProgress, [
+    const _rotateY = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$transform$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransform"])(scrollYProgress, [
         0,
         1
     ], [
         0,
         360
     ]);
-    const scale = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$transform$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransform"])(scrollYProgress, [
+    const _scale = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$transform$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransform"])(scrollYProgress, [
         0,
         1
     ], [
@@ -1522,7 +1525,7 @@ function LicenseTracking() {
             noAttachments: "No documents attached yet.",
             downloadFile: "Download",
             viewMore: "View All Announcements",
-            back: "Back to Dashboard",
+            // back: "Back to Dashboard",
             allRightsReserved: "All rights reserved."
         },
         si: {
@@ -1623,6 +1626,17 @@ function LicenseTracking() {
             setSuccessMessage('Failed to attach file. Please try again.');
         }
     };
+    const _fetchUserDetails = async ()=>{
+        try {
+        // Simulated API call
+        // const response = await fetch('/api/user/profile');
+        // const data = await response.json();
+        // setUserProfile(data);
+        } catch (_error) {
+            // Handle error
+            console.log('Error fetching user profile');
+        }
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: `relative min-h-screen ${isDarkMode ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} overflow-hidden`,
         ref: scrollRef,
@@ -1633,7 +1647,7 @@ function LicenseTracking() {
                         children: "License Tracking | CeylonMine"
                     }, void 0, false, {
                         fileName: "[project]/app/unlicense/page.tsx",
-                        lineNumber: 305,
+                        lineNumber: 320,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1641,7 +1655,7 @@ function LicenseTracking() {
                         content: "Track your mining license application status with CeylonMine's digital platform for mining licensing and royalty calculation in Sri Lanka."
                     }, void 0, false, {
                         fileName: "[project]/app/unlicense/page.tsx",
-                        lineNumber: 306,
+                        lineNumber: 321,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("link", {
@@ -1649,18 +1663,18 @@ function LicenseTracking() {
                         href: "/favicon.ico"
                     }, void 0, false, {
                         fileName: "[project]/app/unlicense/page.tsx",
-                        lineNumber: 310,
+                        lineNumber: 325,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/unlicense/page.tsx",
-                lineNumber: 304,
+                lineNumber: 319,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$navbar$2f$page$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/unlicense/page.tsx",
-                lineNumber: 313,
+                lineNumber: 328,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1687,7 +1701,7 @@ function LicenseTracking() {
                                     children: t.trackLicense
                                 }, void 0, false, {
                                     fileName: "[project]/app/unlicense/page.tsx",
-                                    lineNumber: 319,
+                                    lineNumber: 334,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
@@ -1707,13 +1721,13 @@ function LicenseTracking() {
                                     children: t.trackingDescription
                                 }, void 0, false, {
                                     fileName: "[project]/app/unlicense/page.tsx",
-                                    lineNumber: 327,
+                                    lineNumber: 342,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/unlicense/page.tsx",
-                            lineNumber: 318,
+                            lineNumber: 333,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1741,7 +1755,7 @@ function LicenseTracking() {
                                                     children: t.licenseDetails
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                    lineNumber: 351,
+                                                    lineNumber: 366,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1754,7 +1768,7 @@ function LicenseTracking() {
                                                                     children: t.licenseId
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 354,
+                                                                    lineNumber: 369,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1762,13 +1776,13 @@ function LicenseTracking() {
                                                                     children: licenseDetails.licenseId
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 355,
+                                                                    lineNumber: 370,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 353,
+                                                            lineNumber: 368,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1778,7 +1792,7 @@ function LicenseTracking() {
                                                                     children: t.applicantName
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 358,
+                                                                    lineNumber: 373,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1786,13 +1800,13 @@ function LicenseTracking() {
                                                                     children: licenseDetails.applicantName
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 359,
+                                                                    lineNumber: 374,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 357,
+                                                            lineNumber: 372,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1802,7 +1816,7 @@ function LicenseTracking() {
                                                                     children: t.applicationType
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 362,
+                                                                    lineNumber: 377,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1810,13 +1824,13 @@ function LicenseTracking() {
                                                                     children: licenseDetails.applicationType
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 363,
+                                                                    lineNumber: 378,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 361,
+                                                            lineNumber: 376,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1826,7 +1840,7 @@ function LicenseTracking() {
                                                                     children: t.submissionDate
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 366,
+                                                                    lineNumber: 381,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1834,13 +1848,13 @@ function LicenseTracking() {
                                                                     children: licenseDetails.submissionDate
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 367,
+                                                                    lineNumber: 382,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 365,
+                                                            lineNumber: 380,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1850,7 +1864,7 @@ function LicenseTracking() {
                                                                     children: t.location
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 370,
+                                                                    lineNumber: 385,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1858,13 +1872,13 @@ function LicenseTracking() {
                                                                     children: licenseDetails.location
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 371,
+                                                                    lineNumber: 386,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 369,
+                                                            lineNumber: 384,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1874,7 +1888,7 @@ function LicenseTracking() {
                                                                     children: t.estimatedCompletion
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 374,
+                                                                    lineNumber: 389,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1882,25 +1896,25 @@ function LicenseTracking() {
                                                                     children: licenseDetails.estimatedCompletionDate
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 375,
+                                                                    lineNumber: 390,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 373,
+                                                            lineNumber: 388,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                    lineNumber: 352,
+                                                    lineNumber: 367,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/unlicense/page.tsx",
-                                            lineNumber: 348,
+                                            lineNumber: 363,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1911,7 +1925,7 @@ function LicenseTracking() {
                                                     children: t.currentStatus
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                    lineNumber: 384,
+                                                    lineNumber: 399,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1921,17 +1935,17 @@ function LicenseTracking() {
                                                             className: "absolute top-4 left-0 w-full h-1 bg-gray-300 rounded-full"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 388,
+                                                            lineNumber: 403,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "absolute top-4 left-0 h-1 bg-orange-500 rounded-full",
                                                             style: {
-                                                                width: `${(currentStatus - 1) * 25}%`
+                                                                width: `${(_currentStatus - 1) * 25}%`
                                                             }
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 391,
+                                                            lineNumber: 406,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1941,8 +1955,8 @@ function LicenseTracking() {
                                                                     children: [
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                             className: `w-8 h-8 rounded-full flex items-center justify-center z-10 mb-2 
-                            ${status.id <= currentStatus ? 'bg-orange-500 text-white' : isDarkMode ? 'bg-gray-700 text-gray-400' : 'bg-gray-200 text-gray-500'}`,
-                                                                            children: status.id < currentStatus ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                            ${status.id <= _currentStatus ? 'bg-orange-500 text-white' : isDarkMode ? 'bg-gray-700 text-gray-400' : 'bg-gray-200 text-gray-500'}`,
+                                                                            children: status.id < _currentStatus ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                                                                 xmlns: "http://www.w3.org/2000/svg",
                                                                                 className: "h-5 w-5",
                                                                                 viewBox: "0 0 20 20",
@@ -1953,49 +1967,49 @@ function LicenseTracking() {
                                                                                     clipRule: "evenodd"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                                    lineNumber: 411,
+                                                                                    lineNumber: 426,
                                                                                     columnNumber: 31
                                                                                 }, this)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/unlicense/page.tsx",
-                                                                                lineNumber: 410,
+                                                                                lineNumber: 425,
                                                                                 columnNumber: 29
                                                                             }, this) : status.id
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                                            lineNumber: 400,
+                                                                            lineNumber: 415,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                                             className: `text-sm font-medium text-center max-w-[100px] 
-                          ${status.id <= currentStatus ? isDarkMode ? 'text-white' : 'text-gray-800' : 'text-gray-500'}`,
+                          ${status.id <= _currentStatus ? isDarkMode ? 'text-white' : 'text-gray-800' : 'text-gray-500'}`,
                                                                             children: status.label
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                                            lineNumber: 417,
+                                                                            lineNumber: 432,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, status.id, true, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 399,
+                                                                    lineNumber: 414,
                                                                     columnNumber: 23
                                                                 }, this))
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 397,
+                                                            lineNumber: 412,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                    lineNumber: 386,
+                                                    lineNumber: 401,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/unlicense/page.tsx",
-                                            lineNumber: 381,
+                                            lineNumber: 396,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2009,7 +2023,7 @@ function LicenseTracking() {
                                                             children: t.announcements
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 435,
+                                                            lineNumber: 450,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -2018,13 +2032,13 @@ function LicenseTracking() {
                                                             children: t.viewMore
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 436,
+                                                            lineNumber: 451,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                    lineNumber: 434,
+                                                    lineNumber: 449,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2043,14 +2057,14 @@ function LicenseTracking() {
                                                                                     children: t.importantUpdate
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                                    lineNumber: 458,
+                                                                                    lineNumber: 473,
                                                                                     columnNumber: 29
                                                                                 }, this),
                                                                                 announcement.title
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                                            lineNumber: 456,
+                                                                            lineNumber: 471,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2058,13 +2072,13 @@ function LicenseTracking() {
                                                                             children: announcement.date
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                                            lineNumber: 464,
+                                                                            lineNumber: 479,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 455,
+                                                                    lineNumber: 470,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2072,30 +2086,30 @@ function LicenseTracking() {
                                                                     children: announcement.content
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 466,
+                                                                    lineNumber: 481,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, announcement.id, true, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 443,
+                                                            lineNumber: 458,
                                                             columnNumber: 21
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                    lineNumber: 441,
+                                                    lineNumber: 456,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/unlicense/page.tsx",
-                                            lineNumber: 431,
+                                            lineNumber: 446,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/unlicense/page.tsx",
-                                    lineNumber: 341,
+                                    lineNumber: 356,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -2121,7 +2135,7 @@ function LicenseTracking() {
                                                     children: t.additionalDocuments
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                    lineNumber: 486,
+                                                    lineNumber: 501,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2129,7 +2143,7 @@ function LicenseTracking() {
                                                     children: t.attachDescription
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                    lineNumber: 487,
+                                                    lineNumber: 502,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -2145,7 +2159,7 @@ function LicenseTracking() {
                                                                     children: t.fileDescription
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 493,
+                                                                    lineNumber: 508,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2158,13 +2172,13 @@ function LicenseTracking() {
                                                                     required: true
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 496,
+                                                                    lineNumber: 511,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 492,
+                                                            lineNumber: 507,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2175,7 +2189,7 @@ function LicenseTracking() {
                                                                     children: t.attachFile
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 512,
+                                                                    lineNumber: 527,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2192,7 +2206,7 @@ function LicenseTracking() {
                                                                             required: true
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                                            lineNumber: 522,
+                                                                            lineNumber: 537,
                                                                             columnNumber: 23
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -2212,12 +2226,12 @@ function LicenseTracking() {
                                                                                         d: "M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/unlicense/page.tsx",
-                                                                                        lineNumber: 537,
+                                                                                        lineNumber: 552,
                                                                                         columnNumber: 27
                                                                                     }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                                    lineNumber: 530,
+                                                                                    lineNumber: 545,
                                                                                     columnNumber: 25
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2225,7 +2239,7 @@ function LicenseTracking() {
                                                                                     children: "Click to select file or drag and drop"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                                    lineNumber: 544,
+                                                                                    lineNumber: 559,
                                                                                     columnNumber: 25
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2233,25 +2247,25 @@ function LicenseTracking() {
                                                                                     children: fileData.file ? fileData.file.name : 'PDF, DOC, XLS, JPG up to 10MB'
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                                    lineNumber: 545,
+                                                                                    lineNumber: 560,
                                                                                     columnNumber: 25
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                                            lineNumber: 529,
+                                                                            lineNumber: 544,
                                                                             columnNumber: 23
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                                    lineNumber: 515,
+                                                                    lineNumber: 530,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 511,
+                                                            lineNumber: 526,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2267,12 +2281,12 @@ function LicenseTracking() {
                                                                 children: t.submit
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/unlicense/page.tsx",
-                                                                lineNumber: 553,
+                                                                lineNumber: 568,
                                                                 columnNumber: 21
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 552,
+                                                            lineNumber: 567,
                                                             columnNumber: 19
                                                         }, this),
                                                         successMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2280,19 +2294,19 @@ function LicenseTracking() {
                                                             children: successMessage
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 564,
+                                                            lineNumber: 579,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                    lineNumber: 491,
+                                                    lineNumber: 506,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/unlicense/page.tsx",
-                                            lineNumber: 483,
+                                            lineNumber: 498,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2303,7 +2317,7 @@ function LicenseTracking() {
                                                     children: t.attachedDocuments
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                    lineNumber: 583,
+                                                    lineNumber: 598,
                                                     columnNumber: 17
                                                 }, this),
                                                 attachedFiles.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2321,7 +2335,7 @@ function LicenseTracking() {
                                                                                 children: file.description
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/unlicense/page.tsx",
-                                                                                lineNumber: 596,
+                                                                                lineNumber: 611,
                                                                                 columnNumber: 29
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2329,7 +2343,7 @@ function LicenseTracking() {
                                                                                 children: file.name
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/unlicense/page.tsx",
-                                                                                lineNumber: 597,
+                                                                                lineNumber: 612,
                                                                                 columnNumber: 29
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2342,7 +2356,7 @@ function LicenseTracking() {
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/app/unlicense/page.tsx",
-                                                                                        lineNumber: 599,
+                                                                                        lineNumber: 614,
                                                                                         columnNumber: 31
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2350,26 +2364,26 @@ function LicenseTracking() {
                                                                                         children: "•"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/unlicense/page.tsx",
-                                                                                        lineNumber: 600,
+                                                                                        lineNumber: 615,
                                                                                         columnNumber: 31
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                                         children: file.date
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/unlicense/page.tsx",
-                                                                                        lineNumber: 601,
+                                                                                        lineNumber: 616,
                                                                                         columnNumber: 31
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/app/unlicense/page.tsx",
-                                                                                lineNumber: 598,
+                                                                                lineNumber: 613,
                                                                                 columnNumber: 29
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/unlicense/page.tsx",
-                                                                        lineNumber: 595,
+                                                                        lineNumber: 610,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].button, {
@@ -2383,96 +2397,59 @@ function LicenseTracking() {
                                                                         children: t.downloadFile
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/unlicense/page.tsx",
-                                                                        lineNumber: 604,
+                                                                        lineNumber: 619,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/unlicense/page.tsx",
-                                                                lineNumber: 594,
+                                                                lineNumber: 609,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, file.id, false, {
                                                             fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 588,
+                                                            lineNumber: 603,
                                                             columnNumber: 23
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                    lineNumber: 586,
+                                                    lineNumber: 601,
                                                     columnNumber: 19
                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                     className: "text-sm italic opacity-70",
                                                     children: t.noAttachments
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/unlicense/page.tsx",
-                                                    lineNumber: 620,
+                                                    lineNumber: 635,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/unlicense/page.tsx",
-                                            lineNumber: 580,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "mt-8 text-center",
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                href: "/dashboard",
-                                                className: `inline-flex items-center text-orange-500 hover:text-orange-600`,
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                                        xmlns: "http://www.w3.org/2000/svg",
-                                                        className: "h-5 w-5 mr-2",
-                                                        viewBox: "0 0 20 20",
-                                                        fill: "currentColor",
-                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                                            fillRule: "evenodd",
-                                                            d: "M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z",
-                                                            clipRule: "evenodd"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/app/unlicense/page.tsx",
-                                                            lineNumber: 636,
-                                                            columnNumber: 21
-                                                        }, this)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/unlicense/page.tsx",
-                                                        lineNumber: 630,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    t.back
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/app/unlicense/page.tsx",
-                                                lineNumber: 626,
-                                                columnNumber: 17
-                                            }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/unlicense/page.tsx",
-                                            lineNumber: 625,
+                                            lineNumber: 595,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/unlicense/page.tsx",
-                                    lineNumber: 476,
+                                    lineNumber: 491,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/unlicense/page.tsx",
-                            lineNumber: 339,
+                            lineNumber: 354,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/unlicense/page.tsx",
-                    lineNumber: 316,
+                    lineNumber: 331,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/unlicense/page.tsx",
-                lineNumber: 315,
+                lineNumber: 330,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
@@ -2489,17 +2466,17 @@ function LicenseTracking() {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/unlicense/page.tsx",
-                        lineNumber: 657,
+                        lineNumber: 652,
                         columnNumber: 9
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/unlicense/page.tsx",
-                    lineNumber: 656,
+                    lineNumber: 651,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/unlicense/page.tsx",
-                lineNumber: 651,
+                lineNumber: 646,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("canvas", {
@@ -2507,17 +2484,17 @@ function LicenseTracking() {
                 className: "fixed top-0 left-0 w-full h-full pointer-events-none"
             }, void 0, false, {
                 fileName: "[project]/app/unlicense/page.tsx",
-                lineNumber: 668,
+                lineNumber: 663,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/unlicense/page.tsx",
-        lineNumber: 298,
+        lineNumber: 313,
         columnNumber: 5
     }, this);
 }
-_s(LicenseTracking, "zvk0H3rPNkvlXUfjQIcyXxcSKLk=", false, function() {
+_s(LicenseTracking, "oxJOxWJR5SqynfdqQZkel1GPuEA=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$scroll$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useScroll"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$transform$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransform"],

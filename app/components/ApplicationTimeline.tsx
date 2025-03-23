@@ -6,12 +6,13 @@ interface TimelineEvent {
   comment: string;
 }
 
+// hohohohh
+
 interface TimelineProps {
   events: TimelineEvent[];
-  currentStatus: string;
 }
 
-export default function ApplicationTimeline({ events, currentStatus }: TimelineProps) {
+export default function ApplicationTimeline({ events }: TimelineProps) {
   const statusColors = {
     'Submitted': 'bg-blue-500',
     'Under Review': 'bg-yellow-500',

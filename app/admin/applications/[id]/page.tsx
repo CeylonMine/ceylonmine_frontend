@@ -1,12 +1,12 @@
 'use client'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import Navbar from '../../../navbar/page';
 import ApplicationTimeline from '../../../components/ApplicationTimeline';
 
 export default function AdminApplicationView() {
   const params = useParams();
-  const [application, setApplication] = useState<any>(null);
+  const [application, setApplication] = useState<Record<string, unknown>>(null);
   const [newStatus, setNewStatus] = useState('');
   const [comment, setComment] = useState('');
 
@@ -40,7 +40,7 @@ export default function AdminApplicationView() {
     }
   };
 
-  const fetchApplication = async () => {
+  const fetchApplication = useCallback(async () => {
     try {
       const response = await fetch(`http://localhost:5000/api/applications/${params.id}`);
       if (response.ok) {
@@ -50,11 +50,11 @@ export default function AdminApplicationView() {
     } catch (error) {
       console.error('Error fetching application:', error);
     }
-  };
+  }, [params.id]);
 
   useEffect(() => {
     fetchApplication();
-  }, [params.id]);
+  }, [fetchApplication]);
 
   if (!application) {
     return <div>Loading...</div>;

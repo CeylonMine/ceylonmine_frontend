@@ -1294,6 +1294,591 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 
 var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
+// 'use client'
+// import React, { useState, useEffect, useRef } from 'react'
+// import Navbar from '../../navbar/page'
+// import * as THREE from 'three';
+// interface FormData {
+//   explorationLicenseNo: string;
+//   individualDetails: {
+//     applicantName: string;
+//     nationalIdNo: string;
+//     address: string;
+//     nationality: string;
+//     employment: string;
+//     sriLankaDetails: {
+//       placeBusiness: string;
+//       residence: string;
+//     }
+//   };
+//   corporationDetails: {
+//     companyName: string;
+//     countryIncorporation: string;
+//     headOffice: string;
+//     sriLankaAddress: string;
+//     legalFinancialData: {
+//       capitalization: string;
+//       articlesOfAssociation: File | null;
+//       annualReports: File | null;
+//     }
+//   };
+//   technicalData: {
+//     licensedBoundarySurvey: File | null;
+//     projectTeamCredentials: File | null;
+//     economicViabilityReport: File | null;
+//   };
+//   industrialMiningOperation: {
+//     blastingMethod: string;
+//     boreHoleDepth: string;
+//     productionVolume: string;
+//     machineryUsed: string;
+//     shaftDepth: string;
+//     explosivesType: string;
+//   };
+//   licenseAreaDetails: {
+//     landName: string;
+//     landOwner: string;
+//     villageName: string;
+//     gramaNiladhariDivision: string;
+//     divisionalSecretary: string;
+//     administrativeDistrict: string;
+//     deedCopy: File | null;
+//     surveyPlan: File | null;
+//     leaseAgreement: File | null;
+//   };
+//   mineRestorationPlan: File | null;
+//   bondDetails: string;
+//   mineralsToMine: string;
+//   licenseFeeReceipt: File | null;
+//   declaration: {
+//     date: string;
+//     signature: string;
+//     mineManager: string;
+//   }
+// }
+// export default function TypeALicense() {
+//   const [formData, setFormData] = useState<FormData>({
+//     explorationLicenseNo: '',
+//     individualDetails: {
+//       applicantName: '',
+//       nationalIdNo: '',
+//       address: '',
+//       nationality: '',
+//       employment: '',
+//       sriLankaDetails: {
+//         placeBusiness: '',
+//         residence: ''
+//       }
+//     },
+//     corporationDetails: {
+//       companyName: '',
+//       countryIncorporation: '',
+//       headOffice: '',
+//       sriLankaAddress: '',
+//       legalFinancialData: {
+//         capitalization: '',
+//         articlesOfAssociation: null,
+//         annualReports: null
+//       }
+//     },
+//     technicalData: {
+//       licensedBoundarySurvey: null,
+//       projectTeamCredentials: null,
+//       economicViabilityReport: null
+//     },
+//     industrialMiningOperation: {
+//       blastingMethod: '',
+//       boreHoleDepth: '',
+//       productionVolume: '',
+//       machineryUsed: '',
+//       shaftDepth: '',
+//       explosivesType: ''
+//     },
+//     licenseAreaDetails: {
+//       landName: '',
+//       landOwner: '',
+//       villageName: '',
+//       gramaNiladhariDivision: '',
+//       divisionalSecretary: '',
+//       administrativeDistrict: '',
+//       deedCopy: null,
+//       surveyPlan: null,
+//       leaseAgreement: null
+//     },
+//     mineRestorationPlan: null,
+//     bondDetails: '',
+//     mineralsToMine: '',
+//     licenseFeeReceipt: null,
+//     declaration: {
+//       date: '',
+//       signature: '',
+//       mineManager: ''
+//     }
+//   });
+//   const [isDarkMode, setIsDarkMode] = useState(true);
+//   const canvasRef = useRef<HTMLCanvasElement>(null);
+//   // Listen for theme change event from navbar
+//   useEffect(() => {
+//     const handleThemeChange = (event: CustomEvent) => {
+//       setIsDarkMode(event.detail.isDarkMode);
+//     };
+//     window.addEventListener('themeChange', handleThemeChange as EventListener);
+//     // Set initial theme based on local storage or system preference
+//     const savedTheme = localStorage.getItem('theme');
+//     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+//     if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+//       setIsDarkMode(true);
+//     } else {
+//       setIsDarkMode(false);
+//     }
+//     return () => {
+//       window.removeEventListener('themeChange', handleThemeChange as EventListener);
+//     };
+//   }, []);
+//   // Three.js Sand (Particle) Effect
+//   useEffect(() => {
+//     if (!canvasRef.current) return;
+//     const scene = new THREE.Scene();
+//     const camera = new THREE.PerspectiveCamera(
+//       75,
+//       window.innerWidth / window.innerHeight,
+//       0.1,
+//       1000
+//     );
+//     const renderer = new THREE.WebGLRenderer({
+//       canvas: canvasRef.current,
+//       alpha: true,
+//     });
+//     renderer.setSize(window.innerWidth, window.innerHeight);
+//     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+//     const particlesGeometry = new THREE.BufferGeometry();
+//     const particlesCount = 5000;
+//     const posArray = new Float32Array(particlesCount * 3);
+//     for (let i = 0; i < particlesCount * 3; i++) {
+//       posArray[i] = (Math.random() - 0.5) * 5;
+//     }
+//     particlesGeometry.setAttribute(
+//       'position',
+//       new THREE.BufferAttribute(posArray, 3)
+//     );
+//     const particlesMaterial = new THREE.PointsMaterial({
+//       size: 0.004,
+//       color: isDarkMode ? 0xD2B48C : 0xFFD700, // Sand color
+//       transparent: true,
+//       blending: THREE.AdditiveBlending,
+//     });
+//     const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+//     scene.add(particlesMesh);
+//     camera.position.z = 2;
+//     let mouseX = 0;
+//     let mouseY = 0;
+//     function onDocumentMouseMove(event: MouseEvent) {
+//       mouseX = (event.clientX - window.innerWidth / 2) / 100;
+//       mouseY = (event.clientY - window.innerHeight / 2) / 100;
+//     }
+//     document.addEventListener('mousemove', onDocumentMouseMove);
+//     function onWindowResize() {
+//       camera.aspect = window.innerWidth / window.innerHeight;
+//       camera.updateProjectionMatrix();
+//       renderer.setSize(window.innerWidth, window.innerHeight);
+//     }
+//     window.addEventListener('resize', onWindowResize);
+//     const animate = () => {
+//       requestAnimationFrame(animate);
+//       particlesMesh.rotation.x += 0.0002 + mouseY * 0.0002; // Slowed down rotation
+//       particlesMesh.rotation.y += 0.0002 + mouseX * 0.0002; // Slowed down rotation
+//       renderer.render(scene, camera);
+//     };
+//     animate();
+//     const updateParticleColor = () => {
+//       particlesMaterial.color.set(isDarkMode ? 0xD2B48C : 0xFFD700);
+//     };
+//     const themeChangeListener = () => {
+//       updateParticleColor();
+//     };
+//     window.addEventListener('themeChange', themeChangeListener);
+//     return () => {
+//       document.removeEventListener('mousemove', onDocumentMouseMove);
+//       window.removeEventListener('resize', onWindowResize);
+//       window.removeEventListener('themeChange', themeChangeListener);
+//       if (particlesGeometry) particlesGeometry.dispose();
+//       if (particlesMaterial) particlesMaterial.dispose();
+//       if (renderer) renderer.dispose();
+//     };
+//   }, [isDarkMode]);
+//   const handleSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     const data = new FormData();
+//     // Append all form data
+//     Object.entries(formData).forEach(([key, value]) => {
+//       if (value instanceof File) {
+//         data.append(key, value);
+//       } else if (typeof value === 'object') {
+//         data.append(key, JSON.stringify(value));
+//       } else {
+//         data.append(key, value.toString());
+//       }
+//     });
+//     try {
+//       const response = await fetch('http://localhost:5000/api/submit', {
+//         method: 'POST',
+//         body: data,
+//       });
+//       if (response.ok) {
+//         alert('License application submitted successfully!');
+//       } else {
+//         alert('Failed to submit license application');
+//       }
+//     } catch (error) {
+//       console.error('Error:', error);
+//       alert('Error submitting license application');
+//     }
+//   };
+//   const handleFileChange = (section: keyof FormData | '', field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+//     if (e.target.files && e.target.files[0]) {
+//       if (section === '') {
+//         // Handle root level file fields
+//         setFormData(prev => ({
+//           ...prev,
+//           [field]: e.target.files![0]
+//         }));
+//       } else {
+//         // Handle nested file fields
+//         setFormData(prev => {
+//           const sectionData = prev[section] as Record<string, any>;
+//           return {
+//             ...prev,
+//             [section]: {
+//               ...sectionData,
+//               [field]: e.target.files![0]
+//             }
+//           };
+//         });
+//       }
+//     }
+//   };
+//   return (
+//     <div className={`relative min-h-screen ${isDarkMode ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} overflow-hidden`}>
+//       <Navbar />
+//       <div className="relative z-10 min-h-screen pt-32 pb-16">
+//         <div className="max-w-3xl mx-auto py-6 sm:px-6 lg:px-8">
+//           <h1 className={`text-3xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+//             IML Type A License Application
+//           </h1>
+//           <div className={`${isDarkMode ? 'bg-gray-900 bg-opacity-70' : 'bg-white'} shadow-lg rounded-lg p-6`}>
+//             <form onSubmit={handleSubmit} className="space-y-8">
+//               {/* 1. Exploration License */}
+//               <div className="space-y-4">
+//                 <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+//                   1. Exploration License No
+//                 </h2>
+//                 <div>
+//                   <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+//                     Exploration License No (where applicable)
+//                   </label>
+//                   <input
+//                     type="text"
+//                     className={`mt-1 block w-full rounded-md ${
+//                       isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'
+//                     } shadow-sm focus:border-indigo-500 focus:ring-indigo-500`}
+//                     value={formData.explorationLicenseNo}
+//                     onChange={(e) => setFormData({...formData, explorationLicenseNo: e.target.value})}
+//                   />
+//                 </div>
+//               </div>
+//               {/* 2. Individual Details */}
+//               <div className="space-y-4">
+//                 <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+//                   2. Individual Details
+//                 </h2>
+//                 <div className="grid grid-cols-1 gap-4">
+//                   <div>
+//                     <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+//                       Name of Applicant / Authorized Agent
+//                     </label>
+//                     <input
+//                       type="text"
+//                       className={`mt-1 block w-full rounded-md ${
+//                         isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'
+//                       } shadow-sm focus:border-indigo-500 focus:ring-indigo-500`}
+//                       value={formData.individualDetails.applicantName}
+//                       onChange={(e) => setFormData({
+//                         ...formData,
+//                         individualDetails: { ...formData.individualDetails, applicantName: e.target.value }
+//                       })}
+//                     />
+//                   </div>
+//                   <div>
+//                     <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+//                       National Identity Card No
+//                     </label>
+//                     <input
+//                       type="text"
+//                       className={`mt-1 block w-full rounded-md ${
+//                         isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'
+//                       } shadow-sm focus:border-indigo-500 focus:ring-indigo-500`}
+//                       value={formData.individualDetails.nationalIdNo}
+//                       onChange={(e) => setFormData({
+//                         ...formData,
+//                         individualDetails: { ...formData.individualDetails, nationalIdNo: e.target.value }
+//                       })}
+//                     />
+//                   </div>
+//                   {/* Add other individual fields similarly */}
+//                 </div>
+//               </div>
+//               {/* 3. Corporation Details */}
+//               <div className="space-y-4">
+//                 <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+//                   3. Corporation Details
+//                 </h2>
+//                 <div className="grid grid-cols-1 gap-4">
+//                   <div>
+//                     <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+//                       Name of Company/Partnership
+//                     </label>
+//                     <input
+//                       type="text"
+//                       className={`mt-1 block w-full rounded-md ${
+//                         isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'
+//                       } shadow-sm focus:border-indigo-500 focus:ring-indigo-500`}
+//                       value={formData.corporationDetails.companyName}
+//                       onChange={(e) => setFormData({
+//                         ...formData,
+//                         corporationDetails: { ...formData.corporationDetails, companyName: e.target.value }
+//                       })}
+//                     />
+//                   </div>
+//                   <div>
+//                     <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+//                       Articles of Association
+//                     </label>
+//                     <input
+//                       type="file"
+//                       className="mt-1 block w-full"
+//                       onChange={handleFileChange('corporationDetails', 'articlesOfAssociation')}
+//                     />
+//                   </div>
+//                   <div>
+//                     <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+//                       Last three years Annual Reports
+//                     </label>
+//                     <input
+//                       type="file"
+//                       multiple
+//                       className="mt-1 block w-full"
+//                       onChange={handleFileChange('corporationDetails', 'annualReports')}
+//                     />
+//                   </div>
+//                 </div>
+//               </div>
+//               {/* 4. Technical/Professional Data */}
+//               <div className="space-y-4">
+//                 <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+//                   4. Technical/Professional Data
+//                 </h2>
+//                 <div className="grid grid-cols-1 gap-4">
+//                   <div>
+//                     <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+//                       Licensed Boundary Survey
+//                     </label>
+//                     <input
+//                       type="file"
+//                       className="mt-1 block w-full"
+//                       onChange={handleFileChange('technicalData', 'licensedBoundarySurvey')}
+//                     />
+//                   </div>
+//                   <div>
+//                     <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+//                       Professional/Technical Credentials
+//                     </label>
+//                     <input
+//                       type="file"
+//                       className="mt-1 block w-full"
+//                       onChange={handleFileChange('technicalData', 'projectTeamCredentials')}
+//                     />
+//                   </div>
+//                 </div>
+//               </div>
+//               {/* 5. Industrial Mining Operation */}
+//               <div className="space-y-4">
+//                 <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+//                   5. Type of Industrial Mining Operation
+//                 </h2>
+//                 <div className="grid grid-cols-1 gap-4">
+//                   <div>
+//                     <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+//                       Blasting Method
+//                     </label>
+//                     <input
+//                       type="text"
+//                       className={`mt-1 block w-full rounded-md ${
+//                         isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'
+//                       } shadow-sm focus:border-indigo-500 focus:ring-indigo-500`}
+//                       value={formData.industrialMiningOperation.blastingMethod}
+//                       onChange={(e) => setFormData({
+//                         ...formData,
+//                         industrialMiningOperation: { ...formData.industrialMiningOperation, blastingMethod: e.target.value }
+//                       })}
+//                     />
+//                   </div>
+//                   {/* Add other mining operation fields */}
+//                 </div>
+//               </div>
+//               {/* 6. License Area Details */}
+//               <div className="space-y-4">
+//                 <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+//                   6. Details of License Area
+//                 </h2>
+//                 <div className="grid grid-cols-1 gap-4">
+//                   <div>
+//                     <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+//                       Name of Land
+//                     </label>
+//                     <input
+//                       type="text"
+//                       className={`mt-1 block w-full rounded-md ${
+//                         isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'
+//                       } shadow-sm focus:border-indigo-500 focus:ring-indigo-500`}
+//                       value={formData.licenseAreaDetails.landName}
+//                       onChange={(e) => setFormData({
+//                         ...formData,
+//                         licenseAreaDetails: { ...formData.licenseAreaDetails, landName: e.target.value }
+//                       })}
+//                     />
+//                   </div>
+//                   <div>
+//                     <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+//                       Deed and Survey Plan
+//                     </label>
+//                     <input
+//                       type="file"
+//                       className="mt-1 block w-full"
+//                       onChange={handleFileChange('licenseAreaDetails', 'deedCopy')}
+//                     />
+//                   </div>
+//                 </div>
+//               </div>
+//               {/* 7. Mine Restoration Plan */}
+//               <div className="space-y-4">
+//                 <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+//                   7. Detailed Mine Restoration Plan
+//                 </h2>
+//                 <div>
+//                   <input
+//                     type="file"
+//                     className="mt-1 block w-full"
+//                     onChange={handleFileChange('', 'mineRestorationPlan')}
+//                   />
+//                 </div>
+//               </div>
+//               {/* 8. Bond Details */}
+//               <div className="space-y-4">
+//                 <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+//                   8. Nature of Amount of Bond
+//                 </h2>
+//                 <div>
+//                   <input
+//                     type="text"
+//                     className={`mt-1 block w-full rounded-md ${
+//                       isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'
+//                     } shadow-sm focus:border-indigo-500 focus:ring-indigo-500`}
+//                     value={formData.bondDetails}
+//                     onChange={(e) => setFormData({...formData, bondDetails: e.target.value})}
+//                   />
+//                 </div>
+//               </div>
+//               {/* 9. Minerals */}
+//               <div className="space-y-4">
+//                 <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+//                   9. Names of Mineral/Minerals to be Mined
+//                 </h2>
+//                 <div>
+//                   <input
+//                     type="text"
+//                     className={`mt-1 block w-full rounded-md ${
+//                       isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'
+//                     } shadow-sm focus:border-indigo-500 focus:ring-indigo-500`}
+//                     value={formData.mineralsToMine}
+//                     onChange={(e) => setFormData({...formData, mineralsToMine: e.target.value})}
+//                   />
+//                 </div>
+//               </div>
+//               {/* 10. License Fee */}
+//               <div className="space-y-4">
+//                 <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+//                   10. License Fee Receipt
+//                 </h2>
+//                 <div>
+//                   <input
+//                     type="file"
+//                     className="mt-1 block w-full"
+//                     onChange={handleFileChange('', 'licenseFeeReceipt')}
+//                   />
+//                 </div>
+//               </div>
+//               {/* Declaration */}
+//               <div className="space-y-4 border-t pt-6">
+//                 <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+//                   Declaration
+//                 </h2>
+//                 <p className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+//                   I, the undersigned, do hereby certify that the statements contained in this application are true and
+//                   correct to the best of my knowledge and undertake to comply with the provisions the Mines & Minerals Act No.33 of 1992,
+//                   and the Regulation made thereunder.
+//                 </p>
+//                 <div className="grid grid-cols-1 gap-4">
+//                   <div>
+//                     <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+//                       Date
+//                     </label>
+//                     <input
+//                       type="date"
+//                       className={`mt-1 block w-full rounded-md ${
+//                         isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'
+//                       } shadow-sm focus:border-indigo-500 focus:ring-indigo-500`}
+//                       value={formData.declaration.date}
+//                       onChange={(e) => setFormData({
+//                         ...formData,
+//                         declaration: { ...formData.declaration, date: e.target.value }
+//                       })}
+//                     />
+//                   </div>
+//                   <div>
+//                     <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+//                       Mine Manager
+//                     </label>
+//                     <input
+//                       type="text"
+//                       className={`mt-1 block w-full rounded-md ${
+//                         isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'
+//                       } shadow-sm focus:border-indigo-500 focus:ring-indigo-500`}
+//                       value={formData.declaration.mineManager}
+//                       onChange={(e) => setFormData({
+//                         ...formData,
+//                         declaration: { ...formData.declaration, mineManager: e.target.value }
+//                       })}
+//                     />
+//                   </div>
+//                 </div>
+//               </div>
+//               <div className="pt-5">
+//               <button
+//                 type="submit"
+//                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+//               >
+//                 Submit Application
+//               </button>
+//             </div>
+//             </form>
+//           </div>
+//         </div>
+//       </div>
+//       {/* Three.js Canvas Background */}
+//       <canvas ref={canvasRef} className="fixed inset-0 w-full h-full z-0" />
+//     </div>
+//   );
+// }
 __turbopack_context__.s({
     "default": (()=>TypeALicense)
 });
@@ -1600,7 +2185,7 @@ function TypeALicense() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$navbar$2f$page$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                lineNumber: 380,
+                lineNumber: 1009,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1613,7 +2198,7 @@ function TypeALicense() {
                             children: "IML Type A License Application"
                         }, void 0, false, {
                             fileName: "[project]/app/license-portal/type-a/page.tsx",
-                            lineNumber: 383,
+                            lineNumber: 1012,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1630,7 +2215,7 @@ function TypeALicense() {
                                                 children: "1. Exploration License No"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 390,
+                                                lineNumber: 1019,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1640,7 +2225,7 @@ function TypeALicense() {
                                                         children: "Exploration License No (where applicable)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 394,
+                                                        lineNumber: 1023,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1653,19 +2238,19 @@ function TypeALicense() {
                                                             })
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 397,
+                                                        lineNumber: 1026,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 393,
+                                                lineNumber: 1022,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 389,
+                                        lineNumber: 1018,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1676,7 +2261,7 @@ function TypeALicense() {
                                                 children: "2. Individual Details"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 410,
+                                                lineNumber: 1039,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1689,7 +2274,7 @@ function TypeALicense() {
                                                                 children: "Name of Applicant / Authorized Agent"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 415,
+                                                                lineNumber: 1044,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1705,13 +2290,13 @@ function TypeALicense() {
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 418,
+                                                                lineNumber: 1047,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 414,
+                                                        lineNumber: 1043,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1721,7 +2306,7 @@ function TypeALicense() {
                                                                 children: "National Identity Card No"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 431,
+                                                                lineNumber: 1060,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1737,25 +2322,25 @@ function TypeALicense() {
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 434,
+                                                                lineNumber: 1063,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 430,
+                                                        lineNumber: 1059,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 413,
+                                                lineNumber: 1042,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 409,
+                                        lineNumber: 1038,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1766,7 +2351,7 @@ function TypeALicense() {
                                                 children: "3. Corporation Details"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 452,
+                                                lineNumber: 1081,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1779,7 +2364,7 @@ function TypeALicense() {
                                                                 children: "Name of Company/Partnership"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 457,
+                                                                lineNumber: 1086,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1795,13 +2380,13 @@ function TypeALicense() {
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 460,
+                                                                lineNumber: 1089,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 456,
+                                                        lineNumber: 1085,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1811,7 +2396,7 @@ function TypeALicense() {
                                                                 children: "Articles of Association"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 473,
+                                                                lineNumber: 1102,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1820,13 +2405,13 @@ function TypeALicense() {
                                                                 onChange: handleFileChange('corporationDetails', 'articlesOfAssociation')
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 476,
+                                                                lineNumber: 1105,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 472,
+                                                        lineNumber: 1101,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1836,7 +2421,7 @@ function TypeALicense() {
                                                                 children: "Last three years Annual Reports"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 483,
+                                                                lineNumber: 1112,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1846,25 +2431,25 @@ function TypeALicense() {
                                                                 onChange: handleFileChange('corporationDetails', 'annualReports')
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 486,
+                                                                lineNumber: 1115,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 482,
+                                                        lineNumber: 1111,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 455,
+                                                lineNumber: 1084,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 451,
+                                        lineNumber: 1080,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1875,7 +2460,7 @@ function TypeALicense() {
                                                 children: "4. Technical/Professional Data"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 498,
+                                                lineNumber: 1127,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1888,7 +2473,7 @@ function TypeALicense() {
                                                                 children: "Licensed Boundary Survey"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 503,
+                                                                lineNumber: 1132,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1897,13 +2482,13 @@ function TypeALicense() {
                                                                 onChange: handleFileChange('technicalData', 'licensedBoundarySurvey')
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 506,
+                                                                lineNumber: 1135,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 502,
+                                                        lineNumber: 1131,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1913,7 +2498,7 @@ function TypeALicense() {
                                                                 children: "Professional/Technical Credentials"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 513,
+                                                                lineNumber: 1142,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1922,25 +2507,25 @@ function TypeALicense() {
                                                                 onChange: handleFileChange('technicalData', 'projectTeamCredentials')
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 516,
+                                                                lineNumber: 1145,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 512,
+                                                        lineNumber: 1141,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 501,
+                                                lineNumber: 1130,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 497,
+                                        lineNumber: 1126,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1951,7 +2536,7 @@ function TypeALicense() {
                                                 children: "5. Type of Industrial Mining Operation"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 527,
+                                                lineNumber: 1156,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1963,7 +2548,7 @@ function TypeALicense() {
                                                             children: "Blasting Method"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                            lineNumber: 532,
+                                                            lineNumber: 1161,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1979,24 +2564,24 @@ function TypeALicense() {
                                                                 })
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                            lineNumber: 535,
+                                                            lineNumber: 1164,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                    lineNumber: 531,
+                                                    lineNumber: 1160,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 530,
+                                                lineNumber: 1159,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 526,
+                                        lineNumber: 1155,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2007,7 +2592,7 @@ function TypeALicense() {
                                                 children: "6. Details of License Area"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 553,
+                                                lineNumber: 1182,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2020,7 +2605,7 @@ function TypeALicense() {
                                                                 children: "Name of Land"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 558,
+                                                                lineNumber: 1187,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2036,13 +2621,13 @@ function TypeALicense() {
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 561,
+                                                                lineNumber: 1190,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 557,
+                                                        lineNumber: 1186,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2052,7 +2637,7 @@ function TypeALicense() {
                                                                 children: "Deed and Survey Plan"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 574,
+                                                                lineNumber: 1203,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2061,25 +2646,25 @@ function TypeALicense() {
                                                                 onChange: handleFileChange('licenseAreaDetails', 'deedCopy')
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 577,
+                                                                lineNumber: 1206,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 573,
+                                                        lineNumber: 1202,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 556,
+                                                lineNumber: 1185,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 552,
+                                        lineNumber: 1181,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2090,7 +2675,7 @@ function TypeALicense() {
                                                 children: "7. Detailed Mine Restoration Plan"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 588,
+                                                lineNumber: 1217,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2100,18 +2685,18 @@ function TypeALicense() {
                                                     onChange: handleFileChange('', 'mineRestorationPlan')
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                    lineNumber: 592,
+                                                    lineNumber: 1221,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 591,
+                                                lineNumber: 1220,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 587,
+                                        lineNumber: 1216,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2122,7 +2707,7 @@ function TypeALicense() {
                                                 children: "8. Nature of Amount of Bond"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 602,
+                                                lineNumber: 1231,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2136,18 +2721,18 @@ function TypeALicense() {
                                                         })
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                    lineNumber: 606,
+                                                    lineNumber: 1235,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 605,
+                                                lineNumber: 1234,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 601,
+                                        lineNumber: 1230,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2158,7 +2743,7 @@ function TypeALicense() {
                                                 children: "9. Names of Mineral/Minerals to be Mined"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 619,
+                                                lineNumber: 1248,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2172,18 +2757,18 @@ function TypeALicense() {
                                                         })
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                    lineNumber: 623,
+                                                    lineNumber: 1252,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 622,
+                                                lineNumber: 1251,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 618,
+                                        lineNumber: 1247,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2194,7 +2779,7 @@ function TypeALicense() {
                                                 children: "10. License Fee Receipt"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 636,
+                                                lineNumber: 1265,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2204,18 +2789,18 @@ function TypeALicense() {
                                                     onChange: handleFileChange('', 'licenseFeeReceipt')
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                    lineNumber: 640,
+                                                    lineNumber: 1269,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 639,
+                                                lineNumber: 1268,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 635,
+                                        lineNumber: 1264,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2226,7 +2811,7 @@ function TypeALicense() {
                                                 children: "Declaration"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 650,
+                                                lineNumber: 1279,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2234,7 +2819,7 @@ function TypeALicense() {
                                                 children: "I, the undersigned, do hereby certify that the statements contained in this application are true and correct to the best of my knowledge and undertake to comply with the provisions the Mines & Minerals Act No.33 of 1992, and the Regulation made thereunder."
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 653,
+                                                lineNumber: 1282,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2247,7 +2832,7 @@ function TypeALicense() {
                                                                 children: "Date"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 660,
+                                                                lineNumber: 1289,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2263,13 +2848,13 @@ function TypeALicense() {
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 663,
+                                                                lineNumber: 1292,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 659,
+                                                        lineNumber: 1288,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2279,7 +2864,7 @@ function TypeALicense() {
                                                                 children: "Mine Manager"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 676,
+                                                                lineNumber: 1305,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2295,13 +2880,13 @@ function TypeALicense() {
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 679,
+                                                                lineNumber: 1308,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 675,
+                                                        lineNumber: 1304,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2311,7 +2896,7 @@ function TypeALicense() {
                                                                 children: "Signature (Type your name to sign)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 692,
+                                                                lineNumber: 1321,
                                                                 columnNumber: 1
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2327,25 +2912,25 @@ function TypeALicense() {
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 695,
+                                                                lineNumber: 1324,
                                                                 columnNumber: 1
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 691,
+                                                        lineNumber: 1320,
                                                         columnNumber: 1
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 658,
+                                                lineNumber: 1287,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 649,
+                                        lineNumber: 1278,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2356,34 +2941,34 @@ function TypeALicense() {
                                             children: "Submit License Application"
                                         }, void 0, false, {
                                             fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                            lineNumber: 712,
+                                            lineNumber: 1341,
                                             columnNumber: 1
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 711,
+                                        lineNumber: 1340,
                                         columnNumber: 1
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                lineNumber: 387,
+                                lineNumber: 1016,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/license-portal/type-a/page.tsx",
-                            lineNumber: 386,
+                            lineNumber: 1015,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/license-portal/type-a/page.tsx",
-                    lineNumber: 382,
+                    lineNumber: 1011,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                lineNumber: 381,
+                lineNumber: 1010,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("canvas", {
@@ -2391,13 +2976,13 @@ function TypeALicense() {
                 className: "fixed top-0 left-0 w-full h-full pointer-events-none"
             }, void 0, false, {
                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                lineNumber: 727,
+                lineNumber: 1356,
                 columnNumber: 1
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/license-portal/type-a/page.tsx",
-        lineNumber: 379,
+        lineNumber: 1008,
         columnNumber: 5
     }, this);
 }

@@ -561,7 +561,7 @@ export default function ForgotPasswordPage() {
                       ? 'bg-gray-800 border border-gray-700 focus:border-orange-500' 
                       : 'bg-gray-50 border border-gray-200 focus:border-orange-500'
                   }`}
-                  placeholder="john@example.com"
+                  placeholder="name@example.com"
                   required
                 />
               </div>
@@ -597,22 +597,7 @@ export default function ForgotPasswordPage() {
         </div>
       </main>
 
-      <footer
-        className={`relative z-10 py-8 ${
-          isDarkMode ? 'bg-gray-900' : 'bg-gray-800'
-        }`}
-      >
-        <div className="container mx-auto px-4 text-center">
-          <p
-            className={`text-sm ${
-              isDarkMode ? 'text-gray-400' : 'text-gray-300'
-            }`}
-          >
-            &copy; {new Date().getFullYear()} CeylonMine. {t.allRightsReserved}
-          </p>
-        </div>
-      </footer>
-
+  
       {/* Three.js Canvas Background */}
       <canvas ref={canvasRef} className="fixed inset-0 w-full h-full z-0" />
     </div>
