@@ -1,26 +1,23 @@
 import OpenAI from "openai";
-import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 import { NextResponse } from "next/server";
 import { SYSTEM_PROMPT } from "@/app/minebot/prompt";
 
-interface ChatRequestBody {
-  messages: Array<{ role: "user" | "assistant"; content: string }>;
-  input: string;
+interface Message {
+  role: "user" | "assistant";
+  content: string;
 }
 
-interface ChatResponse {
-  message: { role: "assistant"; content: string };
+if (!process.env.OPENAI_API_KEY) {
+  throw new Error("OPENAI_API_KEY environment variable is not set");
 }
 
-// Initialize OpenAI
 const openai = new OpenAI({
-  apiKey:
-    "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",
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 export async function POST(request: Request) {
   try {
-    const body: ChatRequestBody = await request.json();
+    const body = await request.json();
     const { messages, input } = body;
 
     if (!input) {
@@ -33,9 +30,12 @@ export async function POST(request: Request) {
     console.log("Received message:", input);
 
     // Format messages for OpenAI
-    const formattedMessages: ChatCompletionMessageParam[] = [
+    const formattedMessages = [
       { role: "system", content: SYSTEM_PROMPT },
-      ...messages.map((msg) => ({ role: msg.role, content: msg.content })),
+      ...messages.map((msg: Message) => ({
+        role: msg.role,
+        content: msg.content,
+      })),
       { role: "user", content: input },
     ];
 
@@ -54,15 +54,38 @@ export async function POST(request: Request) {
     }
 
     console.log("Received response from OpenAI");
-    const chatResponse: ChatResponse = {
-      message: { role: "assistant", content: response },
-    };
 
-    return NextResponse.json(chatResponse);
+    return NextResponse.json({
+      message: { role: "assistant", content: response },
+    });
   } catch (error: any) {
     console.error("Error in chat API:", error);
+
+    if (error.name === "SyntaxError") {
+      return NextResponse.json(
+        {
+          error: "Invalid JSON in request body",
+          details: error.message,
+        },
+        { status: 400 }
+      );
+    }
+
+    if (error.status === 401 || error.status === 403) {
+      return NextResponse.json(
+        {
+          error: "Authentication error with OpenAI",
+          details: error.message,
+        },
+        { status: error.status }
+      );
+    }
+
     return NextResponse.json(
-      { error: "Failed to generate response", details: error?.message },
+      {
+        error: "Failed to generate response",
+        details: error.message || "Unknown error occurred",
+      },
       { status: 500 }
     );
   }

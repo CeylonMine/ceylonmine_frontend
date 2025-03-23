@@ -36,7 +36,7 @@ export default function MineBot() {
     setIsError(false);
     
     try {
-      const response = await fetch('/.netlify/functions/chat', {
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
