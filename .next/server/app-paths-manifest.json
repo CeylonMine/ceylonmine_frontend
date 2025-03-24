@@ -1,16 +1,1 @@
-{
-  "/_not-found/page": "app/_not-found/page.js",
-  "/about/page": "app/about/page.js",
-  "/complains/page": "app/complains/page.js",
-  "/contact/page": "app/contact/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/license-portal/page": "app/license-portal/page.js",
-  "/license-portal/type-a/page": "app/license-portal/type-a/page.js",
-  "/license-portal/type-b/page": "app/license-portal/type-b/page.js",
-  "/login/page": "app/login/page.js",
-  "/map/page": "app/map/page.js",
-  "/minemore/page": "app/minemore/page.js",
-  "/page": "app/page.js",
-  "/royalty/page": "app/royalty/page.js",
-  "/sign/page": "app/sign/page.js"
-}
+{}
