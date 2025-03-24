@@ -5,259 +5,61 @@
 
 var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-// interface RoyaltyCalculationRequest {
-//   water_gel: number;
-//   nh4no3: number;
-//   powder_factor: number;
-// }
-// interface RoyaltyCalculationResponse {
-//   calculation_date: string;
-//   inputs: {
-//     water_gel_kg: number;
-//     nh4no3_kg: number;
-//     powder_factor: number;
-//   };
-//   calculations: {
-//     total_explosive_quantity: number;
-//     basic_volume: number;
-//     blasted_rock_volume: number;
-//     base_royalty: number;
-//     royalty_with_sscl: number;
-//     total_amount_with_vat: number;
-//   };
-//   rates_applied: {
-//     royalty_rate_per_cubic_meter: number;
-//     sscl_rate: string;
-//     vat_rate: string;
-//   };
-// }
-// /**
-//  * Calculate royalty based on input parameters
-//  */
-// export const calculateRoyalty = async (data: RoyaltyCalculationRequest): Promise<RoyaltyCalculationResponse> => {
-//   try {
-//     // Use the endpoint with the blueprint prefix
-//     const endpoint = `${API_BASE_URL}/royalty/calculate`;
-//     console.log('Calling API endpoint:', endpoint);
-//     const response = await fetch(endpoint, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'Accept': 'application/json'
-//       },
-//       body: JSON.stringify(data),
-//     });
-//     if (!response.ok) {
-//       const errorText = await response.text();
-//       console.error('API error:', response.status, errorText);
-//       throw new Error(`API error: ${response.status} - ${errorText || response.statusText}`);
-//     }
-//     return await response.json();
-//   } catch (error) {
-//     console.error('API call failed:', error);
-//     throw error;
-//   }
-// };
-//JANIDUUUUUUUU
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
-// interface RoyaltyCalculationRequest {
-//   water_gel: number;
-//   nh4no3: number;
-//   powder_factor: number;
-// }
-// interface RoyaltyCalculationResponse {
-//   calculation_date: string;
-//   inputs: {
-//     water_gel_kg: number;
-//     nh4no3_kg: number;
-//     powder_factor: number;
-//   };
-//   calculations: {
-//     total_explosive_quantity: number;
-//     basic_volume: number;
-//     blasted_rock_volume: number;
-//     base_royalty: number;
-//     royalty_with_sscl: number;
-//     total_amount_with_vat: number;
-//   };
-//   rates_applied: {
-//     royalty_rate_per_cubic_meter: number;
-//     sscl_rate: string;
-//     vat_rate: string;
-//   };
-// }
-// export const calculateRoyalty = async (data: RoyaltyCalculationRequest): Promise<RoyaltyCalculationResponse> => {
-//   try {
-//     const response = await fetch(`${API_BASE_URL}/calculate-royalty`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(data),
-//     });
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-//     return await response.json();
-//   } catch (error) {
-//     console.error('API call failed:', error);
-//     throw error;
-//   }
-// }; 
-// API URL configuration with environment-based fallback
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
-// interface RoyaltyCalculationRequest {
-//   water_gel: number;
-//   nh4no3: number;
-//   powder_factor: number;
-// }
-// interface RoyaltyCalculationResponse {
-//   calculation_date: string;
-//   inputs: {
-//     water_gel_kg: number;
-//     nh4no3_kg: number;
-//     powder_factor: number;
-//   };
-//   calculations: {
-//     total_explosive_quantity: number;
-//     basic_volume: number;
-//     blasted_rock_volume: number;
-//     base_royalty: number;
-//     royalty_with_sscl: number;
-//     total_amount_with_vat: number;
-//   };
-//   rates_applied: {
-//     royalty_rate_per_cubic_meter: number;
-//     sscl_rate: string;
-//     vat_rate: string;
-//   };
-// }
-// export const calculateRoyalty = async (data: RoyaltyCalculationRequest): Promise<RoyaltyCalculationResponse> => {
-//   try {
-//     const response = await fetch(${API_BASE_URL}/calculate-royalty, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(data),
-//     });
-//     if (!response.ok) {
-//       throw new Error(HTTP error! status: ${response.status});
-//     }
-//     return await response.json();
-//   } catch (error) {
-//     console.error('API call failed:', error);
-//     throw error;
-//   }
-// }; 
-// API URL configuration with environment-based fallback
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
-// interface RoyaltyCalculationRequest {
-//   water_gel: number;
-//   nh4no3: number;
-//   powder_factor: number;
-// }
-// interface RoyaltyCalculationResponse {
-//   calculation_date: string;
-//   inputs: {
-//     water_gel_kg: number;
-//     nh4no3_kg: number;
-//     powder_factor: number;
-//   };
-//   calculations: {
-//     total_explosive_quantity: number;
-//     basic_volume: number;
-//     blasted_rock_volume: number;
-//     base_royalty: number;
-//     royalty_with_sscl: number;
-//     total_amount_with_vat: number;
-//   };
-//   rates_applied: {
-//     royalty_rate_per_cubic_meter: number;
-//     sscl_rate: string;
-//     vat_rate: string;
-//   };
-// }
-// export const calculateRoyalty = async (data: RoyaltyCalculationRequest): Promise<RoyaltyCalculationResponse> => {
-//   try {
-//     const response = await fetch(`${API_BASE_URL}/calculate-royalty`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(data),
-//     });
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-//     return await response.json();
-//   } catch (error) {
-//     console.error('API call failed:', error);
-//     throw error;
-//   }
-// }; 
-// API URL configuration with environment-based fallback
+// Royalty calculation service - cleaned up version
 __turbopack_context__.s({
     "calculateRoyalty": (()=>calculateRoyalty)
 });
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
-const API_BASE_URL = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 const calculateRoyalty = async (data)=>{
     try {
-        // Validate input data before sending request
-        if (isNaN(data.water_gel) || isNaN(data.nh4no3) || isNaN(data.powder_factor)) {
-            throw new Error('Invalid input: All values must be valid numbers');
+        // Extract input values
+        const { water_gel, nh4no3, powder_factor } = data;
+        // Validate inputs
+        if (isNaN(water_gel) || isNaN(nh4no3) || isNaN(powder_factor)) {
+            throw new Error('All values must be valid numbers');
         }
-        if (data.water_gel < 0 || data.nh4no3 < 0 || data.powder_factor <= 0) {
-            throw new Error('Invalid input: Values must be greater than zero');
+        if (water_gel < 0 || nh4no3 < 0 || powder_factor <= 0) {
+            throw new Error('Values must be greater than zero');
         }
-        // Use the endpoint with the prefix
-        const endpoint = `${API_BASE_URL}/royalty/api/calculate-royalty`;
-        console.log('Calling API endpoint:', endpoint);
-        console.log('With data:', data);
-        const controller = new AbortController();
-        const timeoutId = setTimeout(()=>controller.abort(), 15000); // 15 second timeout
-        try {
-            const response = await fetch(endpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(data),
-                signal: controller.signal
-            });
-            clearTimeout(timeoutId);
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('API error:', response.status, errorText);
-                // Try to parse error as JSON
-                let errorMessage;
-                try {
-                    const errorJson = JSON.parse(errorText);
-                    errorMessage = errorJson.error || `API error: ${response.status}`;
-                } catch  {
-                    errorMessage = `API error: ${response.status} - ${errorText || response.statusText}`;
-                }
-                throw new Error(errorMessage);
+        // Step 1: Calculate Total Explosive Quantity (TEQ)
+        const totalExplosiveQuantity = water_gel * 1.2 + nh4no3;
+        // Step 2: Determine Blasted Rock Volume
+        // Basic volume (TEQ / Powder Factor)
+        const basicVolume = totalExplosiveQuantity / powder_factor;
+        // Expanded Blasted Rock Volume = (TEQ × 1.6) / (Powder Factor × 2.83)
+        const blastedRockVolume = totalExplosiveQuantity * 1.6 / (powder_factor * 2.83);
+        // Step 3: Calculate Royalty Fee (Base Royalty)
+        // Royalty = Blasted Rock Volume × 240
+        const baseRoyalty = blastedRockVolume * 240;
+        // Step 4: Apply Additional Charges
+        // SSCL (2.56%): Royalty with SSCL = Royalty × 1.0256
+        const royaltyWithSSCL = baseRoyalty * 1.0256;
+        // VAT (18%): Total Amount Due = Royalty with SSCL × 1.18
+        const totalAmountWithVAT = royaltyWithSSCL * 1.18;
+        // Create response object
+        const response = {
+            calculation_date: new Date().toISOString(),
+            inputs: {
+                water_gel_kg: water_gel,
+                nh4no3_kg: nh4no3,
+                powder_factor: powder_factor
+            },
+            calculations: {
+                total_explosive_quantity: totalExplosiveQuantity,
+                basic_volume: basicVolume,
+                blasted_rock_volume: blastedRockVolume,
+                base_royalty: baseRoyalty,
+                royalty_with_sscl: royaltyWithSSCL,
+                total_amount_with_vat: totalAmountWithVAT
+            },
+            rates_applied: {
+                royalty_rate_per_cubic_meter: 240,
+                sscl_rate: '2.56%',
+                vat_rate: '18%'
             }
-            const result = await response.json();
-            console.log('API response:', result);
-            return result;
-        } catch (fetchError) {
-            clearTimeout(timeoutId);
-            if (fetchError.name === 'AbortError') {
-                throw new Error('Request timeout: The server took too long to respond');
-            }
-            // Connection errors usually mean the backend is not running
-            if (fetchError instanceof TypeError && fetchError.message.includes('fetch')) {
-                throw new Error('Connection failed: Please ensure the backend server is running');
-            }
-            throw fetchError;
-        }
+        };
+        return response;
     } catch (error) {
-        console.error('API call failed:', error);
+        console.error('Royalty calculation failed:', error);
         throw error;
     }
 };
@@ -270,251 +72,6 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 
 var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
-// 'use client';
-// import { useState, FormEvent } from 'react';
-// import { toast } from 'react-hot-toast';
-// import { calculateRoyalty } from '../services/royalty_calculator';
-// interface RoyaltyData {
-//   calculation_date: string;
-//   inputs: {
-//     water_gel_kg: number;
-//     nh4no3_kg: number;
-//     powder_factor: number;
-//   };
-//   calculations: {
-//     total_explosive_quantity: number;
-//     basic_volume: number;
-//     blasted_rock_volume: number;
-//     base_royalty: number;
-//     royalty_with_sscl: number;
-//     total_amount_with_vat: number;
-//   };
-//   rates_applied: {
-//     royalty_rate_per_cubic_meter: number;
-//     sscl_rate: string;
-//     vat_rate: string;
-//   };
-// }
-// interface RoyaltyCalculatorProps {
-//   onCalculated: (data: RoyaltyData) => void;
-// }
-// interface SavedCalculation {
-//   id: string;
-//   date: string;
-//   waterGel: number;
-//   nh4no3: number;
-//   powderFactor: number;
-//   totalAmount: number;
-//   explosiveQuantity: number;
-//   blastedVolume: number;
-//   dueDate: string;
-// }
-// export default function RoyaltyCalculator({ onCalculated }: RoyaltyCalculatorProps) {
-//   const [waterGel, setWaterGel] = useState('');
-//   const [nh4no3, setNh4no3] = useState('');
-//   const [powderFactor, setPowderFactor] = useState('');
-//   const [loading, setLoading] = useState(false);
-//   const [royaltyData, setRoyaltyData] = useState<RoyaltyData | null>(null);
-//   // This state is not used in the UI, so we'll remove it to fix the linting error
-//   // We don't need to load saved calculations since we're not using them in the UI
-//   // The calculations are directly read from localStorage when needed
-//   const handleCalculateRoyalty = async (e: FormEvent) => {
-//     e.preventDefault();
-//     setLoading(true);
-//     try {
-//       const data = await calculateRoyalty({
-//         water_gel: parseFloat(waterGel),
-//         nh4no3: parseFloat(nh4no3),
-//         powder_factor: parseFloat(powderFactor)
-//       });
-//       setRoyaltyData(data);
-//       onCalculated(data);
-//       toast.success('Royalty calculated successfully!');
-//     } catch (error) {
-//       console.error('Error calculating royalty:', error);
-//       toast.error('Failed to calculate royalty. Please try again.');
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-//   const handleSaveCalculation = () => {
-//     if (!royaltyData) return;
-//     // Check if this calculation has already been saved
-//     const existingSaved = localStorage.getItem('royaltyCalculations');
-//     // Use the current state instead of creating a new local variable with the same name
-//     const currentSavedCalculations = existingSaved ? JSON.parse(existingSaved) : [];
-//     // Create new calculation object
-//     const newCalculation: SavedCalculation = {
-//       id: Date.now().toString(),
-//       date: new Date().toISOString(),
-//       waterGel: parseFloat(waterGel),
-//       nh4no3: parseFloat(nh4no3),
-//       powderFactor: parseFloat(powderFactor),
-//       totalAmount: royaltyData.calculations.total_amount_with_vat,
-//       explosiveQuantity: royaltyData.calculations.total_explosive_quantity,
-//       blastedVolume: royaltyData.calculations.blasted_rock_volume,
-//       dueDate: royaltyData.calculation_date
-//     };
-//     // Check if this exact calculation already exists
-//     const isDuplicate = currentSavedCalculations.some((calc: SavedCalculation) => 
-//       calc.waterGel === newCalculation.waterGel &&
-//       calc.nh4no3 === newCalculation.nh4no3 &&
-//       calc.powderFactor === newCalculation.powderFactor &&
-//       calc.totalAmount === newCalculation.totalAmount
-//     );
-//     if (isDuplicate) {
-//       toast.error('This calculation has already been saved');
-//       return;
-//     }
-//     // Add only the new calculation
-//     const updatedCalculations = [...currentSavedCalculations, newCalculation];
-//     localStorage.setItem('royaltyCalculations', JSON.stringify(updatedCalculations));
-//     // Since we're not tracking state for the calculations, we just save to localStorage
-//     // Update the mining stats
-//     onCalculated({
-//       ...royaltyData,
-//       calculation_date: new Date().toISOString()
-//     });
-//     toast.success('Calculation saved successfully!');
-//     // Reset form after successful save
-//     handleReset();
-//   };
-//   const handleReset = () => {
-//     setWaterGel('');
-//     setNh4no3('');
-//     setPowderFactor('');
-//     setRoyaltyData(null);
-//     toast.success('Calculator reset');
-//   };
-//   return (
-//     <div className="space-y-8">
-//       <form onSubmit={handleCalculateRoyalty} className="space-y-6">
-//         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-//           <div>
-//             <label htmlFor="waterGel" className="block text-sm font-medium mb-2">
-//               Water Gel (kg)
-//             </label>
-//             <input
-//               id="waterGel"
-//               type="number"
-//               step="0.01"
-//               value={waterGel}
-//               onChange={(e) => setWaterGel(e.target.value)}
-//               className="w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-//               required
-//             />
-//           </div>
-//           <div>
-//             <label htmlFor="nh4no3" className="block text-sm font-medium mb-2">
-//               NH4NO3 (kg)
-//             </label>
-//             <input
-//               id="nh4no3"
-//               type="number"
-//               step="0.01"
-//               value={nh4no3}
-//               onChange={(e) => setNh4no3(e.target.value)}
-//               className="w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-//               required
-//             />
-//           </div>
-//           <div>
-//             <label htmlFor="powderFactor" className="block text-sm font-medium mb-2">
-//               Powder Factor
-//             </label>
-//             <input
-//               id="powderFactor"
-//               type="number"
-//               step="0.001"
-//               value={powderFactor}
-//               onChange={(e) => setPowderFactor(e.target.value)}
-//               className="w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-//               required
-//             />
-//           </div>
-//         </div>
-//         <button
-//           type="submit"
-//           disabled={loading}
-//           className="w-full md:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-//         >
-//           {loading ? 'Calculating...' : 'Calculate Royalty'}
-//         </button>
-//       </form>
-//       {royaltyData && (
-//         <div className="mt-8 p-6 bg-gray-800 rounded-lg">
-//           <div className="flex justify-between items-center mb-4">
-//             <h2 className="text-xl font-semibold">Royalty Calculation Results</h2>
-//             <div className="space-x-4">
-//               <button
-//                 onClick={handleSaveCalculation}
-//                 className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-md text-sm font-medium transition-colors"
-//               >
-//                 Save Calculation
-//               </button>
-//               <button
-//                 onClick={handleReset}
-//                 className="px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded-md text-sm font-medium transition-colors"
-//               >
-//                 Reset
-//               </button>
-//             </div>
-//           </div>
-//           <div className="space-y-4">
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-//               <div className="p-4 bg-gray-700 rounded-lg">
-//                 <h3 className="text-sm font-medium text-gray-400 mb-2">Explosive Quantities</h3>
-//                 <div className="space-y-2">
-//                   <p className="flex justify-between">
-//                     <span>Total Explosive Quantity:</span>
-//                     <span>{royaltyData.calculations.total_explosive_quantity.toFixed(2)} kg</span>
-//                   </p>
-//                   <div className="border-t border-gray-600 my-2" />
-//                   <p className="flex justify-between text-sm">
-//                     <span>Water Gel:</span>
-//                     <span>{royaltyData.inputs.water_gel_kg.toFixed(2)} kg</span>
-//                   </p>
-//                   <p className="flex justify-between text-sm">
-//                     <span>NH4NO3:</span>
-//                     <span>{royaltyData.inputs.nh4no3_kg.toFixed(2)} kg</span>
-//                   </p>
-//                 </div>
-//               </div>
-//               <div className="p-4 bg-gray-700 rounded-lg">
-//                 <h3 className="text-sm font-medium text-gray-400 mb-2">Rock Volume</h3>
-//                 <p className="flex justify-between">
-//                   <span>Blasted Rock Volume:</span>
-//                   <span>{royaltyData.calculations.blasted_rock_volume.toFixed(2)} m³</span>
-//                 </p>
-//               </div>
-//             </div>
-//             <div className="p-4 bg-gray-700 rounded-lg">
-//               <h3 className="text-sm font-medium text-gray-400 mb-2">Payment Details</h3>
-//               <div className="space-y-2">
-//                 <p className="flex justify-between">
-//                   <span>Base Royalty:</span>
-//                   <span>LKR {royaltyData.calculations.base_royalty.toFixed(2)}</span>
-//                 </p>
-//                 <p className="flex justify-between">
-//                   <span>With SSCL ({royaltyData.rates_applied.sscl_rate}):</span>
-//                   <span>LKR {royaltyData.calculations.royalty_with_sscl.toFixed(2)}</span>
-//                 </p>
-//                 <div className="border-t border-gray-600 my-2" />
-//                 <p className="flex justify-between text-lg font-semibold">
-//                   <span>Total Amount (with {royaltyData.rates_applied.vat_rate} VAT):</span>
-//                   <span>LKR {royaltyData.calculations.total_amount_with_vat.toFixed(2)}</span>
-//                 </p>
-//               </div>
-//             </div>
-//             <p className="text-sm text-gray-400">
-//               Calculation Date: {new Date(royaltyData.calculation_date).toLocaleString()}
-//             </p>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
 __turbopack_context__.s({
     "default": (()=>RoyaltyCalculator)
 });
@@ -535,108 +92,41 @@ function RoyaltyCalculator({ onCalculated }) {
     const [powderFactor, setPowderFactor] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [royaltyData, setRoyaltyData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [savedCalculations, setSavedCalculations] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
-    // Load saved calculations from localStorage on component mount
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "RoyaltyCalculator.useEffect": ()=>{
-            const saved = localStorage.getItem('royaltyCalculations');
-            if (saved) {
-                setSavedCalculations(JSON.parse(saved));
-            }
-        }
-    }["RoyaltyCalculator.useEffect"], []);
+    // Check for dark mode from localStorage to maintain theme consistency
+    const isDarkMode = ("TURBOPACK compile-time truthy", 1) ? localStorage.getItem('theme') !== 'light' : ("TURBOPACK unreachable", undefined);
     const handleCalculateRoyalty = async (e)=>{
         e.preventDefault();
         setLoading(true);
         try {
-            // Validate inputs
-            if (!waterGel || !nh4no3 || !powderFactor) {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('All fields are required');
-                setLoading(false);
-                return;
-            }
+            // Input validation
             const waterGelValue = parseFloat(waterGel);
             const nh4no3Value = parseFloat(nh4no3);
             const powderFactorValue = parseFloat(powderFactor);
             if (isNaN(waterGelValue) || isNaN(nh4no3Value) || isNaN(powderFactorValue)) {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('All inputs must be valid numbers');
-                setLoading(false);
-                return;
+                throw new Error('All values must be valid numbers');
             }
             if (waterGelValue < 0 || nh4no3Value < 0 || powderFactorValue <= 0) {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Values must be greater than zero');
-                setLoading(false);
-                return;
+                throw new Error('All values must be greater than zero');
             }
-            // Show a loading toast that will be dismissed when calculation completes
-            const loadingToast = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].loading('Calculating royalty...');
-            try {
-                const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$royalty_calculator$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["calculateRoyalty"])({
-                    water_gel: waterGelValue,
-                    nh4no3: nh4no3Value,
-                    powder_factor: powderFactorValue
-                });
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].dismiss(loadingToast);
-                setRoyaltyData(data);
-                onCalculated(data);
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Royalty calculated successfully!');
-            } catch (apiError) {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].dismiss(loadingToast);
-                const errorMessage = apiError instanceof Error ? apiError.message : 'Failed to calculate royalty. Please try again.';
-                // Display a more helpful message for connection issues
-                if (errorMessage.includes('Connection failed') || errorMessage.includes('Failed to fetch')) {
-                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Cannot connect to the backend server. Please ensure the backend is running.');
-                    console.error('Backend connection error:', apiError);
-                } else {
-                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error(errorMessage);
-                    console.error('API error:', apiError);
-                }
-            }
+            // Calculate royalty in the frontend using our service
+            const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$royalty_calculator$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["calculateRoyalty"])({
+                water_gel: waterGelValue,
+                nh4no3: nh4no3Value,
+                powder_factor: powderFactorValue
+            });
+            setRoyaltyData(data);
+            onCalculated(data);
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Royalty calculated successfully!');
         } catch (error) {
-            console.error('Error in royalty calculation function:', error);
-            const errorMessage = error instanceof Error ? error.message : 'Failed to calculate royalty. Please try again.';
+            console.error('Error calculating royalty:', error);
+            let errorMessage = 'Failed to calculate royalty. Please try again.';
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
             __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error(errorMessage);
         } finally{
             setLoading(false);
         }
-    };
-    const handleSaveCalculation = ()=>{
-        if (!royaltyData) return;
-        // Check if this calculation has already been saved
-        const existingSaved = localStorage.getItem('royaltyCalculations');
-        const savedCalculations = existingSaved ? JSON.parse(existingSaved) : [];
-        // Create new calculation object
-        const newCalculation = {
-            id: Date.now().toString(),
-            date: new Date().toISOString(),
-            waterGel: parseFloat(waterGel),
-            nh4no3: parseFloat(nh4no3),
-            powderFactor: parseFloat(powderFactor),
-            totalAmount: royaltyData.calculations.total_amount_with_vat,
-            explosiveQuantity: royaltyData.calculations.total_explosive_quantity,
-            blastedVolume: royaltyData.calculations.blasted_rock_volume,
-            dueDate: royaltyData.calculation_date
-        };
-        // Check if this exact calculation already exists
-        const isDuplicate = savedCalculations.some((calc)=>calc.waterGel === newCalculation.waterGel && calc.nh4no3 === newCalculation.nh4no3 && calc.powderFactor === newCalculation.powderFactor && calc.totalAmount === newCalculation.totalAmount);
-        if (isDuplicate) {
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('This calculation has already been saved');
-            return;
-        }
-        // Add only the new calculation
-        const updatedCalculations = [
-            ...savedCalculations,
-            newCalculation
-        ];
-        localStorage.setItem('royaltyCalculations', JSON.stringify(updatedCalculations));
-        // Update the mining stats
-        onCalculated({
-            ...royaltyData,
-            calculation_date: new Date().toISOString()
-        });
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Calculation saved successfully!');
-        // Reset form after successful save
-        handleReset();
     };
     const handleReset = ()=>{
         setWaterGel('');
@@ -645,6 +135,10 @@ function RoyaltyCalculator({ onCalculated }) {
         setRoyaltyData(null);
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Calculator reset');
     };
+    // Define dynamic classes based on theme
+    const inputClass = isDarkMode ? "w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500" : "w-full px-4 py-2 rounded-md bg-white border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500";
+    const resultsPanelClass = isDarkMode ? "mt-8 p-6 bg-gray-800 rounded-lg" : "mt-8 p-6 bg-gray-100 rounded-lg shadow-md";
+    const resultsSectionClass = isDarkMode ? "p-4 bg-gray-700 rounded-lg" : "p-4 bg-white rounded-lg shadow-sm";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "space-y-8",
         children: [
@@ -663,7 +157,7 @@ function RoyaltyCalculator({ onCalculated }) {
                                         children: "Water Gel (kg)"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 461,
+                                        lineNumber: 112,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -672,17 +166,17 @@ function RoyaltyCalculator({ onCalculated }) {
                                         step: "0.01",
                                         value: waterGel,
                                         onChange: (e)=>setWaterGel(e.target.value),
-                                        className: "w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500",
+                                        className: inputClass,
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 464,
+                                        lineNumber: 115,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                lineNumber: 460,
+                                lineNumber: 111,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -693,7 +187,7 @@ function RoyaltyCalculator({ onCalculated }) {
                                         children: "NH4NO3 (kg)"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 476,
+                                        lineNumber: 127,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -702,17 +196,17 @@ function RoyaltyCalculator({ onCalculated }) {
                                         step: "0.01",
                                         value: nh4no3,
                                         onChange: (e)=>setNh4no3(e.target.value),
-                                        className: "w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500",
+                                        className: inputClass,
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 479,
+                                        lineNumber: 130,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                lineNumber: 475,
+                                lineNumber: 126,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -723,7 +217,7 @@ function RoyaltyCalculator({ onCalculated }) {
                                         children: "Powder Factor"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 491,
+                                        lineNumber: 142,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -732,43 +226,43 @@ function RoyaltyCalculator({ onCalculated }) {
                                         step: "0.001",
                                         value: powderFactor,
                                         onChange: (e)=>setPowderFactor(e.target.value),
-                                        className: "w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500",
+                                        className: inputClass,
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 494,
+                                        lineNumber: 145,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                lineNumber: 490,
+                                lineNumber: 141,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                        lineNumber: 459,
+                        lineNumber: 110,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         type: "submit",
                         disabled: loading,
-                        className: "w-full md:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
+                        className: "w-full md:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
                         children: loading ? 'Calculating...' : 'Calculate Royalty'
                     }, void 0, false, {
                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                        lineNumber: 506,
+                        lineNumber: 157,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                lineNumber: 458,
+                lineNumber: 109,
                 columnNumber: 7
             }, this),
             royaltyData && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "mt-8 p-6 bg-gray-800 rounded-lg",
+                className: resultsPanelClass,
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex justify-between items-center mb-4",
@@ -778,40 +272,28 @@ function RoyaltyCalculator({ onCalculated }) {
                                 children: "Royalty Calculation Results"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                lineNumber: 518,
+                                lineNumber: 169,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "space-x-4",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: handleSaveCalculation,
-                                        className: "px-4 py-2 bg-green-600 hover:bg-green-700 rounded-md text-sm font-medium transition-colors",
-                                        children: "Save Calculation"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 520,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: handleReset,
-                                        className: "px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded-md text-sm font-medium transition-colors",
-                                        children: "Reset"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 526,
-                                        columnNumber: 15
-                                    }, this)
-                                ]
-                            }, void 0, true, {
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: handleReset,
+                                    className: "px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md text-sm font-medium transition-colors",
+                                    children: "Reset"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                    lineNumber: 171,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                lineNumber: 519,
+                                lineNumber: 170,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                        lineNumber: 517,
+                        lineNumber: 168,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -821,14 +303,14 @@ function RoyaltyCalculator({ onCalculated }) {
                                 className: "grid grid-cols-1 md:grid-cols-2 gap-4",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "p-4 bg-gray-700 rounded-lg",
+                                        className: resultsSectionClass,
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                className: "text-sm font-medium text-gray-400 mb-2",
+                                                className: isDarkMode ? "text-sm font-medium text-gray-400 mb-2" : "text-sm font-medium text-gray-600 mb-2",
                                                 children: "Explosive Quantities"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                lineNumber: 537,
+                                                lineNumber: 182,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -841,7 +323,7 @@ function RoyaltyCalculator({ onCalculated }) {
                                                                 children: "Total Explosive Quantity:"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                                lineNumber: 540,
+                                                                lineNumber: 185,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -851,20 +333,20 @@ function RoyaltyCalculator({ onCalculated }) {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                                lineNumber: 541,
+                                                                lineNumber: 186,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 539,
+                                                        lineNumber: 184,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "border-t border-gray-600 my-2"
+                                                        className: isDarkMode ? "border-t border-gray-600 my-2" : "border-t border-gray-200 my-2"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 543,
+                                                        lineNumber: 188,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -874,7 +356,7 @@ function RoyaltyCalculator({ onCalculated }) {
                                                                 children: "Water Gel:"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                                lineNumber: 545,
+                                                                lineNumber: 190,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -884,13 +366,13 @@ function RoyaltyCalculator({ onCalculated }) {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                                lineNumber: 546,
+                                                                lineNumber: 191,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 544,
+                                                        lineNumber: 189,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -900,7 +382,7 @@ function RoyaltyCalculator({ onCalculated }) {
                                                                 children: "NH4NO3:"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                                lineNumber: 549,
+                                                                lineNumber: 194,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -910,36 +392,36 @@ function RoyaltyCalculator({ onCalculated }) {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                                lineNumber: 550,
+                                                                lineNumber: 195,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 548,
+                                                        lineNumber: 193,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                lineNumber: 538,
+                                                lineNumber: 183,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 536,
+                                        lineNumber: 181,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "p-4 bg-gray-700 rounded-lg",
+                                        className: resultsSectionClass,
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                className: "text-sm font-medium text-gray-400 mb-2",
+                                                className: isDarkMode ? "text-sm font-medium text-gray-400 mb-2" : "text-sm font-medium text-gray-600 mb-2",
                                                 children: "Rock Volume"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                lineNumber: 556,
+                                                lineNumber: 201,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -949,7 +431,7 @@ function RoyaltyCalculator({ onCalculated }) {
                                                         children: "Blasted Rock Volume:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 558,
+                                                        lineNumber: 203,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -959,36 +441,59 @@ function RoyaltyCalculator({ onCalculated }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 559,
+                                                        lineNumber: 204,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                lineNumber: 557,
+                                                lineNumber: 202,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "flex justify-between text-sm mt-2",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: "Powder Factor:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                        lineNumber: 207,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: royaltyData.inputs.powder_factor.toFixed(3)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                        lineNumber: 208,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                lineNumber: 206,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 555,
+                                        lineNumber: 200,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                lineNumber: 535,
+                                lineNumber: 180,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "p-4 bg-gray-700 rounded-lg",
+                                className: resultsSectionClass,
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-sm font-medium text-gray-400 mb-2",
+                                        className: isDarkMode ? "text-sm font-medium text-gray-400 mb-2" : "text-sm font-medium text-gray-600 mb-2",
                                         children: "Payment Details"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 565,
+                                        lineNumber: 214,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1001,135 +506,226 @@ function RoyaltyCalculator({ onCalculated }) {
                                                         children: "Base Royalty:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 568,
+                                                        lineNumber: 217,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         children: [
-                                                            "LKR ",
+                                                            "Rs. ",
                                                             royaltyData.calculations.base_royalty.toFixed(2)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 569,
+                                                        lineNumber: 218,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                lineNumber: 567,
+                                                lineNumber: 216,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "flex justify-between",
+                                                className: "flex justify-between text-sm",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         children: [
-                                                            "With SSCL (",
+                                                            "SSCL (",
                                                             royaltyData.rates_applied.sscl_rate,
                                                             "):"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 572,
+                                                        lineNumber: 221,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         children: [
-                                                            "LKR ",
-                                                            royaltyData.calculations.royalty_with_sscl.toFixed(2)
+                                                            "Rs. ",
+                                                            (royaltyData.calculations.royalty_with_sscl - royaltyData.calculations.base_royalty).toFixed(2)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 573,
+                                                        lineNumber: 222,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                lineNumber: 571,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "border-t border-gray-600 my-2"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                lineNumber: 575,
+                                                lineNumber: 220,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "flex justify-between text-lg font-semibold",
+                                                className: "flex justify-between text-sm",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         children: [
-                                                            "Total Amount (with ",
+                                                            "VAT (",
                                                             royaltyData.rates_applied.vat_rate,
-                                                            " VAT):"
+                                                            "):"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 577,
+                                                        lineNumber: 225,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         children: [
-                                                            "LKR ",
+                                                            "Rs. ",
+                                                            (royaltyData.calculations.total_amount_with_vat - royaltyData.calculations.royalty_with_sscl).toFixed(2)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                        lineNumber: 226,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                lineNumber: 224,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: isDarkMode ? "border-t border-gray-600 my-2" : "border-t border-gray-200 my-2"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                lineNumber: 228,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "flex justify-between font-semibold",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: "Total Amount Due:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                        lineNumber: 230,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: [
+                                                            "Rs. ",
                                                             royaltyData.calculations.total_amount_with_vat.toFixed(2)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 578,
+                                                        lineNumber: 231,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                lineNumber: 576,
+                                                lineNumber: 229,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 566,
+                                        lineNumber: 215,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                lineNumber: 564,
+                                lineNumber: 213,
                                 columnNumber: 13
                             }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-sm text-gray-400",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: resultsSectionClass,
                                 children: [
-                                    "Calculation Date: ",
-                                    new Date(royaltyData.calculation_date).toLocaleString()
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                        className: isDarkMode ? "text-sm font-medium text-gray-400 mb-2" : "text-sm font-medium text-gray-600 mb-2",
+                                        children: "Calculation Details"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                        lineNumber: 237,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "space-y-2",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "flex justify-between text-sm",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: "Royalty Rate:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                        lineNumber: 240,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: [
+                                                            "Rs. ",
+                                                            royaltyData.rates_applied.royalty_rate_per_cubic_meter,
+                                                            " per m³"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                        lineNumber: 241,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                lineNumber: 239,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "flex justify-between text-sm",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: "Calculation Date:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                        lineNumber: 244,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: new Date(royaltyData.calculation_date).toLocaleString()
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                        lineNumber: 245,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                lineNumber: 243,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                        lineNumber: 238,
+                                        columnNumber: 15
+                                    }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                lineNumber: 583,
+                                lineNumber: 236,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                        lineNumber: 534,
+                        lineNumber: 179,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                lineNumber: 516,
+                lineNumber: 167,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-        lineNumber: 457,
+        lineNumber: 108,
         columnNumber: 5
     }, this);
 }
-_s(RoyaltyCalculator, "Rqp5xioS4Cjd+fkXETJzM09HivM=");
+_s(RoyaltyCalculator, "NMeOiAZb01rmdqBVHgwTPdLQrJ4=");
 _c = RoyaltyCalculator;
 var _c;
 __turbopack_context__.k.register(_c, "RoyaltyCalculator");
@@ -1142,74 +738,6 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 
 var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
-// 'use client';
-// import { useState, useEffect } from 'react';
-// interface UserGreetingProps {
-//   userName?: string; // Optional as it will come from auth system
-// }
-// export default function UserGreeting({ userName }: UserGreetingProps) {
-//   const [greeting, setGreeting] = useState('');
-//   const [currentTime, setCurrentTime] = useState('');
-//   const [currentDate, setCurrentDate] = useState('');
-//   useEffect(() => {
-//     // Function to update time and greeting
-//     const updateTimeAndGreeting = () => {
-//       const now = new Date();
-//       // Format time
-//       const timeOptions: Intl.DateTimeFormatOptions = { 
-//         hour: 'numeric', 
-//         minute: '2-digit', 
-//         hour12: true 
-//       };
-//       setCurrentTime(now.toLocaleTimeString('en-US', timeOptions));
-//       // Format date
-//       const dateOptions: Intl.DateTimeFormatOptions = { 
-//         weekday: 'long', 
-//         year: 'numeric', 
-//         month: 'long', 
-//         day: 'numeric' 
-//       };
-//       setCurrentDate(now.toLocaleDateString('en-US', dateOptions));
-//       // Set greeting based on hour
-//       const hour = now.getHours();
-//       let greetingText = '';
-//       if (hour >= 5 && hour < 12) {
-//         greetingText = 'Good Morning';
-//       } else if (hour >= 12 && hour < 17) {
-//         greetingText = 'Good Afternoon';
-//       } else if (hour >= 17 && hour < 22) {
-//         greetingText = 'Good Evening';
-//       } else {
-//         greetingText = 'Good Night';
-//       }
-//       setGreeting(greetingText);
-//     };
-//     // Update immediately
-//     updateTimeAndGreeting();
-//     // Update every minute
-//     const interval = setInterval(updateTimeAndGreeting, 60000);
-//     // Cleanup interval on component unmount
-//     return () => clearInterval(interval);
-//   }, []);
-//   return (
-//     <div className="mb-6">
-//       <div className="text-3xl font-bold mb-2">
-//         {greeting}, {userName ? userName : 'Guest'}
-//       </div>
-//       <div className="text-lg text-gray-400">
-//         {currentTime} • {currentDate}
-//       </div>
-//     </div>
-//   );
-// } 
-// import React from 'react';
-// export default function UserGreeting() {
-//   return (
-//     <div className="mb-6">
-//       <h1 className="text-3xl font-bold">Welcome to Mining Royalty Calculator</h1>
-//     </div>
-//   );
-// } 
 __turbopack_context__.s({
     "default": (()=>UserGreeting)
 });
@@ -1278,11 +806,11 @@ function UserGreeting({ userName }) {
                 children: [
                     greeting,
                     ", ",
-                    userName ? userName : 'Guest'
+                    userName ? userName : 'Welcome to the royalty calculation'
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/UserGreeting.tsx",
-                lineNumber: 149,
+                lineNumber: 65,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1294,13 +822,13 @@ function UserGreeting({ userName }) {
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/UserGreeting.tsx",
-                lineNumber: 152,
+                lineNumber: 68,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/UserGreeting.tsx",
-        lineNumber: 148,
+        lineNumber: 64,
         columnNumber: 5
     }, this);
 }
@@ -1317,972 +845,267 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 
 var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
-// 'use client';
-// import { useState, useEffect } from 'react';
-// import DatePicker from 'react-datepicker';
-// import "react-datepicker/dist/react-datepicker.css";
-// import { toast } from 'react-hot-toast';
-// interface MiningData {
-//   explosiveQuantity: number;
-//   blastedVolume: number;
-//   totalRoyalty: number;
-//   dueDate: string;
-//   lastCalculated: string;
-// }
-// interface MiningStatsProps {
-//   explosiveQuantity: number;
-//   blastedVolume: number;
-//   totalRoyalty: number;
-//   dueDate: string;
-//   lastCalculated: string;
-//   onDueDateChange: (date: Date) => void;
-// }
-// interface SavedCalculation {
-//   id: string;
-//   date: string;
-//   waterGel: number;
-//   nh4no3: number;
-//   powderFactor: number;
-//   totalAmount: number;
-//   explosiveQuantity: number;
-//   blastedVolume: number;
-//   dueDate: string;
-// }
-// export default function MiningStats({
-//   explosiveQuantity,
-//   blastedVolume,
-//   totalRoyalty,
-//   dueDate,
-//   lastCalculated,
-//   onDueDateChange
-// }: MiningStatsProps) {
-//   const [selectedDate, setSelectedDate] = useState<Date | null>(dueDate ? new Date(dueDate) : null);
-//   const [savedCalculations, setSavedCalculations] = useState<SavedCalculation[]>([]);
-//   const [showHistory, setShowHistory] = useState(false);
-//   const [totals, setTotals] = useState({
-//     totalAmount: 0,
-//     totalExplosive: 0,
-//     totalVolume: 0
-//   });
-//   // Calculate totals whenever saved calculations change
-//   useEffect(() => {
-//     const calculatedTotals = savedCalculations.reduce((acc, calc) => {
-//       return {
-//         totalAmount: acc.totalAmount + calc.totalAmount,
-//         totalExplosive: acc.totalExplosive + calc.explosiveQuantity,
-//         totalVolume: acc.totalVolume + calc.blastedVolume
-//       };
-//     }, {
-//       totalAmount: 0,
-//       totalExplosive: 0,
-//       totalVolume: 0
-//     });
-//     setTotals(calculatedTotals);
-//   }, [savedCalculations]);
-//   useEffect(() => {
-//     const saved = localStorage.getItem('royaltyCalculations');
-//     if (saved) {
-//       const calculations = JSON.parse(saved);
-//       setSavedCalculations(calculations);
-//     }
-//   }, [lastCalculated]);
-//   const handleDateChange = (date: Date) => {
-//     setSelectedDate(date);
-//     onDueDateChange(date);
-//     // Update the due date for the latest calculation
-//     const saved = localStorage.getItem('royaltyCalculations');
-//     if (saved) {
-//       const calculations = JSON.parse(saved);
-//       if (calculations.length > 0) {
-//         // Update the most recent calculation's due date
-//         const updatedCalculations = calculations.map((calc: SavedCalculation, index: number) => {
-//           if (index === calculations.length - 1) {
-//             return { ...calc, dueDate: date.toISOString() };
-//           }
-//           return calc;
-//         });
-//         localStorage.setItem('royaltyCalculations', JSON.stringify(updatedCalculations));
-//         setSavedCalculations(updatedCalculations);
-//         toast.success('Due date saved successfully');
-//       }
-//     }
-//   };
-//   const handleDeleteCalculation = (id: string) => {
-//     const calculationToDelete = savedCalculations.find(calc => calc.id === id);
-//     if (!calculationToDelete) return;
-//     const updatedCalculations = savedCalculations.filter(calc => calc.id !== id);
-//     setSavedCalculations(updatedCalculations);
-//     // Update localStorage
-//     localStorage.setItem('royaltyCalculations', JSON.stringify(updatedCalculations));
-//     toast.success('Calculation deleted successfully');
-//   };
-//   return (
-//     <div className="space-y-6">
-//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-//         {/* Total Amount Card */}
-//         <div className="bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition-colors">
-//           <div className="flex items-center justify-between mb-4">
-//             <h3 className="text-gray-400 text-sm font-medium">Total Amount to Pay</h3>
-//             <span className="p-2 bg-yellow-500/10 rounded-lg">
-//               <svg className="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-//               </svg>
-//             </span>
-//           </div>
-//           <div className="flex items-baseline">
-//             <span className="text-2xl font-bold text-white">
-//               LKR {totals.totalAmount.toLocaleString(undefined, { 
-//                 minimumFractionDigits: 2, 
-//                 maximumFractionDigits: 2 
-//               })}
-//             </span>
-//           </div>
-//         </div>
-//         {/* Total Explosive Quantity Card */}
-//         <div className="bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition-colors">
-//           <div className="flex items-center justify-between mb-4">
-//             <h3 className="text-gray-400 text-sm font-medium">Total Explosive Quantity</h3>
-//             <span className="p-2 bg-blue-500/10 rounded-lg">
-//               <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-//               </svg>
-//             </span>
-//           </div>
-//           <div className="flex items-baseline">
-//             <span className="text-2xl font-bold text-white">{totals.totalExplosive.toFixed(2)}</span>
-//             <span className="ml-2 text-gray-400">kg</span>
-//           </div>
-//         </div>
-//         {/* Blasted Rock Volume Card */}
-//         <div className="bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition-colors">
-//           <div className="flex items-center justify-between mb-4">
-//             <h3 className="text-gray-400 text-sm font-medium">Blasted Rock Volume</h3>
-//             <span className="p-2 bg-green-500/10 rounded-lg">
-//               <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12V8H6a2 2 0 00-2 2v4m16 0v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4m16 0h-2m-4 0h-8" />
-//               </svg>
-//             </span>
-//           </div>
-//           <div className="flex items-baseline">
-//             <span className="text-2xl font-bold text-white">{blastedVolume.toFixed(2)}</span>
-//             <span className="ml-2 text-gray-400">m³</span>
-//           </div>
-//         </div>
-//         {/* Due Date Card */}
-//         <div className="bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition-colors">
-//           <div className="flex items-center justify-between mb-4">
-//             <h3 className="text-gray-400 text-sm font-medium">Payment Due Date</h3>
-//             <span className="p-2 bg-red-500/10 rounded-lg">
-//               <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-//               </svg>
-//             </span>
-//           </div>
-//           <div className="flex flex-col">
-//             <DatePicker
-//               selected={selectedDate}
-//               onChange={handleDateChange}
-//               dateFormat="MMMM d, yyyy"
-//               minDate={new Date()}
-//               className="w-full px-4 py-2 rounded-md bg-gray-700 border border-gray-600 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-//               placeholderText="Select due date"
-//             />
-//             {lastCalculated && (
-//               <span className="text-sm text-gray-400 mt-2">
-//                 Last Calculated: {new Date(lastCalculated).toLocaleString()}
-//               </span>
-//             )}
-//           </div>
-//         </div>
-//       </div>
-//       <div className="bg-gray-800 rounded-xl p-6">
-//         <div className="flex justify-between items-center mb-4">
-//           <h3 className="text-lg font-medium">Calculation History</h3>
-//           <button
-//             onClick={() => setShowHistory(!showHistory)}
-//             className="text-sm text-blue-400 hover:text-blue-300"
-//           >
-//             {showHistory ? 'Hide History' : 'Show History'}
-//           </button>
-//         </div>
-//         {showHistory && (
-//           <div className="space-y-4">
-//             {savedCalculations.length === 0 ? (
-//               <p className="text-gray-400">No saved calculations yet</p>
-//             ) : (
-//               savedCalculations.map((calc) => (
-//                 <div key={calc.id} className="p-4 bg-gray-700 rounded-lg">
-//                   <div className="flex justify-between items-start mb-3">
-//                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow">
-//                       <div>
-//                         <p className="text-sm text-gray-400">Calculation Date & Time</p>
-//                         <p className="font-medium">{new Date(calc.date).toLocaleString()}</p>
-//                       </div>
-//                       <div>
-//                         <p className="text-sm text-gray-400">Due Date</p>
-//                         <p className="font-medium">{new Date(calc.dueDate).toLocaleDateString()}</p>
-//                       </div>
-//                     </div>
-//                     <button
-//                       onClick={() => handleDeleteCalculation(calc.id)}
-//                       className="p-1 hover:bg-gray-600 rounded-full transition-colors ml-4"
-//                       title="Delete calculation"
-//                     >
-//                       <svg 
-//                         className="w-5 h-5 text-red-400 hover:text-red-300" 
-//                         fill="none" 
-//                         stroke="currentColor" 
-//                         viewBox="0 0 24 24"
-//                       >
-//                         <path 
-//                           strokeLinecap="round" 
-//                           strokeLinejoin="round" 
-//                           strokeWidth={2} 
-//                           d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" 
-//                         />
-//                       </svg>
-//                     </button>
-//                   </div>
-//                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-//                     <div>
-//                       <p className="text-sm text-gray-400">Total Amount</p>
-//                       <p className="font-medium">LKR {calc.totalAmount.toLocaleString(undefined, {
-//                         minimumFractionDigits: 2,
-//                         maximumFractionDigits: 2
-//                       })}</p>
-//                     </div>
-//                     <div>
-//                       <p className="text-sm text-gray-400">Explosive Used</p>
-//                       <p className="font-medium">{calc.explosiveQuantity.toFixed(2)} kg</p>
-//                     </div>
-//                     <div>
-//                       <p className="text-sm text-gray-400">Blasted Volume</p>
-//                       <p className="font-medium">{calc.blastedVolume.toFixed(2)} m³</p>
-//                     </div>
-//                     <div>
-//                       <p className="text-sm text-gray-400">Input Details</p>
-//                       <p className="font-medium text-sm">
-//                         WG: {calc.waterGel}kg, NH4: {calc.nh4no3}kg, PF: {calc.powderFactor}
-//                       </p>
-//                     </div>
-//                   </div>
-//                 </div>
-//               )).reverse()
-//             )}
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// } 
 __turbopack_context__.s({
     "default": (()=>MiningStats)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$datepicker$2f$dist$2f$index$2e$es$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-datepicker/dist/index.es.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-hot-toast/dist/index.mjs [app-client] (ecmascript)");
-;
-var _s = __turbopack_context__.k.signature();
 'use client';
 ;
-;
-;
-;
-function MiningStats({ // We're not directly using explosiveQuantity in this component
-// explosiveQuantity,
-blastedVolume, // totalRoyalty isn't used, but we'll keep it in props for compatibility
-// totalRoyalty,
-dueDate, lastCalculated, onDueDateChange }) {
-    _s();
-    const [selectedDate, setSelectedDate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(dueDate ? new Date(dueDate) : null);
-    const [savedCalculations, setSavedCalculations] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
-    const [showHistory, setShowHistory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [totals, setTotals] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
-        totalAmount: 0,
-        totalExplosive: 0,
-        totalVolume: 0
-    });
-    // Calculate totals whenever saved calculations change
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "MiningStats.useEffect": ()=>{
-            const calculatedTotals = savedCalculations.reduce({
-                "MiningStats.useEffect.calculatedTotals": (acc, calc)=>{
-                    return {
-                        totalAmount: acc.totalAmount + calc.totalAmount,
-                        totalExplosive: acc.totalExplosive + calc.explosiveQuantity,
-                        totalVolume: acc.totalVolume + calc.blastedVolume
-                    };
-                }
-            }["MiningStats.useEffect.calculatedTotals"], {
-                totalAmount: 0,
-                totalExplosive: 0,
-                totalVolume: 0
-            });
-            setTotals(calculatedTotals);
-        }
-    }["MiningStats.useEffect"], [
-        savedCalculations
-    ]);
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "MiningStats.useEffect": ()=>{
-            const saved = localStorage.getItem('royaltyCalculations');
-            if (saved) {
-                const calculations = JSON.parse(saved);
-                setSavedCalculations(calculations);
-            }
-        }
-    }["MiningStats.useEffect"], [
-        lastCalculated
-    ]);
-    // Fix TypeScript error for DatePicker by handling null case
-    const handleDateChange = (date)=>{
-        if (date) {
-            setSelectedDate(date);
-            onDueDateChange(date);
-            // Update the due date for the latest calculation
-            const saved = localStorage.getItem('royaltyCalculations');
-            if (saved) {
-                const calculations = JSON.parse(saved);
-                if (calculations.length > 0) {
-                    // Update the most recent calculation's due date
-                    const updatedCalculations = calculations.map((calc, index)=>{
-                        if (index === calculations.length - 1) {
-                            return {
-                                ...calc,
-                                dueDate: date.toISOString()
-                            };
-                        }
-                        return calc;
-                    });
-                    localStorage.setItem('royaltyCalculations', JSON.stringify(updatedCalculations));
-                    setSavedCalculations(updatedCalculations);
-                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Due date saved successfully');
-                }
-            }
-        }
-    };
-    const handleDeleteCalculation = (id)=>{
-        const calculationToDelete = savedCalculations.find((calc)=>calc.id === id);
-        if (!calculationToDelete) return;
-        const updatedCalculations = savedCalculations.filter((calc)=>calc.id !== id);
-        setSavedCalculations(updatedCalculations);
-        // Update localStorage
-        localStorage.setItem('royaltyCalculations', JSON.stringify(updatedCalculations));
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Calculation deleted successfully');
-    };
+function MiningStats({ explosiveQuantity, blastedVolume, totalRoyalty, dueDate, lastCalculated, onDueDateChange }) {
+    // Check for dark mode from localStorage to maintain theme consistency
+    const isDarkMode = ("TURBOPACK compile-time truthy", 1) ? localStorage.getItem('theme') !== 'light' : ("TURBOPACK unreachable", undefined);
+    // Define dynamic classes based on theme
+    const cardClass = isDarkMode ? "bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition-colors" : "bg-white shadow-md rounded-xl p-6 hover:bg-gray-50 transition-colors";
+    const labelClass = isDarkMode ? "text-gray-400 text-sm font-medium" : "text-gray-600 text-sm font-medium";
+    const valueClass = isDarkMode ? "text-2xl font-bold text-white" : "text-2xl font-bold text-gray-900";
+    const unitClass = isDarkMode ? "ml-2 text-gray-400" : "ml-2 text-gray-500";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "space-y-6",
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition-colors",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex items-center justify-between mb-4",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-gray-400 text-sm font-medium",
-                                        children: "Total Amount to Pay"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                        lineNumber: 410,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "p-2 bg-yellow-500/10 rounded-lg",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                            className: "w-6 h-6 text-yellow-500",
-                                            fill: "none",
-                                            stroke: "currentColor",
-                                            viewBox: "0 0 24 24",
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                                strokeLinecap: "round",
-                                                strokeLinejoin: "round",
-                                                strokeWidth: 2,
-                                                d: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/MiningStats.tsx",
-                                                lineNumber: 413,
-                                                columnNumber: 17
-                                            }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/components/MiningStats.tsx",
-                                            lineNumber: 412,
-                                            columnNumber: 15
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                        lineNumber: 411,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/MiningStats.tsx",
-                                lineNumber: 409,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex items-baseline",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "text-2xl font-bold text-white",
-                                    children: [
-                                        "LKR ",
-                                        totals.totalAmount.toLocaleString(undefined, {
-                                            minimumFractionDigits: 2,
-                                            maximumFractionDigits: 2
-                                        })
-                                    ]
-                                }, void 0, true, {
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "grid grid-cols-1 md:grid-cols-3 gap-6",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: cardClass,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center justify-between mb-4",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                    className: labelClass,
+                                    children: "Total Amount Due"
+                                }, void 0, false, {
                                     fileName: "[project]/app/components/MiningStats.tsx",
-                                    lineNumber: 418,
+                                    lineNumber: 59,
                                     columnNumber: 13
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/app/components/MiningStats.tsx",
-                                lineNumber: 417,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/components/MiningStats.tsx",
-                        lineNumber: 408,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition-colors",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex items-center justify-between mb-4",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-gray-400 text-sm font-medium",
-                                        children: "Total Explosive Quantity"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                        lineNumber: 430,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "p-2 bg-blue-500/10 rounded-lg",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                            className: "w-6 h-6 text-blue-500",
-                                            fill: "none",
-                                            stroke: "currentColor",
-                                            viewBox: "0 0 24 24",
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                                strokeLinecap: "round",
-                                                strokeLinejoin: "round",
-                                                strokeWidth: 2,
-                                                d: "M13 10V3L4 14h7v7l9-11h-7z"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/MiningStats.tsx",
-                                                lineNumber: 433,
-                                                columnNumber: 17
-                                            }, this)
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "p-2 bg-yellow-500/10 rounded-lg",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                        className: "w-6 h-6 text-yellow-500",
+                                        fill: "none",
+                                        stroke: "currentColor",
+                                        viewBox: "0 0 24 24",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                            strokeLinecap: "round",
+                                            strokeLinejoin: "round",
+                                            strokeWidth: 2,
+                                            d: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/MiningStats.tsx",
-                                            lineNumber: 432,
-                                            columnNumber: 15
+                                            lineNumber: 62,
+                                            columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/MiningStats.tsx",
-                                        lineNumber: 431,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/MiningStats.tsx",
-                                lineNumber: 429,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex items-baseline",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "text-2xl font-bold text-white",
-                                        children: totals.totalExplosive.toFixed(2)
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                        lineNumber: 438,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "ml-2 text-gray-400",
-                                        children: "kg"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                        lineNumber: 439,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/MiningStats.tsx",
-                                lineNumber: 437,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/components/MiningStats.tsx",
-                        lineNumber: 428,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition-colors",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex items-center justify-between mb-4",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-gray-400 text-sm font-medium",
-                                        children: "Blasted Rock Volume"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                        lineNumber: 446,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "p-2 bg-green-500/10 rounded-lg",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                            className: "w-6 h-6 text-green-500",
-                                            fill: "none",
-                                            stroke: "currentColor",
-                                            viewBox: "0 0 24 24",
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                                strokeLinecap: "round",
-                                                strokeLinejoin: "round",
-                                                strokeWidth: 2,
-                                                d: "M20 12V8H6a2 2 0 00-2 2v4m16 0v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4m16 0h-2m-4 0h-8"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/MiningStats.tsx",
-                                                lineNumber: 449,
-                                                columnNumber: 17
-                                            }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/components/MiningStats.tsx",
-                                            lineNumber: 448,
-                                            columnNumber: 15
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                        lineNumber: 447,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/MiningStats.tsx",
-                                lineNumber: 445,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex items-baseline",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "text-2xl font-bold text-white",
-                                        children: blastedVolume.toFixed(2)
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                        lineNumber: 454,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "ml-2 text-gray-400",
-                                        children: "m³"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                        lineNumber: 455,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/MiningStats.tsx",
-                                lineNumber: 453,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/components/MiningStats.tsx",
-                        lineNumber: 444,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition-colors",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex items-center justify-between mb-4",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-gray-400 text-sm font-medium",
-                                        children: "Payment Due Date"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                        lineNumber: 462,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "p-2 bg-red-500/10 rounded-lg",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                            className: "w-6 h-6 text-red-500",
-                                            fill: "none",
-                                            stroke: "currentColor",
-                                            viewBox: "0 0 24 24",
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                                strokeLinecap: "round",
-                                                strokeLinejoin: "round",
-                                                strokeWidth: 2,
-                                                d: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/MiningStats.tsx",
-                                                lineNumber: 465,
-                                                columnNumber: 17
-                                            }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/components/MiningStats.tsx",
-                                            lineNumber: 464,
-                                            columnNumber: 15
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                        lineNumber: 463,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/MiningStats.tsx",
-                                lineNumber: 461,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex flex-col",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$datepicker$2f$dist$2f$index$2e$es$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                        selected: selectedDate,
-                                        onChange: handleDateChange,
-                                        dateFormat: "MMMM d, yyyy",
-                                        minDate: new Date(),
-                                        className: "w-full px-4 py-2 rounded-md bg-gray-700 border border-gray-600 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500",
-                                        placeholderText: "Select due date"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                        lineNumber: 470,
-                                        columnNumber: 13
-                                    }, this),
-                                    lastCalculated && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "text-sm text-gray-400 mt-2",
-                                        children: [
-                                            "Last Calculated: ",
-                                            new Date(lastCalculated).toLocaleString()
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                        lineNumber: 479,
+                                        lineNumber: 61,
                                         columnNumber: 15
                                     }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/components/MiningStats.tsx",
+                                    lineNumber: 60,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/components/MiningStats.tsx",
+                            lineNumber: 58,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-baseline",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: valueClass,
+                                children: [
+                                    "Rs. ",
+                                    totalRoyalty.toLocaleString(undefined, {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2
+                                    })
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/MiningStats.tsx",
-                                lineNumber: 469,
-                                columnNumber: 11
+                                lineNumber: 67,
+                                columnNumber: 13
                             }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/components/MiningStats.tsx",
-                        lineNumber: 460,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/app/components/MiningStats.tsx",
-                lineNumber: 406,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-gray-800 rounded-xl p-6",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex justify-between items-center mb-4",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "text-lg font-medium",
-                                children: "Calculation History"
-                            }, void 0, false, {
-                                fileName: "[project]/app/components/MiningStats.tsx",
-                                lineNumber: 489,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: ()=>setShowHistory(!showHistory),
-                                className: "text-sm text-blue-400 hover:text-blue-300",
-                                children: showHistory ? 'Hide History' : 'Show History'
-                            }, void 0, false, {
-                                fileName: "[project]/app/components/MiningStats.tsx",
-                                lineNumber: 490,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/components/MiningStats.tsx",
-                        lineNumber: 488,
-                        columnNumber: 9
-                    }, this),
-                    showHistory && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "space-y-4",
-                        children: savedCalculations.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            className: "text-gray-400",
-                            children: "No saved calculations yet"
                         }, void 0, false, {
                             fileName: "[project]/app/components/MiningStats.tsx",
-                            lineNumber: 501,
-                            columnNumber: 15
-                        }, this) : savedCalculations.map((calc)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "p-4 bg-gray-700 rounded-lg",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex justify-between items-start mb-3",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "text-sm text-gray-400",
-                                                                children: "Calculation Date & Time"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/components/MiningStats.tsx",
-                                                                lineNumber: 508,
-                                                                columnNumber: 25
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "font-medium",
-                                                                children: new Date(calc.date).toLocaleString()
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/components/MiningStats.tsx",
-                                                                lineNumber: 509,
-                                                                columnNumber: 25
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                                        lineNumber: 507,
-                                                        columnNumber: 23
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "text-sm text-gray-400",
-                                                                children: "Due Date"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/components/MiningStats.tsx",
-                                                                lineNumber: 512,
-                                                                columnNumber: 25
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "font-medium",
-                                                                children: new Date(calc.dueDate).toLocaleDateString()
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/components/MiningStats.tsx",
-                                                                lineNumber: 513,
-                                                                columnNumber: 25
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                                        lineNumber: 511,
-                                                        columnNumber: 23
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/app/components/MiningStats.tsx",
-                                                lineNumber: 506,
-                                                columnNumber: 21
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                onClick: ()=>handleDeleteCalculation(calc.id),
-                                                className: "p-1 hover:bg-gray-600 rounded-full transition-colors ml-4",
-                                                title: "Delete calculation",
-                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                                    className: "w-5 h-5 text-red-400 hover:text-red-300",
-                                                    fill: "none",
-                                                    stroke: "currentColor",
-                                                    viewBox: "0 0 24 24",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                                        strokeLinecap: "round",
-                                                        strokeLinejoin: "round",
-                                                        strokeWidth: 2,
-                                                        d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                                        lineNumber: 527,
-                                                        columnNumber: 25
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/components/MiningStats.tsx",
-                                                    lineNumber: 521,
-                                                    columnNumber: 23
-                                                }, this)
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/MiningStats.tsx",
-                                                lineNumber: 516,
-                                                columnNumber: 21
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
+                            lineNumber: 66,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/components/MiningStats.tsx",
+                    lineNumber: 57,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: cardClass,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center justify-between mb-4",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                    className: labelClass,
+                                    children: "Total Explosive Quantity"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/components/MiningStats.tsx",
+                                    lineNumber: 79,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "p-2 bg-blue-500/10 rounded-lg",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                        className: "w-6 h-6 text-blue-500",
+                                        fill: "none",
+                                        stroke: "currentColor",
+                                        viewBox: "0 0 24 24",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                            strokeLinecap: "round",
+                                            strokeLinejoin: "round",
+                                            strokeWidth: 2,
+                                            d: "M13 10V3L4 14h7v7l9-11h-7z"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/components/MiningStats.tsx",
+                                            lineNumber: 82,
+                                            columnNumber: 17
+                                        }, this)
+                                    }, void 0, false, {
                                         fileName: "[project]/app/components/MiningStats.tsx",
-                                        lineNumber: 505,
-                                        columnNumber: 19
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "grid grid-cols-2 md:grid-cols-4 gap-4",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "text-sm text-gray-400",
-                                                        children: "Total Amount"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                                        lineNumber: 538,
-                                                        columnNumber: 23
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "font-medium",
-                                                        children: [
-                                                            "LKR ",
-                                                            calc.totalAmount.toLocaleString(undefined, {
-                                                                minimumFractionDigits: 2,
-                                                                maximumFractionDigits: 2
-                                                            })
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                                        lineNumber: 539,
-                                                        columnNumber: 23
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/app/components/MiningStats.tsx",
-                                                lineNumber: 537,
-                                                columnNumber: 21
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "text-sm text-gray-400",
-                                                        children: "Explosive Used"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                                        lineNumber: 545,
-                                                        columnNumber: 23
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "font-medium",
-                                                        children: [
-                                                            calc.explosiveQuantity.toFixed(2),
-                                                            " kg"
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                                        lineNumber: 546,
-                                                        columnNumber: 23
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/app/components/MiningStats.tsx",
-                                                lineNumber: 544,
-                                                columnNumber: 21
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "text-sm text-gray-400",
-                                                        children: "Blasted Volume"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                                        lineNumber: 549,
-                                                        columnNumber: 23
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "font-medium",
-                                                        children: [
-                                                            calc.blastedVolume.toFixed(2),
-                                                            " m³"
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                                        lineNumber: 550,
-                                                        columnNumber: 23
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/app/components/MiningStats.tsx",
-                                                lineNumber: 548,
-                                                columnNumber: 21
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "text-sm text-gray-400",
-                                                        children: "Input Details"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                                        lineNumber: 553,
-                                                        columnNumber: 23
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "font-medium text-sm",
-                                                        children: [
-                                                            "WG: ",
-                                                            calc.waterGel,
-                                                            "kg, NH4: ",
-                                                            calc.nh4no3,
-                                                            "kg, PF: ",
-                                                            calc.powderFactor
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                                        lineNumber: 554,
-                                                        columnNumber: 23
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/app/components/MiningStats.tsx",
-                                                lineNumber: 552,
-                                                columnNumber: 21
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/components/MiningStats.tsx",
-                                        lineNumber: 536,
-                                        columnNumber: 19
+                                        lineNumber: 81,
+                                        columnNumber: 15
                                     }, this)
-                                ]
-                            }, calc.id, true, {
-                                fileName: "[project]/app/components/MiningStats.tsx",
-                                lineNumber: 504,
-                                columnNumber: 17
-                            }, this)).reverse()
-                    }, void 0, false, {
-                        fileName: "[project]/app/components/MiningStats.tsx",
-                        lineNumber: 499,
-                        columnNumber: 11
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/app/components/MiningStats.tsx",
-                lineNumber: 487,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
+                                }, void 0, false, {
+                                    fileName: "[project]/app/components/MiningStats.tsx",
+                                    lineNumber: 80,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/components/MiningStats.tsx",
+                            lineNumber: 78,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-baseline",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: valueClass,
+                                    children: explosiveQuantity.toFixed(2)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/components/MiningStats.tsx",
+                                    lineNumber: 87,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: unitClass,
+                                    children: "kg"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/components/MiningStats.tsx",
+                                    lineNumber: 88,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/components/MiningStats.tsx",
+                            lineNumber: 86,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/components/MiningStats.tsx",
+                    lineNumber: 77,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: cardClass,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center justify-between mb-4",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                    className: labelClass,
+                                    children: "Blasted Rock Volume"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/components/MiningStats.tsx",
+                                    lineNumber: 95,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "p-2 bg-green-500/10 rounded-lg",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                        className: "w-6 h-6 text-green-500",
+                                        fill: "none",
+                                        stroke: "currentColor",
+                                        viewBox: "0 0 24 24",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                            strokeLinecap: "round",
+                                            strokeLinejoin: "round",
+                                            strokeWidth: 2,
+                                            d: "M20 12V8H6a2 2 0 00-2 2v4m16 0v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4m16 0h-2m-4 0h-8"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/components/MiningStats.tsx",
+                                            lineNumber: 98,
+                                            columnNumber: 17
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/components/MiningStats.tsx",
+                                        lineNumber: 97,
+                                        columnNumber: 15
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/components/MiningStats.tsx",
+                                    lineNumber: 96,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/components/MiningStats.tsx",
+                            lineNumber: 94,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-baseline",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: valueClass,
+                                    children: blastedVolume.toFixed(2)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/components/MiningStats.tsx",
+                                    lineNumber: 103,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: unitClass,
+                                    children: "m³"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/components/MiningStats.tsx",
+                                    lineNumber: 104,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/components/MiningStats.tsx",
+                            lineNumber: 102,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/components/MiningStats.tsx",
+                    lineNumber: 93,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/components/MiningStats.tsx",
+            lineNumber: 55,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
         fileName: "[project]/app/components/MiningStats.tsx",
-        lineNumber: 405,
+        lineNumber: 54,
         columnNumber: 5
     }, this);
 }
-_s(MiningStats, "+qWFTCMb4pAG8KO4vlFVqBatEpI=");
 _c = MiningStats;
 var _c;
 __turbopack_context__.k.register(_c, "MiningStats");
@@ -3414,7 +2237,7 @@ function Navbar() {
                                                 whileTap: {
                                                     scale: 0.95
                                                 },
-                                                className: "bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg  hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer font-semibold",
+                                                className: "bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg    hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer   font-semibold",
                                                 children: authText.signup
                                             }, void 0, false, {
                                                 fileName: "[project]/app/navbar/page.tsx",
@@ -4203,7 +3026,7 @@ function Home() {
         columnNumber: 5
     }, this);
 }
-_s(Home, "n0qRX2BGlT9agl8dYQyTDx7ehVo=", false, function() {
+_s(Home, "fMyzsFkCNF2ecG2RPy8VxzkiXnU=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$scroll$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useScroll"]
     ];

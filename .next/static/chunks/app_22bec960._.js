@@ -1058,7 +1058,7 @@ function Navbar() {
                                                 whileTap: {
                                                     scale: 0.95
                                                 },
-                                                className: "bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg  hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer font-semibold",
+                                                className: "bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg    hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer   font-semibold",
                                                 children: authText.signup
                                             }, void 0, false, {
                                                 fileName: "[project]/app/navbar/page.tsx",
@@ -1546,7 +1546,7 @@ function ComplaintForm() {
     };
     const t = translations[language];
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "jsx-140441c1db72d800" + " " + `relative min-h-screen ${isDarkMode ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} overflow-hidden`,
+        className: "jsx-1141d1c9a2c59bba" + " " + `relative min-h-screen ${isDarkMode ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} overflow-hidden`,
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$navbar$2f$page$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/complains/page.tsx",
@@ -1554,35 +1554,35 @@ function ComplaintForm() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-140441c1db72d800" + " " + "absolute -top-60 -right-60 w-120 h-120 bg-gradient-to-br from-orange-500/8 to-amber-500/4 rounded-full blur-3xl md:w-140 md:h-140"
+                className: "jsx-1141d1c9a2c59bba" + " " + "absolute -top-60 -right-60 w-120 h-120 bg-gradient-to-br from-orange-500/8 to-amber-500/4 rounded-full blur-3xl md:w-140 md:h-140"
             }, void 0, false, {
                 fileName: "[project]/app/complains/page.tsx",
                 lineNumber: 265,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-140441c1db72d800" + " " + "absolute -bottom-60 -left-60 w-120 h-120 bg-gradient-to-tl from-amber-500/8 to-orange-500/4 rounded-full blur-3xl md:w-140 md:h-140"
+                className: "jsx-1141d1c9a2c59bba" + " " + "absolute -bottom-60 -left-60 w-120 h-120 bg-gradient-to-tl from-amber-500/8 to-orange-500/4 rounded-full blur-3xl md:w-140 md:h-140"
             }, void 0, false, {
                 fileName: "[project]/app/complains/page.tsx",
                 lineNumber: 266,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-140441c1db72d800" + " " + "absolute top-20 left-10 w-24 h-24 bg-orange-500/15 rounded-full blur-xl animate-float-slow opacity-50 md:w-32 md:h-32"
+                className: "jsx-1141d1c9a2c59bba" + " " + "absolute top-20 left-10 w-24 h-24 bg-orange-500/15 rounded-full blur-xl animate-float-slow opacity-50 md:w-32 md:h-32"
             }, void 0, false, {
                 fileName: "[project]/app/complains/page.tsx",
                 lineNumber: 269,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-140441c1db72d800" + " " + "absolute bottom-20 right-10 w-20 h-20 bg-amber-500/15 rounded-full blur-xl animate-float-medium opacity-50 md:w-28 md:h-28"
+                className: "jsx-1141d1c9a2c59bba" + " " + "absolute bottom-20 right-10 w-20 h-20 bg-amber-500/15 rounded-full blur-xl animate-float-medium opacity-50 md:w-28 md:h-28"
             }, void 0, false, {
                 fileName: "[project]/app/complains/page.tsx",
                 lineNumber: 270,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-140441c1db72d800" + " " + "absolute top-60 right-40 w-16 h-16 bg-orange-300/15 rounded-full blur-lg animate-float-fast opacity-50 md:w-24 md:h-24"
+                className: "jsx-1141d1c9a2c59bba" + " " + "absolute top-60 right-40 w-16 h-16 bg-orange-300/15 rounded-full blur-lg animate-float-fast opacity-50 md:w-24 md:h-24"
             }, void 0, false, {
                 fileName: "[project]/app/complains/page.tsx",
                 lineNumber: 271,
@@ -1590,16 +1590,16 @@ function ComplaintForm() {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("canvas", {
                 ref: canvasRef,
-                className: "jsx-140441c1db72d800" + " " + "fixed inset-0 w-full h-full z-0"
+                className: "jsx-1141d1c9a2c59bba" + " " + "fixed inset-0 w-full h-full z-0"
             }, void 0, false, {
                 fileName: "[project]/app/complains/page.tsx",
                 lineNumber: 273,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-                className: "jsx-140441c1db72d800" + " " + "relative pt-20 pb-16 z-10 px-4 sm:px-6 md:pt-24",
+                className: "jsx-1141d1c9a2c59bba" + " " + "relative pt-20 pb-16 z-10 px-4 sm:px-6 md:pt-24",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "jsx-140441c1db72d800" + " " + "container mx-auto flex justify-center",
+                    className: "jsx-1141d1c9a2c59bba" + " " + "container mx-auto flex justify-center",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
                         initial: {
                             opacity: 0,
@@ -1637,7 +1637,7 @@ function ComplaintForm() {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                                 onSubmit: handleSubmit,
                                 autoComplete: "off",
-                                className: "jsx-140441c1db72d800" + " " + "space-y-6 md:space-y-8",
+                                className: "jsx-1141d1c9a2c59bba" + " " + "space-y-6 md:space-y-8",
                                 children: [
                                     !formData.anonymous && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
                                         initial: {
@@ -1655,7 +1655,7 @@ function ComplaintForm() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                 htmlFor: "email",
-                                                className: "jsx-140441c1db72d800" + " " + `block text-base md:text-lg font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'} mb-2`,
+                                                className: "jsx-1141d1c9a2c59bba" + " " + `block text-base md:text-lg font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'} mb-2`,
                                                 children: t.email
                                             }, void 0, false, {
                                                 fileName: "[project]/app/complains/page.tsx",
@@ -1670,7 +1670,7 @@ function ComplaintForm() {
                                                 onChange: handleChange,
                                                 placeholder: "your@email.com",
                                                 required: true,
-                                                className: "jsx-140441c1db72d800" + " " + `w-full p-3 md:p-4 rounded-xl focus:ring-3 focus:ring-orange-400 outline-none transition text-base md:text-lg ${isDarkMode ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-500' : 'bg-white border-gray-300 text-gray-900 placeholder-gray-400'} border`
+                                                className: "jsx-1141d1c9a2c59bba" + " " + `w-full p-3 md:p-4 rounded-xl focus:ring-3 focus:ring-orange-400 outline-none transition text-base md:text-lg ${isDarkMode ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-500' : 'bg-white border-gray-300 text-gray-900 placeholder-gray-400'} border`
                                             }, void 0, false, {
                                                 fileName: "[project]/app/complains/page.tsx",
                                                 lineNumber: 307,
@@ -1713,7 +1713,7 @@ function ComplaintForm() {
                                         },
                                         className: "flex items-center space-x-4",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "jsx-140441c1db72d800" + " " + "relative flex items-center",
+                                            className: "jsx-1141d1c9a2c59bba" + " " + "relative flex items-center",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                     type: "checkbox",
@@ -1721,7 +1721,7 @@ function ComplaintForm() {
                                                     name: "anonymous",
                                                     checked: formData.anonymous,
                                                     onChange: handleCheckboxChange,
-                                                    className: "jsx-140441c1db72d800" + " " + `h-5 w-5 md:h-6 md:w-6 rounded ${isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'} text-orange-500 focus:ring-orange-500 cursor-pointer`
+                                                    className: "jsx-1141d1c9a2c59bba" + " " + `h-5 w-5 md:h-6 md:w-6 rounded ${isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'} text-orange-500 focus:ring-orange-500 cursor-pointer`
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/complains/page.tsx",
                                                     lineNumber: 340,
@@ -1729,7 +1729,7 @@ function ComplaintForm() {
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                     htmlFor: "anonymous",
-                                                    className: "jsx-140441c1db72d800" + " " + `text-base md:text-lg font-medium ml-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'} cursor-pointer`,
+                                                    className: "jsx-1141d1c9a2c59bba" + " " + `text-base md:text-lg font-medium ml-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'} cursor-pointer`,
                                                     children: t.anonymous
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/complains/page.tsx",
@@ -1763,7 +1763,7 @@ function ComplaintForm() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                 htmlFor: "project",
-                                                className: "jsx-140441c1db72d800" + " " + `block text-base md:text-lg font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'} mb-2`,
+                                                className: "jsx-1141d1c9a2c59bba" + " " + `block text-base md:text-lg font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'} mb-2`,
                                                 children: t.project
                                             }, void 0, false, {
                                                 fileName: "[project]/app/complains/page.tsx",
@@ -1771,7 +1771,7 @@ function ComplaintForm() {
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "jsx-140441c1db72d800" + " " + "relative",
+                                                className: "jsx-1141d1c9a2c59bba" + " " + "relative",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                                         id: "project",
@@ -1779,11 +1779,11 @@ function ComplaintForm() {
                                                         value: formData.project,
                                                         onChange: handleChange,
                                                         required: true,
-                                                        className: "jsx-140441c1db72d800" + " " + `w-full p-3 md:p-4 rounded-xl focus:ring-3 focus:ring-orange-400 outline-none transition text-base md:text-lg appearance-none ${isDarkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'} border pr-10`,
+                                                        className: "jsx-1141d1c9a2c59bba" + " " + `w-full p-3 md:p-4 rounded-xl focus:ring-3 focus:ring-orange-400 outline-none transition text-base md:text-lg appearance-none ${isDarkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'} border pr-10`,
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 value: "",
-                                                                className: "jsx-140441c1db72d800",
+                                                                className: "jsx-1141d1c9a2c59bba",
                                                                 children: t.selectProject
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/complains/page.tsx",
@@ -1792,7 +1792,7 @@ function ComplaintForm() {
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 value: "project1",
-                                                                className: "jsx-140441c1db72d800",
+                                                                className: "jsx-1141d1c9a2c59bba",
                                                                 children: "Project 1"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/complains/page.tsx",
@@ -1801,7 +1801,7 @@ function ComplaintForm() {
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 value: "project2",
-                                                                className: "jsx-140441c1db72d800",
+                                                                className: "jsx-1141d1c9a2c59bba",
                                                                 children: "Project 2"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/complains/page.tsx",
@@ -1810,7 +1810,7 @@ function ComplaintForm() {
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 value: "project3",
-                                                                className: "jsx-140441c1db72d800",
+                                                                className: "jsx-1141d1c9a2c59bba",
                                                                 children: "Project 3"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/complains/page.tsx",
@@ -1824,19 +1824,19 @@ function ComplaintForm() {
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "jsx-140441c1db72d800" + " " + `absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`,
+                                                        className: "jsx-1141d1c9a2c59bba" + " " + `absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`,
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                                             fill: "none",
                                                             stroke: "currentColor",
                                                             viewBox: "0 0 24 24",
                                                             xmlns: "http://www.w3.org/2000/svg",
-                                                            className: "jsx-140441c1db72d800" + " " + "w-5 h-5",
+                                                            className: "jsx-1141d1c9a2c59bba" + " " + "w-5 h-5",
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
                                                                 strokeLinecap: "round",
                                                                 strokeLinejoin: "round",
                                                                 strokeWidth: "2",
                                                                 d: "M19 9l-7 7-7-7",
-                                                                className: "jsx-140441c1db72d800"
+                                                                className: "jsx-1141d1c9a2c59bba"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/complains/page.tsx",
                                                                 lineNumber: 385,
@@ -1880,7 +1880,7 @@ function ComplaintForm() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                 htmlFor: "complaint_text",
-                                                className: "jsx-140441c1db72d800" + " " + `block text-base md:text-lg font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'} mb-2`,
+                                                className: "jsx-1141d1c9a2c59bba" + " " + `block text-base md:text-lg font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'} mb-2`,
                                                 children: t.complaint
                                             }, void 0, false, {
                                                 fileName: "[project]/app/complains/page.tsx",
@@ -1895,7 +1895,7 @@ function ComplaintForm() {
                                                 placeholder: t.complaintPlaceholder,
                                                 rows: 6,
                                                 required: true,
-                                                className: "jsx-140441c1db72d800" + " " + `w-full p-3 md:p-4 rounded-xl focus:ring-3 focus:ring-orange-400 outline-none transition text-base md:text-lg ${isDarkMode ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-500' : 'bg-white border-gray-300 text-gray-900 placeholder-gray-400'} border`
+                                                className: "jsx-1141d1c9a2c59bba" + " " + `w-full p-3 md:p-4 rounded-xl focus:ring-3 focus:ring-orange-400 outline-none transition text-base md:text-lg ${isDarkMode ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-500' : 'bg-white border-gray-300 text-gray-900 placeholder-gray-400'} border`
                                             }, void 0, false, {
                                                 fileName: "[project]/app/complains/page.tsx",
                                                 lineNumber: 400,
@@ -1958,15 +1958,15 @@ function ComplaintForm() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                id: "140441c1db72d800",
+                id: "1141d1c9a2c59bba",
                 children: ".text-gradient-orange{background:linear-gradient(90deg,#f97316,#f59e0b);color:#0000;background-clip:text}.text-gradient-gold{background:linear-gradient(90deg,#fbbf24,#d97706);color:#0000;background-clip:text}@keyframes float-slow{0%{transform:translateY(0)translate(0)}50%{transform:translateY(-20px)translate(10px)}to{transform:translateY(0)translate(0)}}@keyframes float-medium{0%{transform:translateY(0)translate(0)}50%{transform:translateY(-15px)translate(-10px)}to{transform:translateY(0)translate(0)}}@keyframes float-fast{0%{transform:translateY(0)translate(0)}50%{transform:translateY(-10px)translate(5px)}to{transform:translateY(0)translate(0)}}.animate-float-slow{animation:8s ease-in-out infinite float-slow}.animate-float-medium{animation:6s ease-in-out infinite float-medium}.animate-float-fast{animation:4s ease-in-out infinite float-fast}@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translate(0,0)}}@keyframes fadeOutDown{0%{opacity:1;transform:translate(0,0)}to{opacity:0;transform:translateY(20px)}}.animate__animated{animation-duration:.5s;animation-fill-mode:both}.animate__fadeInUp{animation-name:fadeInUp}.animate__fadeOutDown{animation-name:fadeOutDown}.animate__faster{animation-duration:.3s}input,select,textarea{transition:all .3s}input:focus,select:focus,textarea:focus{transform:translateY(-2px)}@media (width<=640px){.rounded-3xl{border-radius:1.25rem}.text-gradient-orange,.text-gradient-gold{background-size:200% 100%}}"
             }, void 0, false, void 0, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
-                className: "jsx-140441c1db72d800" + " " + `relative z-10 py-8 ${isDarkMode ? 'bg-gray-900' : 'bg-gray-800'}`,
+                className: "jsx-1141d1c9a2c59bba" + " " + `relative z-10 py-8 ${isDarkMode ? 'bg-gray-900' : 'bg-gray-800'}`,
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "jsx-140441c1db72d800" + " " + "container mx-auto px-4 text-center",
+                    className: "jsx-1141d1c9a2c59bba" + " " + "container mx-auto px-4 text-center",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "jsx-140441c1db72d800" + " " + `text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-300'}`,
+                        className: "jsx-1141d1c9a2c59bba" + " " + `text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-300'}`,
                         children: [
                             "© ",
                             new Date().getFullYear(),
@@ -1994,7 +1994,7 @@ function ComplaintForm() {
         columnNumber: 5
     }, this);
 }
-_s(ComplaintForm, "+RiEceEbECmcFozUG0ti6SeOiWk=");
+_s(ComplaintForm, "ZB8SE4ei+/GziqRyTaLk8CjdUYE=");
 _c = ComplaintForm;
 var _c;
 __turbopack_context__.k.register(_c, "ComplaintForm");

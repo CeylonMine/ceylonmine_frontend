@@ -1058,7 +1058,7 @@ function Navbar() {
                                                 whileTap: {
                                                     scale: 0.95
                                                 },
-                                                className: "bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg  hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer font-semibold",
+                                                className: "bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg    hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer   font-semibold",
                                                 children: authText.signup
                                             }, void 0, false, {
                                                 fileName: "[project]/app/navbar/page.tsx",
