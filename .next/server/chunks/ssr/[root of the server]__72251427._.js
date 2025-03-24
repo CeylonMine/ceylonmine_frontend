@@ -42,14 +42,21 @@ var { g: global, __dirname } = __turbopack_context__;
 // import Image from 'next/image'
 // import { motion } from 'framer-motion'
 // import { useState, useEffect, useRef } from 'react'
+// interface UserData {
+//   firstName?: string;
+//   lastName?: string;
+//   email?: string;
+//   username?: string;
+// }
 // export default function Navbar() {
 //   const [isOpen, setIsOpen] = useState(false)
 //   const [scrolled, setScrolled] = useState(false)
 //   const [isDarkMode, setIsDarkMode] = useState(true) // Default to dark mode
-//   const [language, setLanguage] = useState('en')     // Default language
+//   const [language, setLanguage] = useState<'en' | 'si'>('en')     // Default language
 //   const [isLoggedIn, setIsLoggedIn] = useState(false) // Authentication state
 //   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false)
-//   const dropdownRef = useRef(null)
+//   const [userData, setUserData] = useState<UserData | null>(null)
+//   const dropdownRef = useRef<HTMLDivElement>(null)
 //   // Scroll effect for background color
 //   useEffect(() => {
 //     const handleScroll = () => {
@@ -63,66 +70,79 @@ var { g: global, __dirname } = __turbopack_context__;
 //   }, [scrolled])
 //   // Close dropdown when clicking outside
 //   useEffect(() => {
-//     const handleClickOutside = (event) => {
-//       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+//     const handleClickOutside = (event: MouseEvent) => {
+//       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
 //         setProfileDropdownOpen(false)
 //       }
 //     }
 //     document.addEventListener("mousedown", handleClickOutside)
 //     return () => document.removeEventListener("mousedown", handleClickOutside)
 //   }, [])
-//   // For demo purposes - this would normally be handled by your auth system
-//   // In a real app, you'd check auth tokens, session cookies, etc.
+//   // Check authentication status on component mount
 //   useEffect(() => {
-//     // Check if user is logged in from localStorage or your auth system
-//     const userAuthStatus = localStorage.getItem('isLoggedIn') === 'true'
-//     setIsLoggedIn(userAuthStatus)
-//   }, [])
+//     const checkAuth = () => {
+//       const token = document.cookie
+//         .split('; ')
+//         .find(row => row.startsWith('token='))
+//         ?.split('=')[1];
+//       const storedUser = localStorage.getItem('user');
+//       if (token && storedUser) {
+//         setIsLoggedIn(true);
+//         try {
+//           const userData = JSON.parse(storedUser);
+//           setUserData(userData);
+//         } catch (e) {
+//           console.error('Error parsing user data:', e);
+//         }
+//       } else {
+//         setIsLoggedIn(false);
+//         setUserData(null);
+//       }
+//     };
+//     checkAuth();
+//     // Listen for auth changes
+//     window.addEventListener('storage', checkAuth);
+//     window.addEventListener('authChange', checkAuth);
+//     return () => {
+//       window.removeEventListener('storage', checkAuth);
+//       window.removeEventListener('authChange', checkAuth);
+//     };
+//   }, []);
 //   // Handle logout
 //   const handleLogout = () => {
-//     setIsLoggedIn(false)
-//     localStorage.setItem('isLoggedIn', 'false')
-//     setProfileDropdownOpen(false)
-//     // You would also clear auth tokens, cookies, etc. here
-//     // window.location.href = '/' // Redirect to home page if needed
-//   }
-//   // Handle login (for demo purposes)
-//   const simulateLogin = () => {
-//     setIsLoggedIn(true)
-//     localStorage.setItem('isLoggedIn', 'true')
-//   }
-//   // ----------------------------
-//   // THEME TOGGLE LOGIC
-//   // ----------------------------
+//     // Clear auth token cookie
+//     document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=strict';
+//     // Clear user data from localStorage
+//     localStorage.removeItem('user');
+//     setIsLoggedIn(false);
+//     setUserData(null);
+//     setProfileDropdownOpen(false);
+//     // Dispatch auth change event
+//     window.dispatchEvent(new CustomEvent('authChange'));
+//     // Redirect to home page
+//     window.location.href = '/';
+//   };
+//   // Theme toggle logic
 //   const toggleTheme = () => {
 //     const newTheme = !isDarkMode
 //     setIsDarkMode(newTheme)
-//     // Apply to <html> element
 //     if (newTheme) {
 //       document.documentElement.classList.add('dark')
 //     } else {
 //       document.documentElement.classList.remove('dark')
 //     }
-//     // Save preference
 //     localStorage.setItem('theme', newTheme ? 'dark' : 'light')
-//     // Emit themeChange event
-//     const event = new CustomEvent('themeChange', { detail: { isDarkMode: newTheme } })
-//     window.dispatchEvent(event)
+//     window.dispatchEvent(new CustomEvent('themeChange', { detail: { isDarkMode: newTheme } }))
 //   }
-//   // ----------------------------
-//   // LANGUAGE TOGGLE / SWITCH
-//   // ----------------------------
+//   // Language toggle logic
 //   const toggleLanguage = () => {
 //     const newLang = language === 'en' ? 'si' : 'en'
 //     setLanguage(newLang)
 //     localStorage.setItem('language', newLang)
-//     // Emit languageChange event
-//     const event = new CustomEvent('languageChange', { detail: { language: newLang } })
-//     window.dispatchEvent(event)
+//     window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: newLang } }))
 //   }
 //   // Initialize theme & language from localStorage or system preference
 //   useEffect(() => {
-//     // THEME
 //     const savedTheme = localStorage.getItem('theme')
 //     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
 //     const isDark = savedTheme === 'dark' || (!savedTheme && systemPrefersDark)
@@ -132,17 +152,12 @@ var { g: global, __dirname } = __turbopack_context__;
 //     } else {
 //       document.documentElement.classList.remove('dark')
 //     }
-//     // Emit initial theme event
 //     window.dispatchEvent(new CustomEvent('themeChange', { detail: { isDarkMode: isDark } }))
-//     // LANGUAGE
 //     const savedLang = localStorage.getItem('language') || 'en'
-//     setLanguage(savedLang)
+//     setLanguage(savedLang as 'en' | 'si')
 //     window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: savedLang } }))
 //   }, [])
-//   // ----------------------------
-//   // NAVIGATION ITEMS
-//   // ----------------------------
-//   // Example: different text per language
+//   // Navigation items
 //   const navItemsEn = [
 //     { name: 'Home', path: '/' },
 //     { name: 'Map', path: '/map' },
@@ -154,8 +169,6 @@ var { g: global, __dirname } = __turbopack_context__;
 //     { name: 'About Us', path: '/about' },
 //     { name: 'Contact Us', path: '/contact' }
 //   ]
-//   // For demonstration, let's provide a Sinhala version of the same links
-//   // (Feel free to replace with actual translations)
 //   const navItemsSi = [
 //     { name: 'මුල් පිටුව', path: '/' },
 //     { name: 'සිතියම', path: '/map' },
@@ -170,11 +183,17 @@ var { g: global, __dirname } = __turbopack_context__;
 //   const navItems = language === 'en' ? navItemsEn : navItemsSi
 //   // Auth related text based on language
 //   const authText = {
-//     login: language === 'en' ? 'Login' : 'පිවිසෙන්න',
 //     signup: language === 'en' ? 'Sign Up' : 'ලියාපදිංචි වන්න',
 //     dashboard: language === 'en' ? 'Dashboard' : 'උපකරණ පුවරුව',
 //     logout: language === 'en' ? 'Logout' : 'පිටවීම',
 //     profile: language === 'en' ? 'Profile' : 'පැතිකඩ'
+//   }
+//   // Get display name
+//   const getDisplayName = () => {
+//     if (userData && userData.firstName) {
+//       return `${userData.firstName}`
+//     }
+//     return authText.profile
 //   }
 //   // Framer Motion variants
 //   const navAnimation = {
@@ -258,7 +277,7 @@ var { g: global, __dirname } = __turbopack_context__;
 //           </motion.div>
 //           {/* Right Side (Theme Toggle, Language Switch, Auth Buttons) */}
 //           <div className="flex items-center space-x-4">
-//             {/* Language Toggle (simple approach: just toggles between EN & SI) */}
+//             {/* Language Toggle */}
 //             <motion.button
 //               onClick={toggleLanguage}
 //               whileHover={{ scale: 1.05 }}
@@ -286,44 +305,8 @@ var { g: global, __dirname } = __turbopack_context__;
 //             >
 //               {isDarkMode ? '🌞' : '🌙'}
 //             </motion.button>
-//             {/* Authentication Section - Conditional Rendering */}
-//             {!isLoggedIn ? (
-//               // Not logged in - show login & signup buttons
-//               <div className="hidden md:flex items-center space-x-3">
-//                 {/* Login Button */}
-//                 <motion.div variants={itemAnimation}>
-//                   <Link href="/login">
-//                     <motion.span
-//                       whileHover={{ scale: 1.05 }}
-//                       whileTap={{ scale: 0.95 }}
-//                       className={`
-//                         border-2 border-[#FFA500] 
-//                         ${isDarkMode ? 'text-[#FFA500]' : 'text-[#FFA500]'}
-//                         px-4 py-1.5 rounded-lg hover:bg-[rgba(255,165,0,0.1)]
-//                         transition-colors duration-200 cursor-pointer font-medium
-//                       `}
-//                       onClick={() => simulateLogin()} // For demo purposes
-//                     >
-//                       {authText.login}
-//                     </motion.span>
-//                   </Link>
-//                 </motion.div>
-//                 {/* Sign Up Button */}
-//                 <motion.div variants={itemAnimation}>
-//                   <Link href="/signup">
-//                     <motion.span
-//                       whileHover={{ scale: 1.05 }}
-//                       whileTap={{ scale: 0.95 }}
-//                       className="bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg 
-//                         hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer
-//                         font-semibold"
-//                     >
-//                       {authText.signup}
-//                     </motion.span>
-//                   </Link>
-//                 </motion.div>
-//               </div>
-//             ) : (
+//             {/* Authentication Section */}
+//             {isLoggedIn ? (
 //               // Logged in - show profile dropdown
 //               <div className="hidden md:block relative" ref={dropdownRef}>
 //                 <motion.button
@@ -352,7 +335,7 @@ var { g: global, __dirname } = __turbopack_context__;
 //                       d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" 
 //                     />
 //                   </svg>
-//                   <span className="text-[#FFA500] font-medium">{authText.profile}</span>
+//                   <span className="text-[#FFA500] font-medium">{getDisplayName()}</span>
 //                   {/* Dropdown Arrow */}
 //                   <svg 
 //                     xmlns="http://www.w3.org/2000/svg" 
@@ -381,13 +364,14 @@ var { g: global, __dirname } = __turbopack_context__;
 //                       ${isDarkMode ? 'bg-[#112240] border border-gray-700' : 'bg-white border border-gray-200'}
 //                     `}
 //                   >
-//                     <Link href="/dashboard">
+//                     <Link href="/constructor">
 //                       <span 
 //                         className={`
 //                           block px-4 py-2 text-sm
 //                           ${isDarkMode ? 'text-[#E6F1FF] hover:bg-[#1D3557]' : 'text-gray-700 hover:bg-gray-100'}
 //                           cursor-pointer
 //                         `}
+//                         onClick={() => setProfileDropdownOpen(false)}
 //                       >
 //                         {authText.dashboard}
 //                       </span>
@@ -403,6 +387,23 @@ var { g: global, __dirname } = __turbopack_context__;
 //                     </button>
 //                   </motion.div>
 //                 )}
+//               </div>
+//             ) : (
+//               // Not logged in - show signup button
+//               <div className="hidden md:flex items-center">
+//                 <motion.div variants={itemAnimation}>
+//                   <Link href="/sign">
+//                     <motion.span
+//                       whileHover={{ scale: 1.05 }}
+//                       whileTap={{ scale: 0.95 }}
+//                       className="bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg 
+//                         hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer
+//                         font-semibold"
+//                     >
+//                       {authText.signup}
+//                     </motion.span>
+//                   </Link>
+//                 </motion.div>
 //               </div>
 //             )}
 //             {/* Mobile Menu Button */}
@@ -466,44 +467,10 @@ var { g: global, __dirname } = __turbopack_context__;
 //               </motion.div>
 //             ))}
 //             {/* Mobile Auth Buttons */}
-//             {!isLoggedIn ? (
-//               <div className="space-y-2 pt-2">
-//                 {/* Login Button */}
-//                 <motion.div whileTap={{ scale: 0.95 }}>
-//                   <Link href="/login">
-//                     <span
-//                       className={`
-//                         block w-full text-center border-2 border-[#FFA500]
-//                         ${isDarkMode ? 'text-[#FFA500]' : 'text-[#FFA500]'}
-//                         px-4 py-2 rounded-lg
-//                         hover:bg-[rgba(255,165,0,0.1)]
-//                         transition-colors duration-200 font-medium
-//                       `}
-//                       onClick={() => simulateLogin()} // For demo purposes
-//                     >
-//                       {authText.login}
-//                     </span>
-//                   </Link>
-//                 </motion.div>
-//                 {/* Sign Up Button */}
-//                 <motion.div whileTap={{ scale: 0.95 }}>
-//                   <Link href="/signup">
-//                     <span
-//                       className={`
-//                         block w-full text-center bg-[#FFA500] text-[#0A192F]
-//                         px-4 py-2 rounded-lg hover:bg-[#FFD700]
-//                         transition-colors duration-200 font-semibold
-//                       `}
-//                     >
-//                       {authText.signup}
-//                     </span>
-//                   </Link>
-//                 </motion.div>
-//               </div>
-//             ) : (
+//             {isLoggedIn ? (
 //               // Mobile profile options when logged in
 //               <div className="space-y-2 pt-2">
-//                 <Link href="/dashboard">
+//                 <Link href="/constructor">
 //                   <span
 //                     className={`
 //                       block w-full text-center border border-[#FFA500]
@@ -526,6 +493,23 @@ var { g: global, __dirname } = __turbopack_context__;
 //                 >
 //                   {authText.logout}
 //                 </button>
+//               </div>
+//             ) : (
+//               // Not logged in - show signup button
+//               <div className="space-y-2 pt-2">
+//                 <motion.div whileTap={{ scale: 0.95 }}>
+//                   <Link href="/sign">
+//                     <span
+//                       className={`
+//                         block w-full text-center bg-[#FFA500] text-[#0A192F]
+//                         px-4 py-2 rounded-lg hover:bg-[#FFD700]
+//                         transition-colors duration-200 font-semibold
+//                       `}
+//                     >
+//                       {authText.signup}
+//                     </span>
+//                   </Link>
+//                 </motion.div>
 //               </div>
 //             )}
 //           </div>
@@ -558,6 +542,7 @@ function Navbar() {
     const [isLoggedIn, setIsLoggedIn] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false) // Authentication state
     ;
     const [profileDropdownOpen, setProfileDropdownOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [userData, setUserData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const dropdownRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     // Scroll effect for background color
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
@@ -582,66 +567,76 @@ function Navbar() {
         document.addEventListener("mousedown", handleClickOutside);
         return ()=>document.removeEventListener("mousedown", handleClickOutside);
     }, []);
-    // For demo purposes - this would normally be handled by your auth system
-    // In a real app, you'd check auth tokens, session cookies, etc.
+    // Check authentication status on component mount
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        // Check if user is logged in from localStorage or your auth system
-        const userAuthStatus = localStorage.getItem('isLoggedIn') === 'true';
-        setIsLoggedIn(userAuthStatus);
+        const checkAuth = ()=>{
+            const token = document.cookie.split('; ').find((row)=>row.startsWith('token='))?.split('=')[1];
+            const storedUser = localStorage.getItem('user');
+            if (token && storedUser) {
+                setIsLoggedIn(true);
+                try {
+                    const userData = JSON.parse(storedUser);
+                    setUserData(userData);
+                } catch (e) {
+                    console.error('Error parsing user data:', e);
+                }
+            } else {
+                setIsLoggedIn(false);
+                setUserData(null);
+            }
+        };
+        checkAuth();
+        // Listen for auth changes
+        window.addEventListener('storage', checkAuth);
+        window.addEventListener('authChange', checkAuth);
+        return ()=>{
+            window.removeEventListener('storage', checkAuth);
+            window.removeEventListener('authChange', checkAuth);
+        };
     }, []);
     // Handle logout
     const handleLogout = ()=>{
+        // Clear auth token cookie
+        document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=strict';
+        // Clear user data from localStorage
+        localStorage.removeItem('user');
         setIsLoggedIn(false);
-        localStorage.setItem('isLoggedIn', 'false');
+        setUserData(null);
         setProfileDropdownOpen(false);
-    // You would also clear auth tokens, cookies, etc. here
-    // window.location.href = '/' // Redirect to home page if needed
+        // Dispatch auth change event
+        window.dispatchEvent(new CustomEvent('authChange'));
+        // Redirect to home page
+        window.location.href = '/';
     };
-    // Handle login (for demo purposes)
-    const simulateLogin = ()=>{
-        setIsLoggedIn(true);
-        localStorage.setItem('isLoggedIn', 'true');
-    };
-    // ----------------------------
-    // THEME TOGGLE LOGIC
-    // ----------------------------
+    // Theme toggle logic
     const toggleTheme = ()=>{
         const newTheme = !isDarkMode;
         setIsDarkMode(newTheme);
-        // Apply to <html> element
         if (newTheme) {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
         }
-        // Save preference
         localStorage.setItem('theme', newTheme ? 'dark' : 'light');
-        // Emit themeChange event
-        const event = new CustomEvent('themeChange', {
+        window.dispatchEvent(new CustomEvent('themeChange', {
             detail: {
                 isDarkMode: newTheme
             }
-        });
-        window.dispatchEvent(event);
+        }));
     };
-    // ----------------------------
-    // LANGUAGE TOGGLE / SWITCH
-    // ----------------------------
+    // Language toggle logic
     const toggleLanguage = ()=>{
         const newLang = language === 'en' ? 'si' : 'en';
         setLanguage(newLang);
         localStorage.setItem('language', newLang);
-        // Emit languageChange event
-        const event = new CustomEvent('languageChange', {
+        window.dispatchEvent(new CustomEvent('languageChange', {
             detail: {
                 language: newLang
             }
-        });
-        window.dispatchEvent(event);
+        }));
     };
     // Initialize theme & language from localStorage or system preference
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        // THEME
         const savedTheme = localStorage.getItem('theme');
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const isDark = savedTheme === 'dark' || !savedTheme && systemPrefersDark;
@@ -651,13 +646,11 @@ function Navbar() {
         } else {
             document.documentElement.classList.remove('dark');
         }
-        // Emit initial theme event
         window.dispatchEvent(new CustomEvent('themeChange', {
             detail: {
                 isDarkMode: isDark
             }
         }));
-        // LANGUAGE
         const savedLang = localStorage.getItem('language') || 'en';
         setLanguage(savedLang);
         window.dispatchEvent(new CustomEvent('languageChange', {
@@ -666,10 +659,7 @@ function Navbar() {
             }
         }));
     }, []);
-    // ----------------------------
-    // NAVIGATION ITEMS
-    // ----------------------------
-    // Example: different text per language
+    // Navigation items
     const navItemsEn = [
         {
             name: 'Home',
@@ -708,8 +698,6 @@ function Navbar() {
             path: '/contact'
         }
     ];
-    // For demonstration, let's provide a Sinhala version of the same links
-    // (Feel free to replace with actual translations)
     const navItemsSi = [
         {
             name: 'මුල් පිටුව',
@@ -755,6 +743,13 @@ function Navbar() {
         dashboard: language === 'en' ? 'Dashboard' : 'උපකරණ පුවරුව',
         logout: language === 'en' ? 'Logout' : 'පිටවීම',
         profile: language === 'en' ? 'Profile' : 'පැතිකඩ'
+    };
+    // Get display name
+    const getDisplayName = ()=>{
+        if (userData && userData.firstName) {
+            return `${userData.firstName}`;
+        }
+        return authText.profile;
     };
     // Framer Motion variants
     const navAnimation = {
@@ -810,22 +805,22 @@ function Navbar() {
                                         className: "mr-2 hover:scale-105 transition-transform duration-200"
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 734,
+                                        lineNumber: 748,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 733,
+                                    lineNumber: 747,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/navbar/page.tsx",
-                                lineNumber: 732,
+                                lineNumber: 746,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/navbar/page.tsx",
-                            lineNumber: 728,
+                            lineNumber: 742,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -856,22 +851,22 @@ function Navbar() {
                                             children: item.name
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 757,
+                                            lineNumber: 771,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 756,
+                                        lineNumber: 770,
                                         columnNumber: 17
                                     }, this)
                                 }, item.path, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 751,
+                                    lineNumber: 765,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/app/navbar/page.tsx",
-                            lineNumber: 746,
+                            lineNumber: 760,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -894,7 +889,7 @@ function Navbar() {
                                     children: language === 'en' ? 'EN' : 'සි'
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 781,
+                                    lineNumber: 795,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].button, {
@@ -914,46 +909,10 @@ function Navbar() {
                                     children: isDarkMode ? '🌞' : '🌙'
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 796,
+                                    lineNumber: 810,
                                     columnNumber: 13
                                 }, this),
-                                !isLoggedIn ? // Not logged in - show only signup button
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "hidden md:flex items-center",
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
-                                        variants: itemAnimation,
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                            href: "/sign",
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].span, {
-                                                whileHover: {
-                                                    scale: 1.05
-                                                },
-                                                whileTap: {
-                                                    scale: 0.95
-                                                },
-                                                className: "bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg  hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer font-semibold",
-                                                onClick: ()=>simulateLogin(),
-                                                children: authText.signup
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/navbar/page.tsx",
-                                                lineNumber: 817,
-                                                columnNumber: 21
-                                            }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 816,
-                                            columnNumber: 19
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 815,
-                                        columnNumber: 17
-                                    }, this)
-                                }, void 0, false, {
-                                    fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 813,
-                                    columnNumber: 15
-                                }, this) : // Logged in - show profile dropdown
+                                isLoggedIn ? // Logged in - show profile dropdown
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "hidden md:block relative",
                                     ref: dropdownRef,
@@ -986,20 +945,20 @@ function Navbar() {
                                                         d: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/navbar/page.tsx",
-                                                        lineNumber: 852,
+                                                        lineNumber: 847,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 845,
+                                                    lineNumber: 840,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     className: "text-[#FFA500] font-medium",
-                                                    children: authText.profile
+                                                    children: getDisplayName()
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 859,
+                                                    lineNumber: 854,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -1015,18 +974,18 @@ function Navbar() {
                                                         d: "M19 9l-7 7-7-7"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/navbar/page.tsx",
-                                                        lineNumber: 869,
+                                                        lineNumber: 864,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 862,
+                                                    lineNumber: 857,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 833,
+                                            lineNumber: 828,
                                             columnNumber: 17
                                         }, this),
                                         profileDropdownOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1058,15 +1017,16 @@ function Navbar() {
                           ${isDarkMode ? 'text-[#E6F1FF] hover:bg-[#1D3557]' : 'text-gray-700 hover:bg-gray-100'}
                           cursor-pointer
                         `,
+                                                        onClick: ()=>setProfileDropdownOpen(false),
                                                         children: authText.dashboard
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/navbar/page.tsx",
-                                                        lineNumber: 891,
+                                                        lineNumber: 886,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 890,
+                                                    lineNumber: 885,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1078,19 +1038,54 @@ function Navbar() {
                                                     children: authText.logout
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 901,
+                                                    lineNumber: 897,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 880,
+                                            lineNumber: 875,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 832,
+                                    lineNumber: 827,
+                                    columnNumber: 15
+                                }, this) : // Not logged in - show signup button
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "hidden md:flex items-center",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
+                                        variants: itemAnimation,
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                            href: "/sign",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].span, {
+                                                whileHover: {
+                                                    scale: 1.05
+                                                },
+                                                whileTap: {
+                                                    scale: 0.95
+                                                },
+                                                className: "bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg  hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer font-semibold",
+                                                children: authText.signup
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/navbar/page.tsx",
+                                                lineNumber: 914,
+                                                columnNumber: 21
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/navbar/page.tsx",
+                                            lineNumber: 913,
+                                            columnNumber: 19
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/navbar/page.tsx",
+                                        lineNumber: 912,
+                                        columnNumber: 17
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/navbar/page.tsx",
+                                    lineNumber: 911,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1115,34 +1110,34 @@ function Navbar() {
                                                 d: "M4 6h16M4 12h16m-7 6h7"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/navbar/page.tsx",
-                                                lineNumber: 932,
+                                                lineNumber: 945,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 925,
+                                            lineNumber: 938,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 917,
+                                        lineNumber: 930,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 916,
+                                    lineNumber: 929,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/navbar/page.tsx",
-                            lineNumber: 779,
+                            lineNumber: 793,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/navbar/page.tsx",
-                    lineNumber: 726,
+                    lineNumber: 740,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1180,60 +1175,25 @@ function Navbar() {
                                             children: item.name
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 962,
+                                            lineNumber: 975,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 961,
+                                        lineNumber: 974,
                                         columnNumber: 17
                                     }, this)
                                 }, item.path, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 956,
+                                    lineNumber: 969,
                                     columnNumber: 15
                                 }, this)),
-                            !isLoggedIn ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "space-y-2 pt-2",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
-                                    whileTap: {
-                                        scale: 0.95
-                                    },
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                        href: "/signup",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: `
-                        block w-full text-center bg-[#FFA500] text-[#0A192F]
-                        px-4 py-2 rounded-lg hover:bg-[#FFD700]
-                        transition-colors duration-200 font-semibold
-                      `,
-                                            onClick: ()=>simulateLogin(),
-                                            children: authText.signup
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 983,
-                                            columnNumber: 21
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 982,
-                                        columnNumber: 19
-                                    }, this)
-                                }, void 0, false, {
-                                    fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 981,
-                                    columnNumber: 17
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/app/navbar/page.tsx",
-                                lineNumber: 979,
-                                columnNumber: 15
-                            }, this) : // Mobile profile options when logged in
+                            isLoggedIn ? // Mobile profile options when logged in
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "space-y-2 pt-2",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                        href: "/dashboard",
+                                        href: "/constructor",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             className: `
                       block w-full text-center border border-[#FFA500]
@@ -1245,12 +1205,12 @@ function Navbar() {
                                             children: authText.dashboard
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 1000,
+                                            lineNumber: 995,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 999,
+                                        lineNumber: 994,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1263,35 +1223,70 @@ function Navbar() {
                                         children: authText.logout
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 1013,
+                                        lineNumber: 1008,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/navbar/page.tsx",
-                                lineNumber: 998,
+                                lineNumber: 993,
+                                columnNumber: 15
+                            }, this) : // Not logged in - show signup button
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "space-y-2 pt-2",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
+                                    whileTap: {
+                                        scale: 0.95
+                                    },
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                        href: "/sign",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: `
+                        block w-full text-center bg-[#FFA500] text-[#0A192F]
+                        px-4 py-2 rounded-lg hover:bg-[#FFD700]
+                        transition-colors duration-200 font-semibold
+                      `,
+                                            children: authText.signup
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/navbar/page.tsx",
+                                            lineNumber: 1024,
+                                            columnNumber: 21
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/navbar/page.tsx",
+                                        lineNumber: 1023,
+                                        columnNumber: 19
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/navbar/page.tsx",
+                                    lineNumber: 1022,
+                                    columnNumber: 17
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/navbar/page.tsx",
+                                lineNumber: 1021,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/navbar/page.tsx",
-                        lineNumber: 954,
+                        lineNumber: 967,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/navbar/page.tsx",
-                    lineNumber: 945,
+                    lineNumber: 958,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/navbar/page.tsx",
-            lineNumber: 725,
+            lineNumber: 739,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/navbar/page.tsx",
-        lineNumber: 713,
+        lineNumber: 727,
         columnNumber: 5
     }, this);
 }
@@ -1460,30 +1455,116 @@ function TypeALicense() {
     ]);
     const handleSubmit = async (e)=>{
         e.preventDefault();
+        // Validate required fields before submission
+        if (!formData.individualDetails.address) {
+            alert('Address is required');
+            return;
+        }
+        // Create FormData object for file uploads
         const data = new FormData();
+        // Map the form data to match backend API structure
+        const mappedData = {
+            exploration_license_no: formData.explorationLicenseNo || 'N/A',
+            applicant_name: formData.individualDetails.applicantName,
+            national_id: formData.individualDetails.nationalIdNo,
+            address: formData.individualDetails.address,
+            nationality: formData.individualDetails.nationality || 'Sri Lankan',
+            employment: formData.individualDetails.employment || 'N/A',
+            place_of_business: formData.individualDetails.sriLankaDetails.placeBusiness || 'N/A',
+            residence: formData.individualDetails.sriLankaDetails.residence || 'N/A',
+            company_name: formData.corporationDetails.companyName || 'N/A',
+            country_of_incorporation: formData.corporationDetails.countryIncorporation || 'Sri Lanka',
+            head_office_address: formData.corporationDetails.headOffice || 'N/A',
+            registered_address_in_sri_lanka: formData.corporationDetails.sriLankaAddress || 'N/A',
+            capitalization: formData.corporationDetails.legalFinancialData.capitalization || '0',
+            blasting_method: formData.industrialMiningOperation.blastingMethod || 'N/A',
+            depth_of_borehole: formData.industrialMiningOperation.boreHoleDepth || '0',
+            production_volume: formData.industrialMiningOperation.productionVolume || '0',
+            machinery_used: formData.industrialMiningOperation.machineryUsed || 'N/A',
+            underground_mining_depth: formData.industrialMiningOperation.shaftDepth || '0',
+            explosives_type: formData.industrialMiningOperation.explosivesType || 'N/A',
+            land_name: formData.licenseAreaDetails.landName || 'N/A',
+            land_owner_name: formData.licenseAreaDetails.landOwner || 'N/A',
+            village_name: formData.licenseAreaDetails.villageName || 'N/A',
+            grama_niladhari_division: formData.licenseAreaDetails.gramaNiladhariDivision || 'N/A',
+            divisional_secretary_division: formData.licenseAreaDetails.divisionalSecretary || 'N/A',
+            administrative_district: formData.licenseAreaDetails.administrativeDistrict || 'N/A',
+            nature_of_bound: formData.bondDetails || 'N/A',
+            minerals_to_be_mined: formData.mineralsToMine || 'N/A',
+            industrial_mining_license_no: formData.explorationLicenseNo || 'N/A',
+            period_of_validity: "1",
+            royalty_payable: "0"
+        };
         // Append all form data
-        Object.entries(formData).forEach(([key, value])=>{
-            if (value instanceof File) {
-                data.append(key, value);
-            } else if (typeof value === 'object') {
-                data.append(key, JSON.stringify(value));
-            } else {
-                data.append(key, value.toString());
-            }
+        Object.entries(mappedData).forEach(([key, value])=>{
+            data.append(key, value.toString());
         });
+        // Append file uploads
+        if (formData.corporationDetails.legalFinancialData.articlesOfAssociation) {
+            data.append('articles_of_association', formData.corporationDetails.legalFinancialData.articlesOfAssociation);
+        }
+        if (formData.corporationDetails.legalFinancialData.annualReports) {
+            data.append('annual_reports', formData.corporationDetails.legalFinancialData.annualReports);
+        }
+        if (formData.technicalData.licensedBoundarySurvey) {
+            data.append('licensed_boundary_survey', formData.technicalData.licensedBoundarySurvey);
+        }
+        if (formData.technicalData.projectTeamCredentials) {
+            data.append('project_team_credentials', formData.technicalData.projectTeamCredentials);
+        }
+        if (formData.technicalData.economicViabilityReport) {
+            data.append('economic_viability_report', formData.technicalData.economicViabilityReport);
+        }
+        if (formData.mineRestorationPlan) {
+            data.append('mine_restoration_plan', formData.mineRestorationPlan);
+        }
+        if (formData.licenseFeeReceipt) {
+            data.append('license_fee_receipt', formData.licenseFeeReceipt);
+        }
+        if (formData.declaration.signature) {
+            data.append('applicant_signature', formData.declaration.signature);
+        }
+        if (formData.declaration.mineManager) {
+            data.append('mine_manager_signature', formData.declaration.mineManager);
+        }
         try {
-            const response = await fetch('http://localhost:5000/api/licenses/type-a', {
+            console.log('Submitting data:', Object.fromEntries(data.entries())); // Debug log
+            const response = await fetch('https://ceylonminebackend.up.railway.app/license/submit', {
                 method: 'POST',
                 body: data
             });
-            if (response.ok) {
-                alert('License application submitted successfully!');
-            } else {
-                alert('Failed to submit license application');
+            const responseText = await response.text();
+            console.log('Response:', responseText); // Debug log
+            if (!response.ok) {
+                let errorMessage;
+                try {
+                    const errorData = JSON.parse(responseText);
+                    errorMessage = errorData.error;
+                } catch  {
+                    errorMessage = responseText || 'Failed to submit license application';
+                }
+                throw new Error(errorMessage);
             }
+            let result;
+            try {
+                result = JSON.parse(responseText);
+            } catch  {
+                result = {
+                    message: 'License application submitted successfully!'
+                };
+            }
+            alert(result.message || 'License application submitted successfully!');
+            // Reset form after successful submission
+            setFormData({
+                ...formData,
+                individualDetails: {
+                    ...formData.individualDetails,
+                    address: ''
+                }
+            });
         } catch (error) {
             console.error('Error:', error);
-            alert('Error submitting license application');
+            alert(error instanceof Error ? error.message : 'Error submitting license application');
         }
     };
     const handleFileChange = (section, field)=>(e)=>{
@@ -1514,7 +1595,7 @@ function TypeALicense() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$navbar$2f$page$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                lineNumber: 295,
+                lineNumber: 383,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1527,7 +1608,7 @@ function TypeALicense() {
                             children: "IML Type B License Application"
                         }, void 0, false, {
                             fileName: "[project]/app/license-portal/type-b/page.tsx",
-                            lineNumber: 298,
+                            lineNumber: 386,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1544,7 +1625,7 @@ function TypeALicense() {
                                                 children: "1. Exploration License No"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 305,
+                                                lineNumber: 393,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1554,7 +1635,7 @@ function TypeALicense() {
                                                         children: "Exploration License No (where applicable)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                        lineNumber: 309,
+                                                        lineNumber: 397,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1567,19 +1648,19 @@ function TypeALicense() {
                                                             })
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                        lineNumber: 312,
+                                                        lineNumber: 400,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 308,
+                                                lineNumber: 396,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                        lineNumber: 304,
+                                        lineNumber: 392,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1590,7 +1671,7 @@ function TypeALicense() {
                                                 children: "2. Individual Details"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 325,
+                                                lineNumber: 413,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1603,7 +1684,7 @@ function TypeALicense() {
                                                                 children: "Name of Applicant / Authorized Agent"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 330,
+                                                                lineNumber: 418,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1619,13 +1700,13 @@ function TypeALicense() {
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 333,
+                                                                lineNumber: 421,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                        lineNumber: 329,
+                                                        lineNumber: 417,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1635,7 +1716,7 @@ function TypeALicense() {
                                                                 children: "National Identity Card No"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 346,
+                                                                lineNumber: 434,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1651,198 +1732,13 @@ function TypeALicense() {
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 349,
+                                                                lineNumber: 437,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                        lineNumber: 345,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 328,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                        lineNumber: 324,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "space-y-4",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
-                                                children: "3. Corporation Details"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 367,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "grid grid-cols-1 gap-4",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "Name of Company/Partnership"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 372,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                type: "text",
-                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
-                                                                value: formData.corporationDetails.companyName,
-                                                                onChange: (e)=>setFormData({
-                                                                        ...formData,
-                                                                        corporationDetails: {
-                                                                            ...formData.corporationDetails,
-                                                                            companyName: e.target.value
-                                                                        }
-                                                                    })
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 375,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                        lineNumber: 371,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "Articles of Association"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 388,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                type: "file",
-                                                                className: "mt-1 block w-full",
-                                                                onChange: handleFileChange('corporationDetails', 'articlesOfAssociation')
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 391,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                        lineNumber: 387,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "Last three years Annual Reports"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 398,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                type: "file",
-                                                                multiple: true,
-                                                                className: "mt-1 block w-full",
-                                                                onChange: handleFileChange('corporationDetails', 'annualReports')
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 401,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                        lineNumber: 397,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 370,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                        lineNumber: 366,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "space-y-4",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
-                                                children: "4. Technical/Professional Data"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 413,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "grid grid-cols-1 gap-4",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "Licensed Boundary Survey"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 418,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                type: "file",
-                                                                className: "mt-1 block w-full",
-                                                                onChange: handleFileChange('technicalData', 'licensedBoundarySurvey')
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 421,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                        lineNumber: 417,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "Professional/Technical Credentials"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 428,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                type: "file",
-                                                                className: "mt-1 block w-full",
-                                                                onChange: handleFileChange('technicalData', 'projectTeamCredentials')
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 431,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                        lineNumber: 427,
+                                                        lineNumber: 433,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
@@ -1862,10 +1758,195 @@ function TypeALicense() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                                                 className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
+                                                children: "3. Corporation Details"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                lineNumber: 455,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "grid grid-cols-1 gap-4",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Name of Company/Partnership"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                                lineNumber: 460,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.corporationDetails.companyName,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        corporationDetails: {
+                                                                            ...formData.corporationDetails,
+                                                                            companyName: e.target.value
+                                                                        }
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                                lineNumber: 463,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                        lineNumber: 459,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Articles of Association"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                                lineNumber: 476,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "file",
+                                                                className: "mt-1 block w-full",
+                                                                onChange: handleFileChange('corporationDetails', 'articlesOfAssociation')
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                                lineNumber: 479,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                        lineNumber: 475,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Last three years Annual Reports"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                                lineNumber: 486,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "file",
+                                                                multiple: true,
+                                                                className: "mt-1 block w-full",
+                                                                onChange: handleFileChange('corporationDetails', 'annualReports')
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                                lineNumber: 489,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                        lineNumber: 485,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                lineNumber: 458,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                        lineNumber: 454,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "space-y-4",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                                className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
+                                                children: "4. Technical/Professional Data"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                lineNumber: 501,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "grid grid-cols-1 gap-4",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Licensed Boundary Survey"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                                lineNumber: 506,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "file",
+                                                                className: "mt-1 block w-full",
+                                                                onChange: handleFileChange('technicalData', 'licensedBoundarySurvey')
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                                lineNumber: 509,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                        lineNumber: 505,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Professional/Technical Credentials"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                                lineNumber: 516,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "file",
+                                                                className: "mt-1 block w-full",
+                                                                onChange: handleFileChange('technicalData', 'projectTeamCredentials')
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                                lineNumber: 519,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                        lineNumber: 515,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                                lineNumber: 504,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/license-portal/type-b/page.tsx",
+                                        lineNumber: 500,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "space-y-4",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                                className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
                                                 children: "5. Type of Industrial Mining Operation"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 442,
+                                                lineNumber: 530,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1877,7 +1958,7 @@ function TypeALicense() {
                                                             children: "Blasting Method"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                            lineNumber: 447,
+                                                            lineNumber: 535,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1893,24 +1974,24 @@ function TypeALicense() {
                                                                 })
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                            lineNumber: 450,
+                                                            lineNumber: 538,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                    lineNumber: 446,
+                                                    lineNumber: 534,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 445,
+                                                lineNumber: 533,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                        lineNumber: 441,
+                                        lineNumber: 529,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1921,7 +2002,7 @@ function TypeALicense() {
                                                 children: "6. Details of License Area"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 468,
+                                                lineNumber: 556,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1934,7 +2015,7 @@ function TypeALicense() {
                                                                 children: "Name of Land"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 473,
+                                                                lineNumber: 561,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1950,13 +2031,13 @@ function TypeALicense() {
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 476,
+                                                                lineNumber: 564,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                        lineNumber: 472,
+                                                        lineNumber: 560,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1966,7 +2047,7 @@ function TypeALicense() {
                                                                 children: "Deed and Survey Plan"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 489,
+                                                                lineNumber: 577,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1975,25 +2056,25 @@ function TypeALicense() {
                                                                 onChange: handleFileChange('licenseAreaDetails', 'deedCopy')
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 492,
+                                                                lineNumber: 580,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                        lineNumber: 488,
+                                                        lineNumber: 576,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 471,
+                                                lineNumber: 559,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                        lineNumber: 467,
+                                        lineNumber: 555,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2004,7 +2085,7 @@ function TypeALicense() {
                                                 children: "7. Detailed Mine Restoration Plan"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 503,
+                                                lineNumber: 591,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2014,18 +2095,18 @@ function TypeALicense() {
                                                     onChange: handleFileChange('', 'mineRestorationPlan')
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                    lineNumber: 507,
+                                                    lineNumber: 595,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 506,
+                                                lineNumber: 594,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                        lineNumber: 502,
+                                        lineNumber: 590,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2036,7 +2117,7 @@ function TypeALicense() {
                                                 children: "8. Nature of Amount of Bond"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 517,
+                                                lineNumber: 605,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2050,18 +2131,18 @@ function TypeALicense() {
                                                         })
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                    lineNumber: 521,
+                                                    lineNumber: 609,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 520,
+                                                lineNumber: 608,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                        lineNumber: 516,
+                                        lineNumber: 604,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2072,7 +2153,7 @@ function TypeALicense() {
                                                 children: "9. Names of Mineral/Minerals to be Mined"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 534,
+                                                lineNumber: 622,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2086,18 +2167,18 @@ function TypeALicense() {
                                                         })
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                    lineNumber: 538,
+                                                    lineNumber: 626,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 537,
+                                                lineNumber: 625,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                        lineNumber: 533,
+                                        lineNumber: 621,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2108,7 +2189,7 @@ function TypeALicense() {
                                                 children: "10. License Fee Receipt"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 551,
+                                                lineNumber: 639,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2118,18 +2199,18 @@ function TypeALicense() {
                                                     onChange: handleFileChange('', 'licenseFeeReceipt')
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                    lineNumber: 555,
+                                                    lineNumber: 643,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 554,
+                                                lineNumber: 642,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                        lineNumber: 550,
+                                        lineNumber: 638,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2140,7 +2221,7 @@ function TypeALicense() {
                                                 children: "Declaration"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 565,
+                                                lineNumber: 653,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2148,7 +2229,7 @@ function TypeALicense() {
                                                 children: "I, the undersigned, do hereby certify that the statements contained in this application are true and correct to the best of my knowledge and undertake to comply with the provisions the Mines & Minerals Act No.33 of 1992, and the Regulation made thereunder."
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 568,
+                                                lineNumber: 656,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2161,7 +2242,7 @@ function TypeALicense() {
                                                                 children: "Date"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 575,
+                                                                lineNumber: 663,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2177,13 +2258,13 @@ function TypeALicense() {
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 578,
+                                                                lineNumber: 666,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                        lineNumber: 574,
+                                                        lineNumber: 662,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2193,7 +2274,7 @@ function TypeALicense() {
                                                                 children: "Mine Manager"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 591,
+                                                                lineNumber: 679,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2209,25 +2290,25 @@ function TypeALicense() {
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                                lineNumber: 594,
+                                                                lineNumber: 682,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                        lineNumber: 590,
+                                                        lineNumber: 678,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                                lineNumber: 573,
+                                                lineNumber: 661,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                        lineNumber: 564,
+                                        lineNumber: 652,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2238,34 +2319,34 @@ function TypeALicense() {
                                             children: "Submit Application"
                                         }, void 0, false, {
                                             fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                            lineNumber: 610,
+                                            lineNumber: 698,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                        lineNumber: 609,
+                                        lineNumber: 697,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                                lineNumber: 302,
+                                lineNumber: 390,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/license-portal/type-b/page.tsx",
-                            lineNumber: 301,
+                            lineNumber: 389,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/license-portal/type-b/page.tsx",
-                    lineNumber: 297,
+                    lineNumber: 385,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                lineNumber: 296,
+                lineNumber: 384,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("canvas", {
@@ -2273,13 +2354,13 @@ function TypeALicense() {
                 className: "fixed inset-0 w-full h-full z-0"
             }, void 0, false, {
                 fileName: "[project]/app/license-portal/type-b/page.tsx",
-                lineNumber: 623,
+                lineNumber: 711,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/license-portal/type-b/page.tsx",
-        lineNumber: 294,
+        lineNumber: 382,
         columnNumber: 5
     }, this);
 }

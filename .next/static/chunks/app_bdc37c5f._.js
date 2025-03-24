@@ -1897,62 +1897,47 @@ var _s = __turbopack_context__.k.signature();
 function TypeALicense() {
     _s();
     const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
-        explorationLicenseNo: '',
-        individualDetails: {
-            applicantName: '',
-            nationalIdNo: '',
-            address: '',
-            nationality: '',
-            employment: '',
-            sriLankaDetails: {
-                placeBusiness: '',
-                residence: ''
-            }
-        },
-        corporationDetails: {
-            companyName: '',
-            countryIncorporation: '',
-            headOffice: '',
-            sriLankaAddress: '',
-            legalFinancialData: {
-                capitalization: '',
-                articlesOfAssociation: null,
-                annualReports: null
-            }
-        },
-        technicalData: {
-            licensedBoundarySurvey: null,
-            projectTeamCredentials: null,
-            economicViabilityReport: null
-        },
-        industrialMiningOperation: {
-            blastingMethod: '',
-            boreHoleDepth: '',
-            productionVolume: '',
-            machineryUsed: '',
-            shaftDepth: '',
-            explosivesType: ''
-        },
-        licenseAreaDetails: {
-            landName: '',
-            landOwner: '',
-            villageName: '',
-            gramaNiladhariDivision: '',
-            divisionalSecretary: '',
-            administrativeDistrict: '',
-            deedCopy: null,
-            surveyPlan: null,
-            leaseAgreement: null
-        },
-        mineRestorationPlan: null,
-        bondDetails: '',
-        mineralsToMine: '',
-        licenseFeeReceipt: null,
-        declaration: {
-            date: '',
-            signature: '',
-            mineManager: ''
-        }
+        exploration_license_no: '',
+        applicant_name: '',
+        national_id: '',
+        address: '',
+        nationality: '',
+        employment: '',
+        place_of_business: '',
+        residence: '',
+        company_name: '',
+        country_of_incorporation: '',
+        head_office_address: '',
+        registered_address_in_sri_lanka: '',
+        capitalization: '',
+        blasting_method: '',
+        depth_of_borehole: '',
+        production_volume: '',
+        machinery_used: '',
+        underground_mining_depth: '',
+        explosives_type: '',
+        land_name: '',
+        land_owner_name: '',
+        village_name: '',
+        grama_niladhari_division: '',
+        divisional_secretary_division: '',
+        administrative_district: '',
+        nature_of_bound: '',
+        minerals_to_be_mined: '',
+        industrial_mining_license_no: '',
+        period_of_validity: '',
+        royalty_payable: '',
+        // File uploads
+        articles_of_association: null,
+        annual_reports: null,
+        licensed_boundary_survey: null,
+        project_team_credentials: null,
+        economic_viability_report: null,
+        deed_copy: null,
+        survey_plan: null,
+        lease_agreement: null,
+        mine_restoration_plan: null,
+        license_fee_receipt: null
     });
     const [isDarkMode, setIsDarkMode] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     const canvasRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
@@ -2055,130 +2040,69 @@ function TypeALicense() {
     }["TypeALicense.useEffect"], [
         isDarkMode
     ]);
-    // Updated handleSubmit function to properly map form fields to API expectations
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        // Create FormData object for file uploads
         const data = new FormData();
-        // Handle simple fields at the root level
-        data.append('exploration_license_no', formData.explorationLicenseNo);
-        data.append('minerals_to_be_mined', formData.mineralsToMine);
-        data.append('nature_of_bound', formData.bondDetails);
-        // Handle individual details
-        data.append('applicant_name', formData.individualDetails.applicantName);
-        data.append('national_id', formData.individualDetails.nationalIdNo);
-        data.append('address', formData.individualDetails.address);
-        data.append('nationality', formData.individualDetails.nationality);
-        data.append('employment', formData.individualDetails.employment);
-        data.append('place_of_business', formData.individualDetails.sriLankaDetails.placeBusiness);
-        data.append('residence', formData.individualDetails.sriLankaDetails.residence);
-        // Handle corporation details
-        data.append('company_name', formData.corporationDetails.companyName);
-        data.append('country_of_incorporation', formData.corporationDetails.countryIncorporation);
-        data.append('head_office_address', formData.corporationDetails.headOffice);
-        data.append('registered_address_in_sri_lanka', formData.corporationDetails.sriLankaAddress);
-        data.append('capitalization', formData.corporationDetails.legalFinancialData.capitalization);
-        // Handle industrial mining operation details
-        data.append('blasting_method', formData.industrialMiningOperation.blastingMethod);
-        data.append('depth_of_borehole', formData.industrialMiningOperation.boreHoleDepth);
-        data.append('production_volume', formData.industrialMiningOperation.productionVolume);
-        data.append('machinery_used', formData.industrialMiningOperation.machineryUsed);
-        data.append('underground_mining_depth', formData.industrialMiningOperation.shaftDepth);
-        data.append('explosives_type', formData.industrialMiningOperation.explosivesType);
-        // Handle license area details
-        data.append('land_name', formData.licenseAreaDetails.landName);
-        data.append('land_owner_name', formData.licenseAreaDetails.landOwner);
-        data.append('village_name', formData.licenseAreaDetails.villageName);
-        data.append('grama_niladhari_division', formData.licenseAreaDetails.gramaNiladhariDivision);
-        data.append('divisional_secretary_division', formData.licenseAreaDetails.divisionalSecretary);
-        data.append('administrative_district', formData.licenseAreaDetails.administrativeDistrict);
-        // Handle declaration fields
-        data.append('applicant_signature', formData.declaration.signature);
-        data.append('mine_manager_signature', formData.declaration.mineManager);
-        // Set placeholder values for required fields not explicitly in the form
-        data.append('industrial_mining_license_no', ''); // Or use a generated/default value
-        data.append('period_of_validity', '5'); // Default to 5 years
-        data.append('royalty_payable', '0'); // Default value
-        // Handle file uploads
-        // Corporation documents
-        if (formData.corporationDetails.legalFinancialData.articlesOfAssociation) {
-            data.append('articles_of_association', formData.corporationDetails.legalFinancialData.articlesOfAssociation);
-        }
-        if (formData.corporationDetails.legalFinancialData.annualReports) {
-            data.append('annual_reports', formData.corporationDetails.legalFinancialData.annualReports);
-        }
-        // Technical documents
-        if (formData.technicalData.licensedBoundarySurvey) {
-            data.append('licensed_boundary_survey', formData.technicalData.licensedBoundarySurvey);
-        }
-        if (formData.technicalData.projectTeamCredentials) {
-            data.append('project_team_credentials', formData.technicalData.projectTeamCredentials);
-        }
-        if (formData.technicalData.economicViabilityReport) {
-            data.append('economic_viability_report', formData.technicalData.economicViabilityReport);
-        }
-        // License area documents
-        if (formData.licenseAreaDetails.deedCopy) {
-            data.append('deed_copy', formData.licenseAreaDetails.deedCopy);
-        }
-        if (formData.licenseAreaDetails.surveyPlan) {
-            data.append('survey_plan', formData.licenseAreaDetails.surveyPlan);
-        }
-        if (formData.licenseAreaDetails.leaseAgreement) {
-            data.append('lease_agreement', formData.licenseAreaDetails.leaseAgreement);
-        }
-        // Other documents
-        if (formData.mineRestorationPlan) {
-            data.append('mine_restoration_plan', formData.mineRestorationPlan);
-        }
-        if (formData.licenseFeeReceipt) {
-            data.append('license_fee_receipt', formData.licenseFeeReceipt);
-        }
+        // Add license type
+        data.append('licenseType', 'type-a');
+        // Helper function to append nested objects
+        const appendNestedObject = (prefix, obj)=>{
+            Object.entries(obj).forEach(([key, value])=>{
+                const fullKey = prefix ? `${prefix}[${key}]` : key;
+                if (value instanceof File) {
+                    data.append(fullKey, value);
+                } else if (value && typeof value === 'object') {
+                    appendNestedObject(fullKey, value);
+                } else if (value !== null && value !== undefined) {
+                    data.append(fullKey, value.toString());
+                }
+            });
+        };
+        // Append all form data
+        appendNestedObject('', formData);
         try {
-            // Add a console log to help with debugging
-            console.log('Submitting form data to API...');
-            // Use a relative URL instead of hardcoded localhost:5000
-            const response = await fetch('/api/submit', {
+            const response = await fetch('https://ceylonminebackend.up.railway.app/license/submit', {
                 method: 'POST',
+                headers: {
+                    'Accept': 'application/json'
+                },
                 body: data
             });
             if (response.ok) {
                 alert('License application submitted successfully!');
-                console.log('Response:', await response.json());
             } else {
-                const errorData = await response.json().catch(()=>({
-                        error: 'Unknown error'
-                    }));
-                console.error('Submission error:', errorData);
-                alert(`Failed to submit license application: ${errorData.error || 'Unknown error'}`);
+                // Try to get error message from response
+                let errorMessage = 'Failed to submit license application';
+                try {
+                    const contentType = response.headers.get('content-type');
+                    if (contentType && contentType.includes('application/json')) {
+                        const errorData = await response.json();
+                        errorMessage = errorData.message || errorData.error || errorMessage;
+                    } else {
+                        const textError = await response.text();
+                        errorMessage = textError || errorMessage;
+                    }
+                } catch (parseError) {
+                    console.error('Error parsing response:', parseError);
+                }
+                console.error('Server response:', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: Object.fromEntries(response.headers.entries())
+                });
+                alert(errorMessage);
             }
         } catch (error) {
-            console.error('Fetch error:', error);
-            const errorMessage = error instanceof Error ? error.message : 'Network or server error';
-            alert(`Error submitting license application: ${errorMessage}`);
+            console.error('Network error:', error);
+            alert('Network error occurred while submitting the application. Please check your connection and try again.');
         }
     };
-    const handleFileChange = (section, field)=>(e)=>{
+    const handleFileChange = (field)=>(e)=>{
             if (e.target.files && e.target.files[0]) {
-                if (section === '') {
-                    // Handle root level file fields
-                    setFormData((prev)=>({
-                            ...prev,
-                            [field]: e.target.files[0]
-                        }));
-                } else {
-                    // Handle nested file fields
-                    setFormData((prev)=>{
-                        const sectionData = prev[section];
-                        return {
-                            ...prev,
-                            [section]: {
-                                ...sectionData,
-                                [field]: e.target.files[0]
-                            }
-                        };
-                    });
-                }
+                setFormData((prev)=>({
+                        ...prev,
+                        [field]: e.target.files[0]
+                    }));
             }
         };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2186,7 +2110,7 @@ function TypeALicense() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$navbar$2f$page$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                lineNumber: 1009,
+                lineNumber: 914,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2199,7 +2123,7 @@ function TypeALicense() {
                             children: "IML Type A License Application"
                         }, void 0, false, {
                             fileName: "[project]/app/license-portal/type-a/page.tsx",
-                            lineNumber: 1012,
+                            lineNumber: 917,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2213,135 +2137,83 @@ function TypeALicense() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                                                 className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
-                                                children: "1. Exploration License No"
+                                                children: "Basic Information"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1019,
+                                                lineNumber: 924,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                        children: "Exploration License No (where applicable)"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 1023,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                        type: "text",
-                                                        className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
-                                                        value: formData.explorationLicenseNo,
-                                                        onChange: (e)=>setFormData({
-                                                                ...formData,
-                                                                explorationLicenseNo: e.target.value
-                                                            })
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 1026,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1022,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 1018,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "space-y-4",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
-                                                children: "2. Individual Details"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1039,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "grid grid-cols-1 gap-4",
+                                                className: "grid grid-cols-1 md:grid-cols-2 gap-4",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                 className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "Name of Applicant / Authorized Agent"
+                                                                children: "Exploration License No"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1044,
+                                                                lineNumber: 929,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                 type: "text",
                                                                 className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
-                                                                value: formData.individualDetails.applicantName,
+                                                                value: formData.exploration_license_no,
                                                                 onChange: (e)=>setFormData({
                                                                         ...formData,
-                                                                        individualDetails: {
-                                                                            ...formData.individualDetails,
-                                                                            applicantName: e.target.value
-                                                                        }
+                                                                        exploration_license_no: e.target.value
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1047,
+                                                                lineNumber: 932,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 1043,
+                                                        lineNumber: 928,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                 className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "National Identity Card No"
+                                                                children: "Industrial Mining License No"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1060,
+                                                                lineNumber: 942,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                 type: "text",
                                                                 className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
-                                                                value: formData.individualDetails.nationalIdNo,
+                                                                value: formData.industrial_mining_license_no,
                                                                 onChange: (e)=>setFormData({
                                                                         ...formData,
-                                                                        individualDetails: {
-                                                                            ...formData.individualDetails,
-                                                                            nationalIdNo: e.target.value
-                                                                        }
+                                                                        industrial_mining_license_no: e.target.value
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1063,
+                                                                lineNumber: 945,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 1059,
+                                                        lineNumber: 941,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1042,
+                                                lineNumber: 927,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 1038,
+                                        lineNumber: 923,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2349,302 +2221,578 @@ function TypeALicense() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                                                 className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
-                                                children: "3. Corporation Details"
+                                                children: "Applicant Details"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1081,
+                                                lineNumber: 959,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "grid grid-cols-1 gap-4",
+                                                className: "grid grid-cols-1 md:grid-cols-2 gap-4",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                 className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "Name of Company/Partnership"
+                                                                children: "Applicant Name"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1086,
+                                                                lineNumber: 964,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                 type: "text",
                                                                 className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
-                                                                value: formData.corporationDetails.companyName,
+                                                                value: formData.applicant_name,
                                                                 onChange: (e)=>setFormData({
                                                                         ...formData,
-                                                                        corporationDetails: {
-                                                                            ...formData.corporationDetails,
-                                                                            companyName: e.target.value
-                                                                        }
+                                                                        applicant_name: e.target.value
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1089,
+                                                                lineNumber: 967,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 1085,
+                                                        lineNumber: 963,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                 className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "Articles of Association"
+                                                                children: "National ID"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1102,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                type: "file",
-                                                                className: "mt-1 block w-full",
-                                                                onChange: handleFileChange('corporationDetails', 'articlesOfAssociation')
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1105,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 1101,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "Last three years Annual Reports"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1112,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                type: "file",
-                                                                multiple: true,
-                                                                className: "mt-1 block w-full",
-                                                                onChange: handleFileChange('corporationDetails', 'annualReports')
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1115,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 1111,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1084,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 1080,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "space-y-4",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
-                                                children: "4. Technical/Professional Data"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1127,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "grid grid-cols-1 gap-4",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "Licensed Boundary Survey"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1132,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                type: "file",
-                                                                className: "mt-1 block w-full",
-                                                                onChange: handleFileChange('technicalData', 'licensedBoundarySurvey')
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1135,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 1131,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "Professional/Technical Credentials"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1142,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                type: "file",
-                                                                className: "mt-1 block w-full",
-                                                                onChange: handleFileChange('technicalData', 'projectTeamCredentials')
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1145,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 1141,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1130,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 1126,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "space-y-4",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
-                                                children: "5. Type of Industrial Mining Operation"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1156,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "grid grid-cols-1 gap-4",
-                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                            className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                            children: "Blasting Method"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                            lineNumber: 1161,
-                                                            columnNumber: 21
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                            type: "text",
-                                                            className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
-                                                            value: formData.industrialMiningOperation.blastingMethod,
-                                                            onChange: (e)=>setFormData({
-                                                                    ...formData,
-                                                                    industrialMiningOperation: {
-                                                                        ...formData.industrialMiningOperation,
-                                                                        blastingMethod: e.target.value
-                                                                    }
-                                                                })
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                            lineNumber: 1164,
-                                                            columnNumber: 21
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                    lineNumber: 1160,
-                                                    columnNumber: 19
-                                                }, this)
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1159,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 1155,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "space-y-4",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
-                                                children: "6. Details of License Area"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1182,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "grid grid-cols-1 gap-4",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "Name of Land"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1187,
+                                                                lineNumber: 977,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                 type: "text",
                                                                 className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
-                                                                value: formData.licenseAreaDetails.landName,
+                                                                value: formData.national_id,
                                                                 onChange: (e)=>setFormData({
                                                                         ...formData,
-                                                                        licenseAreaDetails: {
-                                                                            ...formData.licenseAreaDetails,
-                                                                            landName: e.target.value
-                                                                        }
+                                                                        national_id: e.target.value
                                                                     })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 980,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 976,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Address"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 990,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.address,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        address: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 993,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 989,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Nationality"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1003,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.nationality,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        nationality: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1006,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1002,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Employment"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1016,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.employment,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        employment: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1019,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1015,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                lineNumber: 962,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                        lineNumber: 958,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "space-y-4",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                                className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
+                                                children: "Business Details"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                lineNumber: 1033,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Place of Business"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1038,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.place_of_business,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        place_of_business: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1041,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1037,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Residence"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1051,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.residence,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        residence: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1054,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1050,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Company Name"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1064,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.company_name,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        company_name: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1067,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1063,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Country of Incorporation"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1077,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.country_of_incorporation,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        country_of_incorporation: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1080,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1076,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Head Office Address"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1090,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.head_office_address,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        head_office_address: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1093,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1089,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Registered Address in Sri Lanka"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1103,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.registered_address_in_sri_lanka,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        registered_address_in_sri_lanka: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1106,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1102,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Capitalization"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1116,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.capitalization,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        capitalization: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1119,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1115,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                lineNumber: 1036,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                        lineNumber: 1032,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "space-y-4",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                                className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
+                                                children: "Mining Operation Details"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                lineNumber: 1133,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Blasting Method"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1138,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.blasting_method,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        blasting_method: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1141,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1137,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Depth of Borehole"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1151,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.depth_of_borehole,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        depth_of_borehole: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1154,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1150,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Production Volume"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1164,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.production_volume,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        production_volume: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1167,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1163,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Machinery Used"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1177,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.machinery_used,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        machinery_used: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1180,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1176,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Underground Mining Depth"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
                                                                 lineNumber: 1190,
                                                                 columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.underground_mining_depth,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        underground_mining_depth: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1193,
+                                                                columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 1186,
+                                                        lineNumber: 1189,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                 className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "Deed and Survey Plan"
+                                                                children: "Explosives Type"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
                                                                 lineNumber: 1203,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                type: "file",
-                                                                className: "mt-1 block w-full",
-                                                                onChange: handleFileChange('licenseAreaDetails', 'deedCopy')
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.explosives_type,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        explosives_type: e.target.value
+                                                                    })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
                                                                 lineNumber: 1206,
@@ -2659,13 +2807,13 @@ function TypeALicense() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1185,
+                                                lineNumber: 1136,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 1181,
+                                        lineNumber: 1132,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2673,321 +2821,673 @@ function TypeALicense() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                                                 className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
-                                                children: "7. Detailed Mine Restoration Plan"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1217,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                    type: "file",
-                                                    className: "mt-1 block w-full",
-                                                    onChange: handleFileChange('', 'mineRestorationPlan')
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                    lineNumber: 1221,
-                                                    columnNumber: 19
-                                                }, this)
+                                                children: "License Area Details"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
                                                 lineNumber: 1220,
                                                 columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 1216,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "space-y-4",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
-                                                children: "8. Nature of Amount of Bond"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1231,
-                                                columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                    type: "text",
-                                                    className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
-                                                    value: formData.bondDetails,
-                                                    onChange: (e)=>setFormData({
-                                                            ...formData,
-                                                            bondDetails: e.target.value
-                                                        })
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                    lineNumber: 1235,
-                                                    columnNumber: 19
-                                                }, this)
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1234,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 1230,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "space-y-4",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
-                                                children: "9. Names of Mineral/Minerals to be Mined"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1248,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                    type: "text",
-                                                    className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
-                                                    value: formData.mineralsToMine,
-                                                    onChange: (e)=>setFormData({
-                                                            ...formData,
-                                                            mineralsToMine: e.target.value
-                                                        })
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                    lineNumber: 1252,
-                                                    columnNumber: 19
-                                                }, this)
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1251,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 1247,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "space-y-4",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
-                                                children: "10. License Fee Receipt"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1265,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                    type: "file",
-                                                    className: "mt-1 block w-full",
-                                                    onChange: handleFileChange('', 'licenseFeeReceipt')
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                    lineNumber: 1269,
-                                                    columnNumber: 19
-                                                }, this)
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1268,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 1264,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "space-y-4 border-t pt-6",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
-                                                children: "Declaration"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1279,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: `text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`,
-                                                children: "I, the undersigned, do hereby certify that the statements contained in this application are true and correct to the best of my knowledge and undertake to comply with the provisions the Mines & Minerals Act No.33 of 1992, and the Regulation made thereunder."
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1282,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "grid grid-cols-1 gap-4",
+                                                className: "grid grid-cols-1 md:grid-cols-2 gap-4",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                 className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "Date"
+                                                                children: "Land Name"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1289,
+                                                                lineNumber: 1225,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                type: "date",
+                                                                type: "text",
                                                                 className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
-                                                                value: formData.declaration.date,
+                                                                value: formData.land_name,
                                                                 onChange: (e)=>setFormData({
                                                                         ...formData,
-                                                                        declaration: {
-                                                                            ...formData.declaration,
-                                                                            date: e.target.value
-                                                                        }
+                                                                        land_name: e.target.value
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1292,
+                                                                lineNumber: 1228,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 1288,
+                                                        lineNumber: 1224,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                 className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "Mine Manager"
+                                                                children: "Land Owner Name"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1305,
+                                                                lineNumber: 1238,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                 type: "text",
                                                                 className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
-                                                                value: formData.declaration.mineManager,
+                                                                value: formData.land_owner_name,
                                                                 onChange: (e)=>setFormData({
                                                                         ...formData,
-                                                                        declaration: {
-                                                                            ...formData.declaration,
-                                                                            mineManager: e.target.value
-                                                                        }
+                                                                        land_owner_name: e.target.value
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1308,
+                                                                lineNumber: 1241,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 1304,
+                                                        lineNumber: 1237,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                 className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
-                                                                children: "Signature (Type your name to sign)"
+                                                                children: "Village Name"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1321,
-                                                                columnNumber: 1
+                                                                lineNumber: 1251,
+                                                                columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                 type: "text",
                                                                 className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
-                                                                value: formData.declaration.signature,
+                                                                value: formData.village_name,
                                                                 onChange: (e)=>setFormData({
                                                                         ...formData,
-                                                                        declaration: {
-                                                                            ...formData.declaration,
-                                                                            signature: e.target.value
-                                                                        }
+                                                                        village_name: e.target.value
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                                lineNumber: 1324,
-                                                                columnNumber: 1
+                                                                lineNumber: 1254,
+                                                                columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                        lineNumber: 1320,
-                                                        columnNumber: 1
+                                                        lineNumber: 1250,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Grama Niladhari Division"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1264,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.grama_niladhari_division,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        grama_niladhari_division: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1267,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1263,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Divisional Secretary Division"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1277,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.divisional_secretary_division,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        divisional_secretary_division: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1280,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1276,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Administrative District"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1290,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.administrative_district,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        administrative_district: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1293,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1289,
+                                                        columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                                lineNumber: 1287,
+                                                lineNumber: 1223,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 1278,
+                                        lineNumber: 1219,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "border-t pt-6",
+                                        className: "space-y-4",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                                className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
+                                                children: "Additional Details"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                lineNumber: 1307,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Nature of Bond"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1312,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.nature_of_bound,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        nature_of_bound: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1315,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1311,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Minerals to be Mined"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1325,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.minerals_to_be_mined,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        minerals_to_be_mined: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1328,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1324,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Period of Validity"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1338,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.period_of_validity,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        period_of_validity: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1341,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1337,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Royalty Payable"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1351,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "text",
+                                                                className: `mt-1 block w-full rounded-md ${isDarkMode ? 'bg-gray-800 text-white border-gray-700' : 'border-gray-300'} shadow-sm focus:border-indigo-500 focus:ring-indigo-500`,
+                                                                value: formData.royalty_payable,
+                                                                onChange: (e)=>setFormData({
+                                                                        ...formData,
+                                                                        royalty_payable: e.target.value
+                                                                    })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1354,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1350,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                lineNumber: 1310,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                        lineNumber: 1306,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "space-y-4",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                                className: `text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`,
+                                                children: "Required Documents"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                lineNumber: 1368,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Articles of Association"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1373,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "file",
+                                                                className: "mt-1 block w-full",
+                                                                onChange: handleFileChange('articles_of_association')
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1376,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1372,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Annual Reports"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1383,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "file",
+                                                                className: "mt-1 block w-full",
+                                                                onChange: handleFileChange('annual_reports')
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1386,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1382,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Licensed Boundary Survey"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1393,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "file",
+                                                                className: "mt-1 block w-full",
+                                                                onChange: handleFileChange('licensed_boundary_survey')
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1396,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1392,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Project Team Credentials"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1403,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "file",
+                                                                className: "mt-1 block w-full",
+                                                                onChange: handleFileChange('project_team_credentials')
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1406,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1402,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Economic Viability Report"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1413,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "file",
+                                                                className: "mt-1 block w-full",
+                                                                onChange: handleFileChange('economic_viability_report')
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1416,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1412,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Deed Copy"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1423,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "file",
+                                                                className: "mt-1 block w-full",
+                                                                onChange: handleFileChange('deed_copy')
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1426,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1422,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Survey Plan"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1433,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "file",
+                                                                className: "mt-1 block w-full",
+                                                                onChange: handleFileChange('survey_plan')
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1436,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1432,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Lease Agreement"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1443,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "file",
+                                                                className: "mt-1 block w-full",
+                                                                onChange: handleFileChange('lease_agreement')
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1446,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1442,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "Mine Restoration Plan"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1453,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "file",
+                                                                className: "mt-1 block w-full",
+                                                                onChange: handleFileChange('mine_restoration_plan')
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1456,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1452,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                className: `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`,
+                                                                children: "License Fee Receipt"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1463,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "file",
+                                                                className: "mt-1 block w-full",
+                                                                onChange: handleFileChange('license_fee_receipt')
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                                lineNumber: 1466,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                        lineNumber: 1462,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                                lineNumber: 1371,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/license-portal/type-a/page.tsx",
+                                        lineNumber: 1367,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "pt-5",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "submit",
-                                            className: `w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${isDarkMode ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-blue-600 hover:bg-blue-700'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`,
-                                            children: "Submit License Application"
+                                            className: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500",
+                                            children: "Submit Application"
                                         }, void 0, false, {
                                             fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                            lineNumber: 1341,
-                                            columnNumber: 1
+                                            lineNumber: 1476,
+                                            columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                        lineNumber: 1340,
-                                        columnNumber: 1
+                                        lineNumber: 1475,
+                                        columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                                lineNumber: 1016,
+                                lineNumber: 921,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/license-portal/type-a/page.tsx",
-                            lineNumber: 1015,
+                            lineNumber: 920,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/license-portal/type-a/page.tsx",
-                    lineNumber: 1011,
+                    lineNumber: 916,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                lineNumber: 1010,
+                lineNumber: 915,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("canvas", {
                 ref: canvasRef,
-                className: "fixed top-0 left-0 w-full h-full pointer-events-none"
+                className: "fixed inset-0 w-full h-full z-0"
             }, void 0, false, {
                 fileName: "[project]/app/license-portal/type-a/page.tsx",
-                lineNumber: 1356,
-                columnNumber: 1
+                lineNumber: 1489,
+                columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/license-portal/type-a/page.tsx",
-        lineNumber: 1008,
+        lineNumber: 913,
         columnNumber: 5
     }, this);
 }
-_s(TypeALicense, "9B8aAsmfrAdUVd6iidzsVEGREaA=");
+_s(TypeALicense, "+xN5JMPhBk60mv0CwAB9PoNjCZo=");
 _c = TypeALicense;
 var _c;
 __turbopack_context__.k.register(_c, "TypeALicense");

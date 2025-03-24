@@ -236,33 +236,121 @@ export default function TypeALicense() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Validate required fields before submission
+    if (!formData.individualDetails.address) {
+      alert('Address is required');
+      return;
+    }
+
+    // Create FormData object for file uploads
     const data = new FormData();
     
+    // Map the form data to match backend API structure
+    const mappedData = {
+      exploration_license_no: formData.explorationLicenseNo || 'N/A',
+      applicant_name: formData.individualDetails.applicantName,
+      national_id: formData.individualDetails.nationalIdNo,
+      address: formData.individualDetails.address,
+      nationality: formData.individualDetails.nationality || 'Sri Lankan',
+      employment: formData.individualDetails.employment || 'N/A',
+      place_of_business: formData.individualDetails.sriLankaDetails.placeBusiness || 'N/A',
+      residence: formData.individualDetails.sriLankaDetails.residence || 'N/A',
+      company_name: formData.corporationDetails.companyName || 'N/A',
+      country_of_incorporation: formData.corporationDetails.countryIncorporation || 'Sri Lanka',
+      head_office_address: formData.corporationDetails.headOffice || 'N/A',
+      registered_address_in_sri_lanka: formData.corporationDetails.sriLankaAddress || 'N/A',
+      capitalization: formData.corporationDetails.legalFinancialData.capitalization || '0',
+      blasting_method: formData.industrialMiningOperation.blastingMethod || 'N/A',
+      depth_of_borehole: formData.industrialMiningOperation.boreHoleDepth || '0',
+      production_volume: formData.industrialMiningOperation.productionVolume || '0',
+      machinery_used: formData.industrialMiningOperation.machineryUsed || 'N/A',
+      underground_mining_depth: formData.industrialMiningOperation.shaftDepth || '0',
+      explosives_type: formData.industrialMiningOperation.explosivesType || 'N/A',
+      land_name: formData.licenseAreaDetails.landName || 'N/A',
+      land_owner_name: formData.licenseAreaDetails.landOwner || 'N/A',
+      village_name: formData.licenseAreaDetails.villageName || 'N/A',
+      grama_niladhari_division: formData.licenseAreaDetails.gramaNiladhariDivision || 'N/A',
+      divisional_secretary_division: formData.licenseAreaDetails.divisionalSecretary || 'N/A',
+      administrative_district: formData.licenseAreaDetails.administrativeDistrict || 'N/A',
+      nature_of_bound: formData.bondDetails || 'N/A',
+      minerals_to_be_mined: formData.mineralsToMine || 'N/A',
+      industrial_mining_license_no: formData.explorationLicenseNo || 'N/A',
+      period_of_validity: "1",
+      royalty_payable: "0"
+    };
+
     // Append all form data
-    Object.entries(formData).forEach(([key, value]) => {
-      if (value instanceof File) {
-        data.append(key, value);
-      } else if (typeof value === 'object') {
-        data.append(key, JSON.stringify(value));
-      } else {
-        data.append(key, value.toString());
-      }
+    Object.entries(mappedData).forEach(([key, value]) => {
+      data.append(key, value.toString());
     });
 
+    // Append file uploads
+    if (formData.corporationDetails.legalFinancialData.articlesOfAssociation) {
+      data.append('articles_of_association', formData.corporationDetails.legalFinancialData.articlesOfAssociation);
+    }
+    if (formData.corporationDetails.legalFinancialData.annualReports) {
+      data.append('annual_reports', formData.corporationDetails.legalFinancialData.annualReports);
+    }
+    if (formData.technicalData.licensedBoundarySurvey) {
+      data.append('licensed_boundary_survey', formData.technicalData.licensedBoundarySurvey);
+    }
+    if (formData.technicalData.projectTeamCredentials) {
+      data.append('project_team_credentials', formData.technicalData.projectTeamCredentials);
+    }
+    if (formData.technicalData.economicViabilityReport) {
+      data.append('economic_viability_report', formData.technicalData.economicViabilityReport);
+    }
+    if (formData.mineRestorationPlan) {
+      data.append('mine_restoration_plan', formData.mineRestorationPlan);
+    }
+    if (formData.licenseFeeReceipt) {
+      data.append('license_fee_receipt', formData.licenseFeeReceipt);
+    }
+    if (formData.declaration.signature) {
+      data.append('applicant_signature', formData.declaration.signature);
+    }
+    if (formData.declaration.mineManager) {
+      data.append('mine_manager_signature', formData.declaration.mineManager);
+    }
+
     try {
-      const response = await fetch('http://localhost:5000/api/licenses/type-a', {
+      console.log('Submitting data:', Object.fromEntries(data.entries())); // Debug log
+      
+      const response = await fetch('https://ceylonminebackend.up.railway.app/license/submit', {
         method: 'POST',
         body: data,
       });
       
-      if (response.ok) {
-        alert('License application submitted successfully!');
-      } else {
-        alert('Failed to submit license application');
+      const responseText = await response.text();
+      console.log('Response:', responseText); // Debug log
+      
+      if (!response.ok) {
+        let errorMessage;
+        try {
+          const errorData = JSON.parse(responseText);
+          errorMessage = errorData.error;
+        } catch {
+          errorMessage = responseText || 'Failed to submit license application';
+        }
+        throw new Error(errorMessage);
       }
+
+      let result;
+      try {
+        result = JSON.parse(responseText);
+      } catch {
+        result = { message: 'License application submitted successfully!' };
+      }
+      
+      alert(result.message || 'License application submitted successfully!');
+      // Reset form after successful submission
+      setFormData({
+        ...formData,
+        individualDetails: { ...formData.individualDetails, address: '' }
+      });
     } catch (error) {
       console.error('Error:', error);
-      alert('Error submitting license application');
+      alert(error instanceof Error ? error.message : 'Error submitting license application');
     }
   };
 
