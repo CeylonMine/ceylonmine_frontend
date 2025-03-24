@@ -3,18 +3,12 @@
   "/about/page": "app/about/page.js",
   "/api/health-check/route": "app/api/health-check/route.js",
   "/complains/page": "app/complains/page.js",
-  "/constructor/page": "app/constructor/page.js",
   "/contact/page": "app/contact/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/license-portal/page": "app/license-portal/page.js",
-  "/license-portal/type-a/page": "app/license-portal/type-a/page.js",
   "/login/page": "app/login/page.js",
   "/map/page": "app/map/page.js",
   "/minebot/page": "app/minebot/page.js",
-  "/minemore/page": "app/minemore/page.js",
   "/page": "app/page.js",
-  "/resetpw/page": "app/resetpw/page.js",
   "/royalty/page": "app/royalty/page.js",
-  "/sign/page": "app/sign/page.js",
-  "/unlicense/page": "app/unlicense/page.js"
+  "/sign/page": "app/sign/page.js"
 }

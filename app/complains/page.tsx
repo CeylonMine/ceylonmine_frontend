@@ -172,7 +172,7 @@ export default function ComplaintForm() {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/complaints/submit", {
+      const response = await fetch("https://ceylonminebackend.up.railway.app/complaints/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -374,9 +374,9 @@ export default function ComplaintForm() {
                     required
                   >
                     <option value="">{t.selectProject}</option>
-                    <option value="project1">Project 1</option>
-                    <option value="project2">Project 2</option>
-                    <option value="project3">Project 3</option>
+                    <option value="project1">Mining Quary </option>
+                    <option value="project2">Construction Site</option>
+                    <option value="project3">Licensing</option>
                   </select>
                   <div className={`absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none ${
                     isDarkMode ? 'text-gray-400' : 'text-gray-500'
