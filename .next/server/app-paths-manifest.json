@@ -5,9 +5,11 @@
   "/complains/page": "app/complains/page.js",
   "/contact/page": "app/contact/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/license-portal/page": "app/license-portal/page.js",
   "/login/page": "app/login/page.js",
   "/map/page": "app/map/page.js",
   "/minebot/page": "app/minebot/page.js",
+  "/minemore/page": "app/minemore/page.js",
   "/page": "app/page.js",
   "/royalty/page": "app/royalty/page.js",
   "/sign/page": "app/sign/page.js"
