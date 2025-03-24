@@ -20,6 +20,18 @@ interface AttachedFile {
   date: string;
 }
 
+interface LicenseData {
+  license_status: string;
+  license_number: string;
+  active_date: string;
+  period_of_validation: string;
+  expires: string;
+}
+
+interface RoyaltyData {
+  royalty_amount_due: number;
+}
+
 interface LicensedPageProps {
   userName?: string;
   royaltyAmount?: string;
@@ -29,7 +41,6 @@ interface LicensedPageProps {
 export default function LicensedPage() {
   // Default values
   const userName = 'User';
-  const royaltyAmount = '1,250.00';
   const dueDate = 'March 15, 2025';
   
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -42,6 +53,46 @@ export default function LicensedPage() {
   });
   const [attachedFiles, setAttachedFiles] = useState<AttachedFile[]>([]);
   const [successMessage, setSuccessMessage] = useState('');
+
+  // Add new state variables for backend data
+  const [licenseData, setLicenseData] = useState<LicenseData | null>(null);
+  const [royaltyData, setRoyaltyData] = useState<RoyaltyData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch data from backend
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        // Fetch license data
+        const licenseResponse = await fetch('https://ceylonminebackend.up.railway.app/miner/license');
+        if (!licenseResponse.ok) {
+          throw new Error('Failed to fetch license data');
+        }
+        const licenseData = await licenseResponse.json();
+
+        // Fetch royalty data
+        const royaltyResponse = await fetch('https://ceylonminebackend.up.railway.app/miner/royalty');
+        if (!royaltyResponse.ok) {
+          throw new Error('Failed to fetch royalty data');
+        }
+        const royaltyData = await royaltyResponse.json();
+
+        setLicenseData(licenseData);
+        setRoyaltyData(royaltyData);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+        console.error('Error fetching data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const handleThemeChange = (event: CustomEvent) => {
@@ -360,8 +411,18 @@ export default function LicensedPage() {
               <p className={`text-4xl font-bold ${
                 isDarkMode ? 'text-amber-500' : 'text-orange-500'
               }`}>
-                ${royaltyAmount}
+                ${loading 
+                  ? 'Loading...' 
+                  : royaltyData 
+                    ? royaltyData.royalty_amount_due.toLocaleString() 
+                    : '0.00'
+                }
               </p>
+              {error && (
+                <p className={`mt-2 text-sm ${isDarkMode ? 'text-red-400' : 'text-red-600'}`}>
+                  {error}
+                </p>
+              )}
               <p className={`mt-2 ${
                 isDarkMode ? 'text-amber-300/80' : 'text-orange-700/90'
               }`}>
@@ -411,19 +472,32 @@ export default function LicensedPage() {
                 isDarkMode ? 'text-amber-300' : 'text-orange-700'
               }`}>{t.licenseStatus}</h3>
               <div className="flex items-center gap-2 mb-2">
-                <span className="inline-block w-3 h-3 rounded-full bg-green-500 shadow-sm shadow-green-500/50 animate-pulse"></span>
-                <p className="text-lg font-medium text-green-500">{t.active}</p>
+                <span className={`inline-block w-3 h-3 rounded-full ${
+                  loading ? 'bg-yellow-500' : 'bg-green-500'
+                } shadow-sm ${
+                  loading ? 'shadow-yellow-500/50' : 'shadow-green-500/50'
+                } animate-pulse`}></span>
+                <p className={`text-lg font-medium ${
+                  loading ? 'text-yellow-500' : 'text-green-500'
+                }`}>
+                  {loading ? 'Loading...' : licenseData?.license_status || t.active}
+                </p>
               </div>
               <p className={`mt-2 ${
                 isDarkMode ? 'text-amber-300/80' : 'text-orange-700/90'
               }`}>
-                {t.licenseNumber}: ML-2025-4872
+                {t.licenseNumber}: {loading ? 'Loading...' : licenseData?.license_number || 'N/A'}
               </p>
               <p className={`${
                 isDarkMode ? 'text-amber-300/80' : 'text-orange-700/90'
               }`}>
-                {t.expires}: December 31, 2025
+                {t.expires}: {loading ? 'Loading...' : licenseData?.expires || 'N/A'}
               </p>
+              {error && (
+                <p className={`mt-2 text-sm ${isDarkMode ? 'text-red-400' : 'text-red-600'}`}>
+                  {error}
+                </p>
+              )}
               <motion.button
                 className={`mt-5 border-2 ${
                   isDarkMode 

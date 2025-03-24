@@ -1318,7 +1318,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$bui
 function LicensedPage() {
     // Default values
     const userName = 'User';
-    const royaltyAmount = '1,250.00';
     const dueDate = 'March 15, 2025';
     const [isDarkMode, setIsDarkMode] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
     const [language, setLanguage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('en');
@@ -1330,6 +1329,40 @@ function LicensedPage() {
     });
     const [attachedFiles, setAttachedFiles] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [successMessage, setSuccessMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    // Add new state variables for backend data
+    const [licenseData, setLicenseData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [royaltyData, setRoyaltyData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
+    const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    // Fetch data from backend
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        const fetchData = async ()=>{
+            try {
+                setLoading(true);
+                setError(null);
+                // Fetch license data
+                const licenseResponse = await fetch('https://ceylonminebackend.up.railway.app/miner/license');
+                if (!licenseResponse.ok) {
+                    throw new Error('Failed to fetch license data');
+                }
+                const licenseData = await licenseResponse.json();
+                // Fetch royalty data
+                const royaltyResponse = await fetch('https://ceylonminebackend.up.railway.app/miner/royalty');
+                if (!royaltyResponse.ok) {
+                    throw new Error('Failed to fetch royalty data');
+                }
+                const royaltyData = await royaltyResponse.json();
+                setLicenseData(licenseData);
+                setRoyaltyData(royaltyData);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'An error occurred');
+                console.error('Error fetching data:', err);
+            } finally{
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, []);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const handleThemeChange = (event)=>{
             setIsDarkMode(event.detail.isDarkMode);
@@ -1573,7 +1606,7 @@ function LicensedPage() {
                         children: "Licensed Dashboard | CeylonMine"
                     }, void 0, false, {
                         fileName: "[project]/app/constructor/page.tsx",
-                        lineNumber: 292,
+                        lineNumber: 343,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1581,7 +1614,7 @@ function LicensedPage() {
                         content: "Licensed Dashboard for CeylonMine's digital platform for mining licensing and royalty calculation in Sri Lanka."
                     }, void 0, false, {
                         fileName: "[project]/app/constructor/page.tsx",
-                        lineNumber: 293,
+                        lineNumber: 344,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("link", {
@@ -1589,18 +1622,18 @@ function LicensedPage() {
                         href: "/favicon.ico"
                     }, void 0, false, {
                         fileName: "[project]/app/constructor/page.tsx",
-                        lineNumber: 297,
+                        lineNumber: 348,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/constructor/page.tsx",
-                lineNumber: 291,
+                lineNumber: 342,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$navbar$2f$page$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/constructor/page.tsx",
-                lineNumber: 300,
+                lineNumber: 351,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1634,7 +1667,7 @@ function LicensedPage() {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/constructor/page.tsx",
-                                    lineNumber: 306,
+                                    lineNumber: 357,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].p, {
@@ -1654,13 +1687,13 @@ function LicensedPage() {
                                     children: t.description
                                 }, void 0, false, {
                                     fileName: "[project]/app/constructor/page.tsx",
-                                    lineNumber: 317,
+                                    lineNumber: 368,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/constructor/page.tsx",
-                            lineNumber: 305,
+                            lineNumber: 356,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1691,7 +1724,7 @@ function LicensedPage() {
                                             className: `absolute top-0 left-0 w-full h-1 ${isDarkMode ? 'bg-gradient-to-r from-amber-500 to-amber-300/50' : 'bg-gradient-to-r from-orange-500 to-orange-300/50'}`
                                         }, void 0, false, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 347,
+                                            lineNumber: 398,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1699,7 +1732,7 @@ function LicensedPage() {
                                             children: "💰"
                                         }, void 0, false, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 352,
+                                            lineNumber: 403,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1707,19 +1740,27 @@ function LicensedPage() {
                                             children: t.royaltyAmount
                                         }, void 0, false, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 357,
+                                            lineNumber: 408,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                             className: `text-4xl font-bold ${isDarkMode ? 'text-amber-500' : 'text-orange-500'}`,
                                             children: [
                                                 "$",
-                                                royaltyAmount
+                                                loading ? 'Loading...' : royaltyData ? royaltyData.royalty_amount_due.toLocaleString() : '0.00'
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 360,
+                                            lineNumber: 411,
                                             columnNumber: 15
+                                        }, this),
+                                        error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: `mt-2 text-sm ${isDarkMode ? 'text-red-400' : 'text-red-600'}`,
+                                            children: error
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/constructor/page.tsx",
+                                            lineNumber: 422,
+                                            columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                             className: `mt-2 ${isDarkMode ? 'text-amber-300/80' : 'text-orange-700/90'}`,
@@ -1730,7 +1771,7 @@ function LicensedPage() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 365,
+                                            lineNumber: 426,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].button, {
@@ -1746,26 +1787,26 @@ function LicensedPage() {
                                                     children: t.makePayment
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/constructor/page.tsx",
-                                                    lineNumber: 379,
+                                                    lineNumber: 440,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     children: "→"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/constructor/page.tsx",
-                                                    lineNumber: 380,
+                                                    lineNumber: 441,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 370,
+                                            lineNumber: 431,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/constructor/page.tsx",
-                                    lineNumber: 332,
+                                    lineNumber: 383,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1794,7 +1835,7 @@ function LicensedPage() {
                                             className: `absolute top-0 left-0 w-full h-1 ${isDarkMode ? 'bg-gradient-to-r from-amber-500 to-amber-300/50' : 'bg-gradient-to-r from-orange-500 to-orange-300/50'}`
                                         }, void 0, false, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 400,
+                                            lineNumber: 461,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1802,7 +1843,7 @@ function LicensedPage() {
                                             children: "📄"
                                         }, void 0, false, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 405,
+                                            lineNumber: 466,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1810,54 +1851,64 @@ function LicensedPage() {
                                             children: t.licenseStatus
                                         }, void 0, false, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 410,
+                                            lineNumber: 471,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "flex items-center gap-2 mb-2",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "inline-block w-3 h-3 rounded-full bg-green-500 shadow-sm shadow-green-500/50 animate-pulse"
+                                                    className: `inline-block w-3 h-3 rounded-full ${loading ? 'bg-yellow-500' : 'bg-green-500'} shadow-sm ${loading ? 'shadow-yellow-500/50' : 'shadow-green-500/50'} animate-pulse`
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/constructor/page.tsx",
-                                                    lineNumber: 414,
+                                                    lineNumber: 475,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                    className: "text-lg font-medium text-green-500",
-                                                    children: t.active
+                                                    className: `text-lg font-medium ${loading ? 'text-yellow-500' : 'text-green-500'}`,
+                                                    children: loading ? 'Loading...' : licenseData?.license_status || t.active
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/constructor/page.tsx",
-                                                    lineNumber: 415,
+                                                    lineNumber: 480,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 413,
+                                            lineNumber: 474,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                             className: `mt-2 ${isDarkMode ? 'text-amber-300/80' : 'text-orange-700/90'}`,
                                             children: [
                                                 t.licenseNumber,
-                                                ": ML-2025-4872"
+                                                ": ",
+                                                loading ? 'Loading...' : licenseData?.license_number || 'N/A'
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 417,
+                                            lineNumber: 486,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                             className: `${isDarkMode ? 'text-amber-300/80' : 'text-orange-700/90'}`,
                                             children: [
                                                 t.expires,
-                                                ": December 31, 2025"
+                                                ": ",
+                                                loading ? 'Loading...' : licenseData?.expires || 'N/A'
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 422,
+                                            lineNumber: 491,
                                             columnNumber: 15
+                                        }, this),
+                                        error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: `mt-2 text-sm ${isDarkMode ? 'text-red-400' : 'text-red-600'}`,
+                                            children: error
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/constructor/page.tsx",
+                                            lineNumber: 497,
+                                            columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].button, {
                                             className: `mt-5 border-2 ${isDarkMode ? 'border-amber-500 text-amber-500 hover:bg-amber-500' : 'border-orange-500 text-orange-500 hover:bg-orange-500'} hover:text-white py-3 px-4 rounded-md text-sm font-medium transition-all duration-300 w-full shadow-md hover:shadow-lg flex items-center justify-center gap-2`,
@@ -1872,32 +1923,32 @@ function LicensedPage() {
                                                     children: t.viewDetails
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/constructor/page.tsx",
-                                                    lineNumber: 436,
+                                                    lineNumber: 510,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     children: "→"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/constructor/page.tsx",
-                                                    lineNumber: 437,
+                                                    lineNumber: 511,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 427,
+                                            lineNumber: 501,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/constructor/page.tsx",
-                                    lineNumber: 385,
+                                    lineNumber: 446,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/constructor/page.tsx",
-                            lineNumber: 330,
+                            lineNumber: 381,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1921,7 +1972,7 @@ function LicensedPage() {
                                     className: `absolute top-0 left-0 w-full h-1 ${isDarkMode ? 'bg-gradient-to-r from-amber-500 to-amber-300/50' : 'bg-gradient-to-r from-orange-500 to-orange-300/50'}`
                                 }, void 0, false, {
                                     fileName: "[project]/app/constructor/page.tsx",
-                                    lineNumber: 454,
+                                    lineNumber: 528,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1929,7 +1980,7 @@ function LicensedPage() {
                                     children: t.additionalDocuments
                                 }, void 0, false, {
                                     fileName: "[project]/app/constructor/page.tsx",
-                                    lineNumber: 459,
+                                    lineNumber: 533,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1945,7 +1996,7 @@ function LicensedPage() {
                                                     children: t.fileDescription
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/constructor/page.tsx",
-                                                    lineNumber: 465,
+                                                    lineNumber: 539,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1958,13 +2009,13 @@ function LicensedPage() {
                                                     required: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/constructor/page.tsx",
-                                                    lineNumber: 470,
+                                                    lineNumber: 544,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 464,
+                                            lineNumber: 538,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1975,7 +2026,7 @@ function LicensedPage() {
                                                     children: t.attachFile
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/constructor/page.tsx",
-                                                    lineNumber: 486,
+                                                    lineNumber: 560,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1992,7 +2043,7 @@ function LicensedPage() {
                                                             required: true
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/constructor/page.tsx",
-                                                            lineNumber: 498,
+                                                            lineNumber: 572,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -2012,12 +2063,12 @@ function LicensedPage() {
                                                                         d: "M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/constructor/page.tsx",
-                                                                        lineNumber: 513,
+                                                                        lineNumber: 587,
                                                                         columnNumber: 23
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/constructor/page.tsx",
-                                                                    lineNumber: 506,
+                                                                    lineNumber: 580,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2025,7 +2076,7 @@ function LicensedPage() {
                                                                     children: "Click to select file or drag and drop"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/constructor/page.tsx",
-                                                                    lineNumber: 520,
+                                                                    lineNumber: 594,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2033,25 +2084,25 @@ function LicensedPage() {
                                                                     children: fileData.file ? fileData.file.name : 'PDF, DOC, XLS, JPG up to 10MB'
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/constructor/page.tsx",
-                                                                    lineNumber: 525,
+                                                                    lineNumber: 599,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/constructor/page.tsx",
-                                                            lineNumber: 505,
+                                                            lineNumber: 579,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/constructor/page.tsx",
-                                                    lineNumber: 491,
+                                                    lineNumber: 565,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 485,
+                                            lineNumber: 559,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2067,12 +2118,12 @@ function LicensedPage() {
                                                 children: t.submit
                                             }, void 0, false, {
                                                 fileName: "[project]/app/constructor/page.tsx",
-                                                lineNumber: 535,
+                                                lineNumber: 609,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 534,
+                                            lineNumber: 608,
                                             columnNumber: 15
                                         }, this),
                                         successMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2080,19 +2131,19 @@ function LicensedPage() {
                                             children: successMessage
                                         }, void 0, false, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 550,
+                                            lineNumber: 624,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/constructor/page.tsx",
-                                    lineNumber: 463,
+                                    lineNumber: 537,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/constructor/page.tsx",
-                            lineNumber: 443,
+                            lineNumber: 517,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -2116,7 +2167,7 @@ function LicensedPage() {
                                     className: `absolute top-0 left-0 w-full h-1 ${isDarkMode ? 'bg-gradient-to-r from-amber-500 to-amber-300/50' : 'bg-gradient-to-r from-orange-500 to-orange-300/50'}`
                                 }, void 0, false, {
                                     fileName: "[project]/app/constructor/page.tsx",
-                                    lineNumber: 577,
+                                    lineNumber: 651,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2124,7 +2175,7 @@ function LicensedPage() {
                                     children: t.attachedDocuments
                                 }, void 0, false, {
                                     fileName: "[project]/app/constructor/page.tsx",
-                                    lineNumber: 582,
+                                    lineNumber: 656,
                                     columnNumber: 13
                                 }, this),
                                 attachedFiles.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2142,7 +2193,7 @@ function LicensedPage() {
                                                                 children: file.description
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/constructor/page.tsx",
-                                                                lineNumber: 597,
+                                                                lineNumber: 671,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2150,7 +2201,7 @@ function LicensedPage() {
                                                                 children: file.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/constructor/page.tsx",
-                                                                lineNumber: 600,
+                                                                lineNumber: 674,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2163,7 +2214,7 @@ function LicensedPage() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/constructor/page.tsx",
-                                                                        lineNumber: 606,
+                                                                        lineNumber: 680,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2171,26 +2222,26 @@ function LicensedPage() {
                                                                         children: "•"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/constructor/page.tsx",
-                                                                        lineNumber: 607,
+                                                                        lineNumber: 681,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         children: file.date
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/constructor/page.tsx",
-                                                                        lineNumber: 608,
+                                                                        lineNumber: 682,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/constructor/page.tsx",
-                                                                lineNumber: 603,
+                                                                lineNumber: 677,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/constructor/page.tsx",
-                                                        lineNumber: 596,
+                                                        lineNumber: 670,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].button, {
@@ -2204,36 +2255,36 @@ function LicensedPage() {
                                                         children: t.downloadFile
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/constructor/page.tsx",
-                                                        lineNumber: 611,
+                                                        lineNumber: 685,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/constructor/page.tsx",
-                                                lineNumber: 595,
+                                                lineNumber: 669,
                                                 columnNumber: 21
                                             }, this)
                                         }, file.id, false, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 589,
+                                            lineNumber: 663,
                                             columnNumber: 19
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/app/constructor/page.tsx",
-                                    lineNumber: 587,
+                                    lineNumber: 661,
                                     columnNumber: 15
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     className: `text-sm italic opacity-70 ${isDarkMode ? 'text-amber-300/70' : 'text-orange-700/80'}`,
                                     children: t.noAttachments
                                 }, void 0, false, {
                                     fileName: "[project]/app/constructor/page.tsx",
-                                    lineNumber: 627,
+                                    lineNumber: 701,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/constructor/page.tsx",
-                            lineNumber: 566,
+                            lineNumber: 640,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -2258,7 +2309,7 @@ function LicensedPage() {
                                     className: `absolute top-0 left-0 w-full h-1 ${isDarkMode ? 'bg-gradient-to-r from-amber-500 to-amber-300/50' : 'bg-gradient-to-r from-orange-500 to-orange-300/50'}`
                                 }, void 0, false, {
                                     fileName: "[project]/app/constructor/page.tsx",
-                                    lineNumber: 645,
+                                    lineNumber: 719,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2266,7 +2317,7 @@ function LicensedPage() {
                                     children: t.recentActivity
                                 }, void 0, false, {
                                     fileName: "[project]/app/constructor/page.tsx",
-                                    lineNumber: 650,
+                                    lineNumber: 724,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2282,7 +2333,7 @@ function LicensedPage() {
                                                     children: activity.icon
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/constructor/page.tsx",
-                                                    lineNumber: 667,
+                                                    lineNumber: 741,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2293,7 +2344,7 @@ function LicensedPage() {
                                                             children: activity.action
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/constructor/page.tsx",
-                                                            lineNumber: 675,
+                                                            lineNumber: 749,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2301,13 +2352,13 @@ function LicensedPage() {
                                                             children: activity.date
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/constructor/page.tsx",
-                                                            lineNumber: 678,
+                                                            lineNumber: 752,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/constructor/page.tsx",
-                                                    lineNumber: 674,
+                                                    lineNumber: 748,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2315,35 +2366,35 @@ function LicensedPage() {
                                                     children: activity.status
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/constructor/page.tsx",
-                                                    lineNumber: 682,
+                                                    lineNumber: 756,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, index, true, {
                                             fileName: "[project]/app/constructor/page.tsx",
-                                            lineNumber: 658,
+                                            lineNumber: 732,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/app/constructor/page.tsx",
-                                    lineNumber: 654,
+                                    lineNumber: 728,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/constructor/page.tsx",
-                            lineNumber: 634,
+                            lineNumber: 708,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/constructor/page.tsx",
-                    lineNumber: 303,
+                    lineNumber: 354,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/constructor/page.tsx",
-                lineNumber: 302,
+                lineNumber: 353,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
@@ -2360,17 +2411,17 @@ function LicensedPage() {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/constructor/page.tsx",
-                        lineNumber: 708,
+                        lineNumber: 782,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/constructor/page.tsx",
-                    lineNumber: 707,
+                    lineNumber: 781,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/constructor/page.tsx",
-                lineNumber: 702,
+                lineNumber: 776,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("canvas", {
@@ -2378,13 +2429,13 @@ function LicensedPage() {
                 className: "fixed top-0 left-0 w-full h-full pointer-events-none"
             }, void 0, false, {
                 fileName: "[project]/app/constructor/page.tsx",
-                lineNumber: 719,
+                lineNumber: 793,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/constructor/page.tsx",
-        lineNumber: 285,
+        lineNumber: 336,
         columnNumber: 5
     }, this);
 }

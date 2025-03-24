@@ -1,5 +1,9 @@
 {
   "/api/auth/check/route": "app/api/auth/check/route.js",
+  "/constructor/page": "app/constructor/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/login/page": "app/login/page.js"
+  "/license-portal/type-d/page": "app/license-portal/type-d/page.js",
+  "/login/page": "app/login/page.js",
+  "/map/page": "app/map/page.js",
+  "/page": "app/page.js"
 }

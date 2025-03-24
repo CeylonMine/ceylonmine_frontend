@@ -2367,6 +2367,11 @@ img, video {
   color: rgb(234 179 8 / var(--tw-text-opacity, 1));
 }
 
+.text-red-600 {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity, 1));
+}
+
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -2485,6 +2490,11 @@ img, video {
 
 .shadow-orange-200\/30 {
   --tw-shadow-color: #fed7aa4d;
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
+.shadow-yellow-500\/50 {
+  --tw-shadow-color: #eab30880;
   --tw-shadow: var(--tw-shadow-colored);
 }
 
