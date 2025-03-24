@@ -203,61 +203,60 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
 const API_BASE_URL = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+// Constants for royalty calculation
+const RATES = {
+    ROYALTY_RATE_PER_CUBIC_METER: 150,
+    SSCL_RATE: 0.01,
+    VAT_RATE: 0.15
+};
 const calculateRoyalty = async (data)=>{
     try {
-        // Validate input data before sending request
+        // Validate input data
         if (isNaN(data.water_gel) || isNaN(data.nh4no3) || isNaN(data.powder_factor)) {
             throw new Error('Invalid input: All values must be valid numbers');
         }
         if (data.water_gel < 0 || data.nh4no3 < 0 || data.powder_factor <= 0) {
             throw new Error('Invalid input: Values must be greater than zero');
         }
-        // Use the endpoint with the prefix
-        const endpoint = `${API_BASE_URL}/royalty/api/calculate-royalty`;
-        console.log('Calling API endpoint:', endpoint);
-        console.log('With data:', data);
-        const controller = new AbortController();
-        const timeoutId = setTimeout(()=>controller.abort(), 15000); // 15 second timeout
-        try {
-            const response = await fetch(endpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(data),
-                signal: controller.signal
-            });
-            clearTimeout(timeoutId);
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('API error:', response.status, errorText);
-                // Try to parse error as JSON
-                let errorMessage;
-                try {
-                    const errorJson = JSON.parse(errorText);
-                    errorMessage = errorJson.error || `API error: ${response.status}`;
-                } catch  {
-                    errorMessage = `API error: ${response.status} - ${errorText || response.statusText}`;
-                }
-                throw new Error(errorMessage);
+        // Calculate total explosive quantity
+        const total_explosive_quantity = data.water_gel + data.nh4no3;
+        // Calculate blasted rock volume using powder factor
+        // Powder Factor = Total Explosive / Rock Volume
+        // Therefore, Rock Volume = Total Explosive / Powder Factor
+        const blasted_rock_volume = total_explosive_quantity / data.powder_factor;
+        // Calculate base royalty
+        const base_royalty = blasted_rock_volume * RATES.ROYALTY_RATE_PER_CUBIC_METER;
+        // Calculate SSCL amount
+        const sscl_amount = base_royalty * RATES.SSCL_RATE;
+        const royalty_with_sscl = base_royalty + sscl_amount;
+        // Calculate VAT
+        const vat_amount = royalty_with_sscl * RATES.VAT_RATE;
+        const total_amount_with_vat = royalty_with_sscl + vat_amount;
+        // Prepare response
+        const response = {
+            calculation_date: new Date().toISOString(),
+            inputs: {
+                water_gel_kg: data.water_gel,
+                nh4no3_kg: data.nh4no3,
+                powder_factor: data.powder_factor
+            },
+            calculations: {
+                total_explosive_quantity,
+                basic_volume: blasted_rock_volume,
+                blasted_rock_volume,
+                base_royalty,
+                royalty_with_sscl,
+                total_amount_with_vat
+            },
+            rates_applied: {
+                royalty_rate_per_cubic_meter: RATES.ROYALTY_RATE_PER_CUBIC_METER,
+                sscl_rate: `${RATES.SSCL_RATE * 100}%`,
+                vat_rate: `${RATES.VAT_RATE * 100}%`
             }
-            const result = await response.json();
-            console.log('API response:', result);
-            return result;
-        } catch (fetchError) {
-            clearTimeout(timeoutId);
-            if (fetchError.name === 'AbortError') {
-                throw new Error('Request timeout: The server took too long to respond');
-            }
-            // Connection errors usually mean the backend is not running
-            if (fetchError instanceof TypeError && fetchError.message.includes('fetch')) {
-                throw new Error('Connection failed: Please ensure the backend server is running');
-            }
-            throw fetchError;
-        }
+        };
+        return response;
     } catch (error) {
-        console.error('API call failed:', error);
+        console.error('Royalty calculation failed:', error);
         throw error;
     }
 };
@@ -271,7 +270,7 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
 // 'use client';
-// import { useState, FormEvent } from 'react';
+// import { useState, FormEvent, useEffect } from 'react';
 // import { toast } from 'react-hot-toast';
 // import { calculateRoyalty } from '../services/royalty_calculator';
 // interface RoyaltyData {
@@ -315,24 +314,65 @@ var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_
 //   const [powderFactor, setPowderFactor] = useState('');
 //   const [loading, setLoading] = useState(false);
 //   const [royaltyData, setRoyaltyData] = useState<RoyaltyData | null>(null);
-//   // This state is not used in the UI, so we'll remove it to fix the linting error
-//   // We don't need to load saved calculations since we're not using them in the UI
-//   // The calculations are directly read from localStorage when needed
+//   const [savedCalculations, setSavedCalculations] = useState<SavedCalculation[]>([]);
+//   // Load saved calculations from localStorage on component mount
+//   useEffect(() => {
+//     const saved = localStorage.getItem('royaltyCalculations');
+//     if (saved) {
+//       setSavedCalculations(JSON.parse(saved));
+//     }
+//   }, []);
 //   const handleCalculateRoyalty = async (e: FormEvent) => {
 //     e.preventDefault();
 //     setLoading(true);
 //     try {
-//       const data = await calculateRoyalty({
-//         water_gel: parseFloat(waterGel),
-//         nh4no3: parseFloat(nh4no3),
-//         powder_factor: parseFloat(powderFactor)
-//       });
-//       setRoyaltyData(data);
-//       onCalculated(data);
-//       toast.success('Royalty calculated successfully!');
+//       // Validate inputs
+//       if (!waterGel || !nh4no3 || !powderFactor) {
+//         toast.error('All fields are required');
+//         setLoading(false);
+//         return;
+//       }
+//       const waterGelValue = parseFloat(waterGel);
+//       const nh4no3Value = parseFloat(nh4no3);
+//       const powderFactorValue = parseFloat(powderFactor);
+//       if (isNaN(waterGelValue) || isNaN(nh4no3Value) || isNaN(powderFactorValue)) {
+//         toast.error('All inputs must be valid numbers');
+//         setLoading(false);
+//         return;
+//       }
+//       if (waterGelValue < 0 || nh4no3Value < 0 || powderFactorValue <= 0) {
+//         toast.error('Values must be greater than zero');
+//         setLoading(false);
+//         return;
+//       }
+//       // Show a loading toast that will be dismissed when calculation completes
+//       const loadingToast = toast.loading('Calculating royalty...');
+//       try {
+//         const data = await calculateRoyalty({
+//           water_gel: waterGelValue,
+//           nh4no3: nh4no3Value,
+//           powder_factor: powderFactorValue
+//         });
+//         toast.dismiss(loadingToast);
+//         setRoyaltyData(data);
+//         onCalculated(data);
+//         toast.success('Royalty calculated successfully!');
+//       } catch (apiError) {
+//         toast.dismiss(loadingToast);
+//         const errorMessage = apiError instanceof Error ? apiError.message : 'Failed to calculate royalty. Please try again.';
+//         // Display a more helpful message for connection issues
+//         if (errorMessage.includes('Connection failed') || errorMessage.includes('Failed to fetch')) {
+//           toast.error('Cannot connect to the backend server. Please ensure the backend is running.');
+//           console.error('Backend connection error:', apiError);
+//         } else {
+//           toast.error(errorMessage);
+//           console.error('API error:', apiError);
+//         }
+//       }
 //     } catch (error) {
-//       console.error('Error calculating royalty:', error);
-//       toast.error('Failed to calculate royalty. Please try again.');
+//       console.error('Error in royalty calculation function:', error);
+//       const errorMessage = error instanceof Error ? error.message : 'Failed to calculate royalty. Please try again.';
+//       toast.error(errorMessage);
 //     } finally {
 //       setLoading(false);
 //     }
@@ -341,8 +381,7 @@ var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_
 //     if (!royaltyData) return;
 //     // Check if this calculation has already been saved
 //     const existingSaved = localStorage.getItem('royaltyCalculations');
-//     // Use the current state instead of creating a new local variable with the same name
-//     const currentSavedCalculations = existingSaved ? JSON.parse(existingSaved) : [];
+//     const savedCalculations = existingSaved ? JSON.parse(existingSaved) : [];
 //     // Create new calculation object
 //     const newCalculation: SavedCalculation = {
 //       id: Date.now().toString(),
@@ -356,7 +395,7 @@ var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_
 //       dueDate: royaltyData.calculation_date
 //     };
 //     // Check if this exact calculation already exists
-//     const isDuplicate = currentSavedCalculations.some((calc: SavedCalculation) => 
+//     const isDuplicate = savedCalculations.some((calc: SavedCalculation) => 
 //       calc.waterGel === newCalculation.waterGel &&
 //       calc.nh4no3 === newCalculation.nh4no3 &&
 //       calc.powderFactor === newCalculation.powderFactor &&
@@ -367,9 +406,8 @@ var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_
 //       return;
 //     }
 //     // Add only the new calculation
-//     const updatedCalculations = [...currentSavedCalculations, newCalculation];
+//     const updatedCalculations = [...savedCalculations, newCalculation];
 //     localStorage.setItem('royaltyCalculations', JSON.stringify(updatedCalculations));
-//     // Since we're not tracking state for the calculations, we just save to localStorage
 //     // Update the mining stats
 //     onCalculated({
 //       ...royaltyData,
@@ -514,7 +552,7 @@ var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_
 //       )}
 //     </div>
 //   );
-// }
+// } 
 __turbopack_context__.s({
     "default": (()=>RoyaltyCalculator)
 });
@@ -535,108 +573,41 @@ function RoyaltyCalculator({ onCalculated }) {
     const [powderFactor, setPowderFactor] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [royaltyData, setRoyaltyData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [savedCalculations, setSavedCalculations] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
-    // Load saved calculations from localStorage on component mount
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "RoyaltyCalculator.useEffect": ()=>{
-            const saved = localStorage.getItem('royaltyCalculations');
-            if (saved) {
-                setSavedCalculations(JSON.parse(saved));
-            }
-        }
-    }["RoyaltyCalculator.useEffect"], []);
+    // Check for dark mode from localStorage to maintain theme consistency
+    const isDarkMode = ("TURBOPACK compile-time truthy", 1) ? localStorage.getItem('theme') !== 'light' : ("TURBOPACK unreachable", undefined);
     const handleCalculateRoyalty = async (e)=>{
         e.preventDefault();
         setLoading(true);
         try {
-            // Validate inputs
-            if (!waterGel || !nh4no3 || !powderFactor) {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('All fields are required');
-                setLoading(false);
-                return;
-            }
+            // Input validation
             const waterGelValue = parseFloat(waterGel);
             const nh4no3Value = parseFloat(nh4no3);
             const powderFactorValue = parseFloat(powderFactor);
             if (isNaN(waterGelValue) || isNaN(nh4no3Value) || isNaN(powderFactorValue)) {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('All inputs must be valid numbers');
-                setLoading(false);
-                return;
+                throw new Error('All values must be valid numbers');
             }
             if (waterGelValue < 0 || nh4no3Value < 0 || powderFactorValue <= 0) {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Values must be greater than zero');
-                setLoading(false);
-                return;
+                throw new Error('All values must be greater than zero');
             }
-            // Show a loading toast that will be dismissed when calculation completes
-            const loadingToast = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].loading('Calculating royalty...');
-            try {
-                const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$royalty_calculator$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["calculateRoyalty"])({
-                    water_gel: waterGelValue,
-                    nh4no3: nh4no3Value,
-                    powder_factor: powderFactorValue
-                });
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].dismiss(loadingToast);
-                setRoyaltyData(data);
-                onCalculated(data);
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Royalty calculated successfully!');
-            } catch (apiError) {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].dismiss(loadingToast);
-                const errorMessage = apiError instanceof Error ? apiError.message : 'Failed to calculate royalty. Please try again.';
-                // Display a more helpful message for connection issues
-                if (errorMessage.includes('Connection failed') || errorMessage.includes('Failed to fetch')) {
-                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Cannot connect to the backend server. Please ensure the backend is running.');
-                    console.error('Backend connection error:', apiError);
-                } else {
-                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error(errorMessage);
-                    console.error('API error:', apiError);
-                }
-            }
+            // Calculate royalty in the frontend using our service
+            const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$royalty_calculator$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["calculateRoyalty"])({
+                water_gel: waterGelValue,
+                nh4no3: nh4no3Value,
+                powder_factor: powderFactorValue
+            });
+            setRoyaltyData(data);
+            onCalculated(data);
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Royalty calculated successfully!');
         } catch (error) {
-            console.error('Error in royalty calculation function:', error);
-            const errorMessage = error instanceof Error ? error.message : 'Failed to calculate royalty. Please try again.';
+            console.error('Error calculating royalty:', error);
+            let errorMessage = 'Failed to calculate royalty. Please try again.';
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
             __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error(errorMessage);
         } finally{
             setLoading(false);
         }
-    };
-    const handleSaveCalculation = ()=>{
-        if (!royaltyData) return;
-        // Check if this calculation has already been saved
-        const existingSaved = localStorage.getItem('royaltyCalculations');
-        const savedCalculations = existingSaved ? JSON.parse(existingSaved) : [];
-        // Create new calculation object
-        const newCalculation = {
-            id: Date.now().toString(),
-            date: new Date().toISOString(),
-            waterGel: parseFloat(waterGel),
-            nh4no3: parseFloat(nh4no3),
-            powderFactor: parseFloat(powderFactor),
-            totalAmount: royaltyData.calculations.total_amount_with_vat,
-            explosiveQuantity: royaltyData.calculations.total_explosive_quantity,
-            blastedVolume: royaltyData.calculations.blasted_rock_volume,
-            dueDate: royaltyData.calculation_date
-        };
-        // Check if this exact calculation already exists
-        const isDuplicate = savedCalculations.some((calc)=>calc.waterGel === newCalculation.waterGel && calc.nh4no3 === newCalculation.nh4no3 && calc.powderFactor === newCalculation.powderFactor && calc.totalAmount === newCalculation.totalAmount);
-        if (isDuplicate) {
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('This calculation has already been saved');
-            return;
-        }
-        // Add only the new calculation
-        const updatedCalculations = [
-            ...savedCalculations,
-            newCalculation
-        ];
-        localStorage.setItem('royaltyCalculations', JSON.stringify(updatedCalculations));
-        // Update the mining stats
-        onCalculated({
-            ...royaltyData,
-            calculation_date: new Date().toISOString()
-        });
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Calculation saved successfully!');
-        // Reset form after successful save
-        handleReset();
     };
     const handleReset = ()=>{
         setWaterGel('');
@@ -645,6 +616,10 @@ function RoyaltyCalculator({ onCalculated }) {
         setRoyaltyData(null);
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Calculator reset');
     };
+    // Define dynamic classes based on theme
+    const inputClass = isDarkMode ? "w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500" : "w-full px-4 py-2 rounded-md bg-white border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500";
+    const resultsPanelClass = isDarkMode ? "mt-8 p-6 bg-gray-800 rounded-lg" : "mt-8 p-6 bg-gray-100 rounded-lg shadow-md";
+    const resultsSectionClass = isDarkMode ? "p-4 bg-gray-700 rounded-lg" : "p-4 bg-white rounded-lg shadow-sm";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "space-y-8",
         children: [
@@ -663,7 +638,7 @@ function RoyaltyCalculator({ onCalculated }) {
                                         children: "Water Gel (kg)"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 461,
+                                        lineNumber: 431,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -672,7 +647,67 @@ function RoyaltyCalculator({ onCalculated }) {
                                         step: "0.01",
                                         value: waterGel,
                                         onChange: (e)=>setWaterGel(e.target.value),
-                                        className: "w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500",
+                                        className: inputClass,
+                                        required: true
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                        lineNumber: 434,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                lineNumber: 430,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                        htmlFor: "nh4no3",
+                                        className: "block text-sm font-medium mb-2",
+                                        children: "NH4NO3 (kg)"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                        lineNumber: 446,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                        id: "nh4no3",
+                                        type: "number",
+                                        step: "0.01",
+                                        value: nh4no3,
+                                        onChange: (e)=>setNh4no3(e.target.value),
+                                        className: inputClass,
+                                        required: true
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                        lineNumber: 449,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                lineNumber: 445,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                        htmlFor: "powderFactor",
+                                        className: "block text-sm font-medium mb-2",
+                                        children: "Powder Factor"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                        lineNumber: 461,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                        id: "powderFactor",
+                                        type: "number",
+                                        step: "0.001",
+                                        value: powderFactor,
+                                        onChange: (e)=>setPowderFactor(e.target.value),
+                                        className: inputClass,
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
@@ -684,91 +719,31 @@ function RoyaltyCalculator({ onCalculated }) {
                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
                                 lineNumber: 460,
                                 columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        htmlFor: "nh4no3",
-                                        className: "block text-sm font-medium mb-2",
-                                        children: "NH4NO3 (kg)"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 476,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        id: "nh4no3",
-                                        type: "number",
-                                        step: "0.01",
-                                        value: nh4no3,
-                                        onChange: (e)=>setNh4no3(e.target.value),
-                                        className: "w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500",
-                                        required: true
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 479,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                lineNumber: 475,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        htmlFor: "powderFactor",
-                                        className: "block text-sm font-medium mb-2",
-                                        children: "Powder Factor"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 491,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        id: "powderFactor",
-                                        type: "number",
-                                        step: "0.001",
-                                        value: powderFactor,
-                                        onChange: (e)=>setPowderFactor(e.target.value),
-                                        className: "w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500",
-                                        required: true
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 494,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                lineNumber: 490,
-                                columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                        lineNumber: 459,
+                        lineNumber: 429,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         type: "submit",
                         disabled: loading,
-                        className: "w-full md:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
+                        className: "w-full md:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
                         children: loading ? 'Calculating...' : 'Calculate Royalty'
                     }, void 0, false, {
                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                        lineNumber: 506,
+                        lineNumber: 476,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                lineNumber: 458,
+                lineNumber: 428,
                 columnNumber: 7
             }, this),
             royaltyData && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "mt-8 p-6 bg-gray-800 rounded-lg",
+                className: resultsPanelClass,
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex justify-between items-center mb-4",
@@ -778,40 +753,28 @@ function RoyaltyCalculator({ onCalculated }) {
                                 children: "Royalty Calculation Results"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                lineNumber: 518,
+                                lineNumber: 488,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "space-x-4",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: handleSaveCalculation,
-                                        className: "px-4 py-2 bg-green-600 hover:bg-green-700 rounded-md text-sm font-medium transition-colors",
-                                        children: "Save Calculation"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 520,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: handleReset,
-                                        className: "px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded-md text-sm font-medium transition-colors",
-                                        children: "Reset"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 526,
-                                        columnNumber: 15
-                                    }, this)
-                                ]
-                            }, void 0, true, {
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: handleReset,
+                                    className: "px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md text-sm font-medium transition-colors",
+                                    children: "Reset"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                    lineNumber: 490,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                lineNumber: 519,
+                                lineNumber: 489,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                        lineNumber: 517,
+                        lineNumber: 487,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -821,14 +784,14 @@ function RoyaltyCalculator({ onCalculated }) {
                                 className: "grid grid-cols-1 md:grid-cols-2 gap-4",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "p-4 bg-gray-700 rounded-lg",
+                                        className: resultsSectionClass,
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                className: "text-sm font-medium text-gray-400 mb-2",
+                                                className: isDarkMode ? "text-sm font-medium text-gray-400 mb-2" : "text-sm font-medium text-gray-600 mb-2",
                                                 children: "Explosive Quantities"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                lineNumber: 537,
+                                                lineNumber: 501,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -841,7 +804,7 @@ function RoyaltyCalculator({ onCalculated }) {
                                                                 children: "Total Explosive Quantity:"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                                lineNumber: 540,
+                                                                lineNumber: 504,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -851,20 +814,20 @@ function RoyaltyCalculator({ onCalculated }) {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                                lineNumber: 541,
+                                                                lineNumber: 505,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 539,
+                                                        lineNumber: 503,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "border-t border-gray-600 my-2"
+                                                        className: isDarkMode ? "border-t border-gray-600 my-2" : "border-t border-gray-200 my-2"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 543,
+                                                        lineNumber: 507,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -874,7 +837,7 @@ function RoyaltyCalculator({ onCalculated }) {
                                                                 children: "Water Gel:"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                                lineNumber: 545,
+                                                                lineNumber: 509,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -884,13 +847,13 @@ function RoyaltyCalculator({ onCalculated }) {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                                lineNumber: 546,
+                                                                lineNumber: 510,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 544,
+                                                        lineNumber: 508,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -900,7 +863,7 @@ function RoyaltyCalculator({ onCalculated }) {
                                                                 children: "NH4NO3:"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                                lineNumber: 549,
+                                                                lineNumber: 513,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -910,36 +873,36 @@ function RoyaltyCalculator({ onCalculated }) {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                                lineNumber: 550,
+                                                                lineNumber: 514,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 548,
+                                                        lineNumber: 512,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                lineNumber: 538,
+                                                lineNumber: 502,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 536,
+                                        lineNumber: 500,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "p-4 bg-gray-700 rounded-lg",
+                                        className: resultsSectionClass,
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                className: "text-sm font-medium text-gray-400 mb-2",
+                                                className: isDarkMode ? "text-sm font-medium text-gray-400 mb-2" : "text-sm font-medium text-gray-600 mb-2",
                                                 children: "Rock Volume"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                lineNumber: 556,
+                                                lineNumber: 520,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -949,7 +912,7 @@ function RoyaltyCalculator({ onCalculated }) {
                                                         children: "Blasted Rock Volume:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 558,
+                                                        lineNumber: 522,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -959,36 +922,59 @@ function RoyaltyCalculator({ onCalculated }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 559,
+                                                        lineNumber: 523,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                lineNumber: 557,
+                                                lineNumber: 521,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "flex justify-between text-sm mt-2",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: "Powder Factor:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                        lineNumber: 526,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: royaltyData.inputs.powder_factor.toFixed(3)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                        lineNumber: 527,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                lineNumber: 525,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 555,
+                                        lineNumber: 519,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                lineNumber: 535,
+                                lineNumber: 499,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "p-4 bg-gray-700 rounded-lg",
+                                className: resultsSectionClass,
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-sm font-medium text-gray-400 mb-2",
+                                        className: isDarkMode ? "text-sm font-medium text-gray-400 mb-2" : "text-sm font-medium text-gray-600 mb-2",
                                         children: "Payment Details"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 565,
+                                        lineNumber: 533,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1001,135 +987,226 @@ function RoyaltyCalculator({ onCalculated }) {
                                                         children: "Base Royalty:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 568,
+                                                        lineNumber: 536,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         children: [
-                                                            "LKR ",
+                                                            "Rs. ",
                                                             royaltyData.calculations.base_royalty.toFixed(2)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 569,
+                                                        lineNumber: 537,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                lineNumber: 567,
+                                                lineNumber: 535,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "flex justify-between",
+                                                className: "flex justify-between text-sm",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         children: [
-                                                            "With SSCL (",
+                                                            "SSCL (",
                                                             royaltyData.rates_applied.sscl_rate,
                                                             "):"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 572,
+                                                        lineNumber: 540,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         children: [
-                                                            "LKR ",
-                                                            royaltyData.calculations.royalty_with_sscl.toFixed(2)
+                                                            "Rs. ",
+                                                            (royaltyData.calculations.royalty_with_sscl - royaltyData.calculations.base_royalty).toFixed(2)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 573,
+                                                        lineNumber: 541,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                lineNumber: 571,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "border-t border-gray-600 my-2"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                lineNumber: 575,
+                                                lineNumber: 539,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "flex justify-between text-lg font-semibold",
+                                                className: "flex justify-between text-sm",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         children: [
-                                                            "Total Amount (with ",
+                                                            "VAT (",
                                                             royaltyData.rates_applied.vat_rate,
-                                                            " VAT):"
+                                                            "):"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 577,
+                                                        lineNumber: 544,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         children: [
-                                                            "LKR ",
+                                                            "Rs. ",
+                                                            (royaltyData.calculations.total_amount_with_vat - royaltyData.calculations.royalty_with_sscl).toFixed(2)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                        lineNumber: 545,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                lineNumber: 543,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: isDarkMode ? "border-t border-gray-600 my-2" : "border-t border-gray-200 my-2"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                lineNumber: 547,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "flex justify-between font-semibold",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: "Total Amount Due:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                        lineNumber: 549,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: [
+                                                            "Rs. ",
                                                             royaltyData.calculations.total_amount_with_vat.toFixed(2)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                        lineNumber: 578,
+                                                        lineNumber: 550,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                                lineNumber: 576,
+                                                lineNumber: 548,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                        lineNumber: 566,
+                                        lineNumber: 534,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                lineNumber: 564,
+                                lineNumber: 532,
                                 columnNumber: 13
                             }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-sm text-gray-400",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: resultsSectionClass,
                                 children: [
-                                    "Calculation Date: ",
-                                    new Date(royaltyData.calculation_date).toLocaleString()
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                        className: isDarkMode ? "text-sm font-medium text-gray-400 mb-2" : "text-sm font-medium text-gray-600 mb-2",
+                                        children: "Calculation Details"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                        lineNumber: 556,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "space-y-2",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "flex justify-between text-sm",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: "Royalty Rate:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                        lineNumber: 559,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: [
+                                                            "Rs. ",
+                                                            royaltyData.rates_applied.royalty_rate_per_cubic_meter,
+                                                            " per m³"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                        lineNumber: 560,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                lineNumber: 558,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "flex justify-between text-sm",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: "Calculation Date:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                        lineNumber: 563,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: new Date(royaltyData.calculation_date).toLocaleString()
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                        lineNumber: 564,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                                lineNumber: 562,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/components/RoyaltyCalculator.tsx",
+                                        lineNumber: 557,
+                                        columnNumber: 15
+                                    }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                                lineNumber: 583,
+                                lineNumber: 555,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                        lineNumber: 534,
+                        lineNumber: 498,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-                lineNumber: 516,
+                lineNumber: 486,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/RoyaltyCalculator.tsx",
-        lineNumber: 457,
+        lineNumber: 427,
         columnNumber: 5
     }, this);
 }
-_s(RoyaltyCalculator, "Rqp5xioS4Cjd+fkXETJzM09HivM=");
+_s(RoyaltyCalculator, "NMeOiAZb01rmdqBVHgwTPdLQrJ4=");
 _c = RoyaltyCalculator;
 var _c;
 __turbopack_context__.k.register(_c, "RoyaltyCalculator");

@@ -205,7 +205,7 @@ export default function LoginPage() {
 
         // Add a small delay before redirecting to show the success message
         setTimeout(() => {
-          router.push('/home');
+          router.push('/constructor');
         }, 1000);
       } else {
         // Handle specific error messages from the backend

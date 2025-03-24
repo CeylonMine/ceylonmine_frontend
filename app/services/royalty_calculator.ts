@@ -1,4 +1,3 @@
-
 // const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 // interface RoyaltyCalculationRequest {
@@ -247,12 +246,19 @@ interface RoyaltyCalculationResponse {
   };
 }
 
+// Constants for royalty calculation
+const RATES = {
+  ROYALTY_RATE_PER_CUBIC_METER: 150, // Rs. per cubic meter
+  SSCL_RATE: 0.01, // 1%
+  VAT_RATE: 0.15, // 15%
+};
+
 /**
- * Calculate royalty based on input parameters
+ * Calculate royalty based on input parameters without backend dependency
  */
 export const calculateRoyalty = async (data: RoyaltyCalculationRequest): Promise<RoyaltyCalculationResponse> => {
   try {
-    // Validate input data before sending request
+    // Validate input data
     if (isNaN(data.water_gel) || isNaN(data.nh4no3) || isNaN(data.powder_factor)) {
       throw new Error('Invalid input: All values must be valid numbers');
     }
@@ -260,63 +266,52 @@ export const calculateRoyalty = async (data: RoyaltyCalculationRequest): Promise
     if (data.water_gel < 0 || data.nh4no3 < 0 || data.powder_factor <= 0) {
       throw new Error('Invalid input: Values must be greater than zero');
     }
-    
-    // Use the endpoint with the prefix
-    const endpoint = `${API_BASE_URL}/royalty/api/calculate-royalty`;
-    console.log('Calling API endpoint:', endpoint);
-    console.log('With data:', data);
-    
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
-    
-    try {
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(data),
-        signal: controller.signal
-      });
-      
-      clearTimeout(timeoutId);
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('API error:', response.status, errorText);
-        
-        // Try to parse error as JSON
-        let errorMessage;
-        try {
-          const errorJson = JSON.parse(errorText);
-          errorMessage = errorJson.error || `API error: ${response.status}`;
-        } catch {
-          errorMessage = `API error: ${response.status} - ${errorText || response.statusText}`;
-        }
-        
-        throw new Error(errorMessage);
+
+    // Calculate total explosive quantity
+    const total_explosive_quantity = data.water_gel + data.nh4no3;
+
+    // Calculate blasted rock volume using powder factor
+    // Powder Factor = Total Explosive / Rock Volume
+    // Therefore, Rock Volume = Total Explosive / Powder Factor
+    const blasted_rock_volume = total_explosive_quantity / data.powder_factor;
+
+    // Calculate base royalty
+    const base_royalty = blasted_rock_volume * RATES.ROYALTY_RATE_PER_CUBIC_METER;
+
+    // Calculate SSCL amount
+    const sscl_amount = base_royalty * RATES.SSCL_RATE;
+    const royalty_with_sscl = base_royalty + sscl_amount;
+
+    // Calculate VAT
+    const vat_amount = royalty_with_sscl * RATES.VAT_RATE;
+    const total_amount_with_vat = royalty_with_sscl + vat_amount;
+
+    // Prepare response
+    const response: RoyaltyCalculationResponse = {
+      calculation_date: new Date().toISOString(),
+      inputs: {
+        water_gel_kg: data.water_gel,
+        nh4no3_kg: data.nh4no3,
+        powder_factor: data.powder_factor
+      },
+      calculations: {
+        total_explosive_quantity,
+        basic_volume: blasted_rock_volume, // Same as blasted_rock_volume in this case
+        blasted_rock_volume,
+        base_royalty,
+        royalty_with_sscl,
+        total_amount_with_vat
+      },
+      rates_applied: {
+        royalty_rate_per_cubic_meter: RATES.ROYALTY_RATE_PER_CUBIC_METER,
+        sscl_rate: `${RATES.SSCL_RATE * 100}%`,
+        vat_rate: `${RATES.VAT_RATE * 100}%`
       }
-      
-      const result = await response.json();
-      console.log('API response:', result);
-      return result;
-    } catch (fetchError: any) {
-      clearTimeout(timeoutId);
-      
-      if (fetchError.name === 'AbortError') {
-        throw new Error('Request timeout: The server took too long to respond');
-      }
-      
-      // Connection errors usually mean the backend is not running
-      if (fetchError instanceof TypeError && fetchError.message.includes('fetch')) {
-        throw new Error('Connection failed: Please ensure the backend server is running');
-      }
-      
-      throw fetchError;
-    }
+    };
+
+    return response;
   } catch (error) {
-    console.error('API call failed:', error);
+    console.error('Royalty calculation failed:', error);
     throw error;
   }
 };
