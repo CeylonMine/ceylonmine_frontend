@@ -37,487 +37,6 @@ module.exports = mod;
 
 var { g: global, __dirname } = __turbopack_context__;
 {
-// "use client"
-// import Link from 'next/link'
-// import Image from 'next/image'
-// import { motion } from 'framer-motion'
-// import { useState, useEffect, useRef } from 'react'
-// interface UserData {
-//   firstName?: string;
-//   lastName?: string;
-//   email?: string;
-//   username?: string;
-// }
-// export default function Navbar() {
-//   const [isOpen, setIsOpen] = useState(false)
-//   const [scrolled, setScrolled] = useState(false)
-//   const [isDarkMode, setIsDarkMode] = useState(true) // Default to dark mode
-//   const [language, setLanguage] = useState<'en' | 'si'>('en')     // Default language
-//   const [isLoggedIn, setIsLoggedIn] = useState(false) // Authentication state
-//   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false)
-//   const [userData, setUserData] = useState<UserData | null>(null)
-//   const dropdownRef = useRef<HTMLDivElement>(null)
-//   // Scroll effect for background color
-//   useEffect(() => {
-//     const handleScroll = () => {
-//       const isScrolled = window.scrollY > 20
-//       if (isScrolled !== scrolled) {
-//         setScrolled(isScrolled)
-//       }
-//     }
-//     window.addEventListener('scroll', handleScroll)
-//     return () => window.removeEventListener('scroll', handleScroll)
-//   }, [scrolled])
-//   // Close dropdown when clicking outside
-//   useEffect(() => {
-//     const handleClickOutside = (event: MouseEvent) => {
-//       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-//         setProfileDropdownOpen(false)
-//       }
-//     }
-//     document.addEventListener("mousedown", handleClickOutside)
-//     return () => document.removeEventListener("mousedown", handleClickOutside)
-//   }, [])
-//   // Check authentication status on component mount
-//   useEffect(() => {
-//     const checkAuth = () => {
-//       const token = document.cookie
-//         .split('; ')
-//         .find(row => row.startsWith('token='))
-//         ?.split('=')[1];
-//       const storedUser = localStorage.getItem('user');
-//       if (token && storedUser) {
-//         setIsLoggedIn(true);
-//         try {
-//           const userData = JSON.parse(storedUser);
-//           setUserData(userData);
-//         } catch (e) {
-//           console.error('Error parsing user data:', e);
-//         }
-//       } else {
-//         setIsLoggedIn(false);
-//         setUserData(null);
-//       }
-//     };
-//     checkAuth();
-//     // Listen for auth changes
-//     window.addEventListener('storage', checkAuth);
-//     window.addEventListener('authChange', checkAuth);
-//     return () => {
-//       window.removeEventListener('storage', checkAuth);
-//       window.removeEventListener('authChange', checkAuth);
-//     };
-//   }, []);
-//   // Handle logout
-//   const handleLogout = () => {
-//     // Clear auth token cookie
-//     document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=strict';
-//     // Clear user data from localStorage
-//     localStorage.removeItem('user');
-//     setIsLoggedIn(false);
-//     setUserData(null);
-//     setProfileDropdownOpen(false);
-//     // Dispatch auth change event
-//     window.dispatchEvent(new CustomEvent('authChange'));
-//     // Redirect to home page
-//     window.location.href = '/';
-//   };
-//   // Theme toggle logic
-//   const toggleTheme = () => {
-//     const newTheme = !isDarkMode
-//     setIsDarkMode(newTheme)
-//     if (newTheme) {
-//       document.documentElement.classList.add('dark')
-//     } else {
-//       document.documentElement.classList.remove('dark')
-//     }
-//     localStorage.setItem('theme', newTheme ? 'dark' : 'light')
-//     window.dispatchEvent(new CustomEvent('themeChange', { detail: { isDarkMode: newTheme } }))
-//   }
-//   // Language toggle logic
-//   const toggleLanguage = () => {
-//     const newLang = language === 'en' ? 'si' : 'en'
-//     setLanguage(newLang)
-//     localStorage.setItem('language', newLang)
-//     window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: newLang } }))
-//   }
-//   // Initialize theme & language from localStorage or system preference
-//   useEffect(() => {
-//     const savedTheme = localStorage.getItem('theme')
-//     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-//     const isDark = savedTheme === 'dark' || (!savedTheme && systemPrefersDark)
-//     setIsDarkMode(isDark)
-//     if (isDark) {
-//       document.documentElement.classList.add('dark')
-//     } else {
-//       document.documentElement.classList.remove('dark')
-//     }
-//     window.dispatchEvent(new CustomEvent('themeChange', { detail: { isDarkMode: isDark } }))
-//     const savedLang = localStorage.getItem('language') || 'en'
-//     setLanguage(savedLang as 'en' | 'si')
-//     window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: savedLang } }))
-//   }, [])
-//   // Navigation items
-//   const navItemsEn = [
-//     { name: 'Home', path: '/' },
-//     { name: 'Map', path: '/map' },
-//     { name: 'Minebot', path: '/minebot' },
-//     { name: 'Royalty', path: '/royalty' },
-//     { name: 'Complains', path: '/complains' },
-//     { name: 'License Portal', path: '/license-portal' },
-//     { name: 'Minemore', path: '/minemore' },
-//     { name: 'About Us', path: '/about' },
-//     { name: 'Contact Us', path: '/contact' }
-//   ]
-//   const navItemsSi = [
-//     { name: 'මුල් පිටුව', path: '/' },
-//     { name: 'සිතියම', path: '/map' },
-//     { name: 'Minebot', path: '/minebot' },
-//     { name: 'Royalty', path: '/royalty' },
-//     { name: 'Complains', path: '/complains' },
-//     { name: 'License Portal', path: '/license-portal' },
-//     { name: 'Minemore', path: '/minemore' },
-//     { name: 'අපි ගැන', path: '/about' },
-//     { name: 'අප හා සම්බන්ධ වන්න', path: '/contact' }
-//   ]
-//   const navItems = language === 'en' ? navItemsEn : navItemsSi
-//   // Auth related text based on language
-//   const authText = {
-//     signup: language === 'en' ? 'Sign Up' : 'ලියාපදිංචි වන්න',
-//     dashboard: language === 'en' ? 'Dashboard' : 'උපකරණ පුවරුව',
-//     logout: language === 'en' ? 'Logout' : 'පිටවීම',
-//     profile: language === 'en' ? 'Profile' : 'පැතිකඩ'
-//   }
-//   // Get display name
-//   const getDisplayName = () => {
-//     if (userData && userData.firstName) {
-//       return `${userData.firstName}`
-//     }
-//     return authText.profile
-//   }
-//   // Framer Motion variants
-//   const navAnimation = {
-//     hidden: { y: -20, opacity: 0 },
-//     show: {
-//       y: 0,
-//       opacity: 1,
-//       transition: {
-//         duration: 0.5,
-//         staggerChildren: 0.1,
-//       },
-//     },
-//   }
-//   const itemAnimation = {
-//     hidden: { y: -20, opacity: 0 },
-//     show: { y: 0, opacity: 1 },
-//   }
-//   return (
-//     <motion.div
-//       initial="hidden"
-//       animate="show"
-//       variants={navAnimation}
-//       className={`
-//         fixed w-full z-50 transition-all duration-300 shadow-lg
-//         ${scrolled
-//           ? (isDarkMode ? 'bg-[#0A192F]' : 'bg-white')
-//           : 'bg-transparent'
-//         }
-//       `}
-//     >
-//       <div className="max-w-7xl mx-auto px-4">
-//         <div className="flex justify-between items-center h-16">
-//           {/* Logo Section */}
-//           <motion.div
-//             variants={itemAnimation}
-//             className="flex-shrink-0 flex items-center"
-//           >
-//             <Link href="/">
-//               <div className="flex items-center cursor-pointer">
-//                 <Image 
-//                   src="/favicon.ico" 
-//                   alt="Logo" 
-//                   width={62} 
-//                   height={62} 
-//                   className="mr-2 hover:scale-105 transition-transform duration-200"
-//                 />
-//               </div>
-//             </Link>
-//           </motion.div>
-//           {/* Desktop Navigation */}
-//           <motion.div 
-//             variants={itemAnimation}
-//             className="hidden md:flex items-center space-x-4"
-//           >
-//             {navItems.map((item) => (
-//               <motion.div
-//                 key={item.path}
-//                 whileHover={{ scale: 1.05 }}
-//                 whileTap={{ scale: 0.95 }}
-//               >
-//                 <Link href={item.path}>
-//                   <span
-//                     className={`
-//                       px-3 py-2 
-//                       ${isDarkMode ? 'text-[#E6F1FF]' : 'text-gray-900'} 
-//                       hover:text-[#FFA500] 
-//                       hover:bg-[rgba(255,165,0,0.1)] 
-//                       rounded-md transition-all duration-200
-//                       relative after:content-[''] 
-//                       after:absolute after:bottom-0 after:left-0 
-//                       after:w-0 after:h-[2px] after:bg-[#FFA500] 
-//                       after:transition-all after:duration-300 
-//                       hover:after:w-full
-//                     `}
-//                   >
-//                     {item.name}
-//                   </span>
-//                 </Link>
-//               </motion.div>
-//             ))}
-//           </motion.div>
-//           {/* Right Side (Theme Toggle, Language Switch, Auth Buttons) */}
-//           <div className="flex items-center space-x-4">
-//             {/* Language Toggle */}
-//             <motion.button
-//               onClick={toggleLanguage}
-//               whileHover={{ scale: 1.05 }}
-//               whileTap={{ scale: 0.95 }}
-//               className={`
-//                 p-2 rounded-full
-//                 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}
-//                 hover:opacity-80 transition-all
-//               `}
-//               title="Switch Language"
-//             >
-//               {language === 'en' ? 'EN' : 'සි'}
-//             </motion.button>
-//             {/* Theme Toggle Button */}
-//             <motion.button
-//               onClick={toggleTheme}
-//               whileHover={{ scale: 1.05 }}
-//               whileTap={{ scale: 0.95 }}
-//               className={`
-//                 p-2 rounded-full
-//                 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}
-//                 hover:opacity-80 transition-all
-//               `}
-//               title="Toggle Dark/Light Mode"
-//             >
-//               {isDarkMode ? '🌞' : '🌙'}
-//             </motion.button>
-//             {/* Authentication Section */}
-//             {isLoggedIn ? (
-//               // Logged in - show profile dropdown
-//               <div className="hidden md:block relative" ref={dropdownRef}>
-//                 <motion.button
-//                   onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-//                   whileHover={{ scale: 1.05 }}
-//                   whileTap={{ scale: 0.95 }}
-//                   className={`
-//                     p-2 rounded-full flex items-center space-x-2
-//                     ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}
-//                     hover:bg-[rgba(255,165,0,0.2)] transition-all
-//                     border-2 border-[#FFA500]
-//                   `}
-//                 >
-//                   {/* Profile Icon */}
-//                   <svg 
-//                     xmlns="http://www.w3.org/2000/svg" 
-//                     className="h-6 w-6" 
-//                     fill="none" 
-//                     viewBox="0 0 24 24" 
-//                     stroke="currentColor"
-//                   >
-//                     <path 
-//                       strokeLinecap="round" 
-//                       strokeLinejoin="round" 
-//                       strokeWidth={2} 
-//                       d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" 
-//                     />
-//                   </svg>
-//                   <span className="text-[#FFA500] font-medium">{getDisplayName()}</span>
-//                   {/* Dropdown Arrow */}
-//                   <svg 
-//                     xmlns="http://www.w3.org/2000/svg" 
-//                     className={`h-4 w-4 transition-transform duration-200 ${profileDropdownOpen ? 'rotate-180' : ''}`}
-//                     fill="none" 
-//                     viewBox="0 0 24 24" 
-//                     stroke="currentColor"
-//                   >
-//                     <path 
-//                       strokeLinecap="round" 
-//                       strokeLinejoin="round" 
-//                       strokeWidth={2} 
-//                       d="M19 9l-7 7-7-7" 
-//                     />
-//                   </svg>
-//                 </motion.button>
-//                 {/* Profile Dropdown Menu */}
-//                 {profileDropdownOpen && (
-//                   <motion.div
-//                     initial={{ opacity: 0, y: -10 }}
-//                     animate={{ opacity: 1, y: 0 }}
-//                     exit={{ opacity: 0, y: -10 }}
-//                     transition={{ duration: 0.2 }}
-//                     className={`
-//                       absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1
-//                       ${isDarkMode ? 'bg-[#112240] border border-gray-700' : 'bg-white border border-gray-200'}
-//                     `}
-//                   >
-//                     <Link href="/constructor">
-//                       <span 
-//                         className={`
-//                           block px-4 py-2 text-sm
-//                           ${isDarkMode ? 'text-[#E6F1FF] hover:bg-[#1D3557]' : 'text-gray-700 hover:bg-gray-100'}
-//                           cursor-pointer
-//                         `}
-//                         onClick={() => setProfileDropdownOpen(false)}
-//                       >
-//                         {authText.dashboard}
-//                       </span>
-//                     </Link>
-//                     <button 
-//                       onClick={handleLogout}
-//                       className={`
-//                         block w-full text-left px-4 py-2 text-sm
-//                         ${isDarkMode ? 'text-[#E6F1FF] hover:bg-[#1D3557]' : 'text-gray-700 hover:bg-gray-100'}
-//                       `}
-//                     >
-//                       {authText.logout}
-//                     </button>
-//                   </motion.div>
-//                 )}
-//               </div>
-//             ) : (
-//               // Not logged in - show signup button
-//               <div className="hidden md:flex items-center">
-//                 <motion.div variants={itemAnimation}>
-//                   <Link href="/sign">
-//                     <motion.span
-//                       whileHover={{ scale: 1.05 }}
-//                       whileTap={{ scale: 0.95 }}
-//                       className="bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg 
-//                         hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer
-//                         font-semibold"
-//                     >
-//                       {authText.signup}
-//                     </motion.span>
-//                   </Link>
-//                 </motion.div>
-//               </div>
-//             )}
-//             {/* Mobile Menu Button */}
-//             <div className="md:hidden">
-//               <button
-//                 onClick={() => setIsOpen(!isOpen)}
-//                 className={`
-//                   p-2 rounded-md
-//                   ${isDarkMode ? 'text-[#FFA500]' : 'text-gray-900'}
-//                   hover:bg-[rgba(255,165,0,0.1)]
-//                 `}
-//               >
-//                 <svg
-//                   className="w-6 h-6"
-//                   fill="none"
-//                   stroke="currentColor"
-//                   viewBox="0 0 24 24"
-//                   xmlns="http://www.w3.org/2000/svg"
-//                 >
-//                   <path
-//                     strokeLinecap="round"
-//                     strokeLinejoin="round"
-//                     strokeWidth="2"
-//                     d="M4 6h16M4 12h16m-7 6h7"
-//                   />
-//                 </svg>
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//         {/* Mobile Navigation Menu */}
-//         <motion.div
-//           initial={false}
-//           animate={isOpen ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
-//           className={`
-//             md:hidden overflow-hidden transition-all duration-300 ease-in-out
-//             ${isDarkMode ? 'bg-[#112240]' : 'bg-gray-100'}
-//             rounded-b-lg
-//           `}
-//         >
-//           <div className="px-2 pt-2 pb-3 space-y-1">
-//             {navItems.map((item) => (
-//               <motion.div
-//                 key={item.path}
-//                 variants={itemAnimation}
-//                 whileTap={{ scale: 0.95 }}
-//               >
-//                 <Link href={item.path}>
-//                   <span
-//                     className={`
-//                       block px-3 py-2
-//                       ${isDarkMode ? 'text-[#E6F1FF]' : 'text-gray-900'}
-//                       hover:text-[#FFA500]
-//                       hover:bg-[rgba(255,165,0,0.1)]
-//                       rounded-md transition-all duration-200
-//                     `}
-//                   >
-//                     {item.name}
-//                   </span>
-//                 </Link>
-//               </motion.div>
-//             ))}
-//             {/* Mobile Auth Buttons */}
-//             {isLoggedIn ? (
-//               // Mobile profile options when logged in
-//               <div className="space-y-2 pt-2">
-//                 <Link href="/constructor">
-//                   <span
-//                     className={`
-//                       block w-full text-center border border-[#FFA500]
-//                       ${isDarkMode ? 'text-[#E6F1FF]' : 'text-gray-900'}
-//                       px-4 py-2 rounded-lg
-//                       hover:bg-[rgba(255,165,0,0.1)]
-//                       transition-colors duration-200
-//                     `}
-//                   >
-//                     {authText.dashboard}
-//                   </span>
-//                 </Link>
-//                 <button
-//                   onClick={handleLogout}
-//                   className={`
-//                     block w-full text-center bg-[#FFA500] text-[#0A192F]
-//                     px-4 py-2 rounded-lg hover:bg-[#FFD700]
-//                     transition-colors duration-200 font-semibold
-//                   `}
-//                 >
-//                   {authText.logout}
-//                 </button>
-//               </div>
-//             ) : (
-//               // Not logged in - show signup button
-//               <div className="space-y-2 pt-2">
-//                 <motion.div whileTap={{ scale: 0.95 }}>
-//                   <Link href="/sign">
-//                     <span
-//                       className={`
-//                         block w-full text-center bg-[#FFA500] text-[#0A192F]
-//                         px-4 py-2 rounded-lg hover:bg-[#FFD700]
-//                         transition-colors duration-200 font-semibold
-//                       `}
-//                     >
-//                       {authText.signup}
-//                     </span>
-//                   </Link>
-//                 </motion.div>
-//               </div>
-//             )}
-//           </div>
-//         </motion.div>
-//       </div>
-//     </motion.div>
-//   )
-// }
 __turbopack_context__.s({
     "default": (()=>Navbar)
 });
@@ -569,18 +88,21 @@ function Navbar() {
     }, []);
     // Check authentication status on component mount
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        const checkAuth = ()=>{
-            const token = document.cookie.split('; ').find((row)=>row.startsWith('token='))?.split('=')[1];
-            const storedUser = localStorage.getItem('user');
-            if (token && storedUser) {
-                setIsLoggedIn(true);
-                try {
-                    const userData = JSON.parse(storedUser);
-                    setUserData(userData);
-                } catch (e) {
-                    console.error('Error parsing user data:', e);
+        const checkAuth = async ()=>{
+            try {
+                const response = await fetch('/api/auth/check', {
+                    credentials: 'include'
+                });
+                const data = await response.json();
+                if (data.authenticated) {
+                    setIsLoggedIn(true);
+                    setUserData(data.user);
+                } else {
+                    setIsLoggedIn(false);
+                    setUserData(null);
                 }
-            } else {
+            } catch (error) {
+                console.error('Auth check error:', error);
                 setIsLoggedIn(false);
                 setUserData(null);
             }
@@ -595,18 +117,22 @@ function Navbar() {
         };
     }, []);
     // Handle logout
-    const handleLogout = ()=>{
-        // Clear auth token cookie
-        document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=strict';
-        // Clear user data from localStorage
-        localStorage.removeItem('user');
-        setIsLoggedIn(false);
-        setUserData(null);
-        setProfileDropdownOpen(false);
-        // Dispatch auth change event
-        window.dispatchEvent(new CustomEvent('authChange'));
-        // Redirect to home page
-        window.location.href = '/';
+    const handleLogout = async ()=>{
+        try {
+            await fetch('/api/auth/logout', {
+                method: 'POST',
+                credentials: 'include'
+            });
+            setIsLoggedIn(false);
+            setUserData(null);
+            setProfileDropdownOpen(false);
+            // Dispatch auth change event
+            window.dispatchEvent(new CustomEvent('authChange'));
+            // Redirect to home page
+            window.location.href = '/';
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
     };
     // Theme toggle logic
     const toggleTheme = ()=>{
@@ -805,22 +331,22 @@ function Navbar() {
                                         className: "mr-2 hover:scale-105 transition-transform duration-200"
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 748,
+                                        lineNumber: 228,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 747,
+                                    lineNumber: 227,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/navbar/page.tsx",
-                                lineNumber: 746,
+                                lineNumber: 226,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/navbar/page.tsx",
-                            lineNumber: 742,
+                            lineNumber: 222,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -851,22 +377,22 @@ function Navbar() {
                                             children: item.name
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 771,
+                                            lineNumber: 251,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 770,
+                                        lineNumber: 250,
                                         columnNumber: 17
                                     }, this)
                                 }, item.path, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 765,
+                                    lineNumber: 245,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/app/navbar/page.tsx",
-                            lineNumber: 760,
+                            lineNumber: 240,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -889,7 +415,7 @@ function Navbar() {
                                     children: language === 'en' ? 'EN' : 'සි'
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 795,
+                                    lineNumber: 275,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].button, {
@@ -909,148 +435,30 @@ function Navbar() {
                                     children: isDarkMode ? '🌞' : '🌙'
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 810,
+                                    lineNumber: 290,
                                     columnNumber: 13
                                 }, this),
-                                isLoggedIn ? // Logged in - show profile dropdown
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "hidden md:block relative",
-                                    ref: dropdownRef,
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].button, {
-                                            onClick: ()=>setProfileDropdownOpen(!profileDropdownOpen),
-                                            whileHover: {
-                                                scale: 1.05
-                                            },
-                                            whileTap: {
-                                                scale: 0.95
-                                            },
-                                            className: `
-                    p-2 rounded-full flex items-center space-x-2
-                    ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}
-                    hover:bg-[rgba(255,165,0,0.2)] transition-all
-                    border-2 border-[#FFA500]
-                  `,
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                                    xmlns: "http://www.w3.org/2000/svg",
-                                                    className: "h-6 w-6",
-                                                    fill: "none",
-                                                    viewBox: "0 0 24 24",
-                                                    stroke: "currentColor",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                                        strokeLinecap: "round",
-                                                        strokeLinejoin: "round",
-                                                        strokeWidth: 2,
-                                                        d: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/navbar/page.tsx",
-                                                        lineNumber: 847,
-                                                        columnNumber: 21
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 840,
-                                                    columnNumber: 19
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "text-[#FFA500] font-medium",
-                                                    children: getDisplayName()
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 854,
-                                                    columnNumber: 19
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                                    xmlns: "http://www.w3.org/2000/svg",
-                                                    className: `h-4 w-4 transition-transform duration-200 ${profileDropdownOpen ? 'rotate-180' : ''}`,
-                                                    fill: "none",
-                                                    viewBox: "0 0 24 24",
-                                                    stroke: "currentColor",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                                        strokeLinecap: "round",
-                                                        strokeLinejoin: "round",
-                                                        strokeWidth: 2,
-                                                        d: "M19 9l-7 7-7-7"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/navbar/page.tsx",
-                                                        lineNumber: 864,
-                                                        columnNumber: 21
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 857,
-                                                    columnNumber: 19
-                                                }, this)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 828,
-                                            columnNumber: 17
-                                        }, this),
-                                        profileDropdownOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
-                                            initial: {
-                                                opacity: 0,
-                                                y: -10
-                                            },
-                                            animate: {
-                                                opacity: 1,
-                                                y: 0
-                                            },
-                                            exit: {
-                                                opacity: 0,
-                                                y: -10
-                                            },
-                                            transition: {
-                                                duration: 0.2
-                                            },
-                                            className: `
-                      absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1
-                      ${isDarkMode ? 'bg-[#112240] border border-gray-700' : 'bg-white border border-gray-200'}
-                    `,
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                                    href: "/constructor",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: `
-                          block px-4 py-2 text-sm
-                          ${isDarkMode ? 'text-[#E6F1FF] hover:bg-[#1D3557]' : 'text-gray-700 hover:bg-gray-100'}
-                          cursor-pointer
-                        `,
-                                                        onClick: ()=>setProfileDropdownOpen(false),
-                                                        children: authText.dashboard
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/navbar/page.tsx",
-                                                        lineNumber: 886,
-                                                        columnNumber: 23
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 885,
-                                                    columnNumber: 21
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    onClick: handleLogout,
-                                                    className: `
-                        block w-full text-left px-4 py-2 text-sm
-                        ${isDarkMode ? 'text-[#E6F1FF] hover:bg-[#1D3557]' : 'text-gray-700 hover:bg-gray-100'}
-                      `,
-                                                    children: authText.logout
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/navbar/page.tsx",
-                                                    lineNumber: 897,
-                                                    columnNumber: 21
-                                                }, this)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 875,
-                                            columnNumber: 19
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
+                                isLoggedIn ? // Logged in - show logout button
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
+                                    variants: itemAnimation,
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].button, {
+                                        onClick: handleLogout,
+                                        className: "bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg    hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer   font-semibold",
+                                        whileHover: {
+                                            scale: 1.05
+                                        },
+                                        whileTap: {
+                                            scale: 0.95
+                                        },
+                                        children: authText.logout
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/navbar/page.tsx",
+                                        lineNumber: 308,
+                                        columnNumber: 17
+                                    }, this)
+                                }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 827,
+                                    lineNumber: 307,
                                     columnNumber: 15
                                 }, this) : // Not logged in - show signup button
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1066,26 +474,26 @@ function Navbar() {
                                                 whileTap: {
                                                     scale: 0.95
                                                 },
-                                                className: "bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg  hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer font-semibold",
+                                                className: "bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg    hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer   font-semibold",
                                                 children: authText.signup
                                             }, void 0, false, {
                                                 fileName: "[project]/app/navbar/page.tsx",
-                                                lineNumber: 914,
+                                                lineNumber: 324,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 913,
+                                            lineNumber: 323,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 912,
+                                        lineNumber: 322,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 911,
+                                    lineNumber: 321,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1110,34 +518,34 @@ function Navbar() {
                                                 d: "M4 6h16M4 12h16m-7 6h7"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/navbar/page.tsx",
-                                                lineNumber: 945,
+                                                lineNumber: 355,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 938,
+                                            lineNumber: 348,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 930,
+                                        lineNumber: 340,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 929,
+                                    lineNumber: 339,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/navbar/page.tsx",
-                            lineNumber: 793,
+                            lineNumber: 273,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/navbar/page.tsx",
-                    lineNumber: 740,
+                    lineNumber: 220,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1175,61 +583,38 @@ function Navbar() {
                                             children: item.name
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 975,
+                                            lineNumber: 385,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 974,
+                                        lineNumber: 384,
                                         columnNumber: 17
                                     }, this)
                                 }, item.path, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 969,
+                                    lineNumber: 379,
                                     columnNumber: 15
                                 }, this)),
-                            isLoggedIn ? // Mobile profile options when logged in
+                            isLoggedIn ? // Mobile logout button when logged in
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "space-y-2 pt-2",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                        href: "/constructor",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: `
-                      block w-full text-center border border-[#FFA500]
-                      ${isDarkMode ? 'text-[#E6F1FF]' : 'text-gray-900'}
-                      px-4 py-2 rounded-lg
-                      hover:bg-[rgba(255,165,0,0.1)]
-                      transition-colors duration-200
-                    `,
-                                            children: authText.dashboard
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 995,
-                                            columnNumber: 19
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 994,
-                                        columnNumber: 17
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: handleLogout,
-                                        className: `
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: handleLogout,
+                                    className: `
                     block w-full text-center bg-[#FFA500] text-[#0A192F]
                     px-4 py-2 rounded-lg hover:bg-[#FFD700]
                     transition-colors duration-200 font-semibold
                   `,
-                                        children: authText.logout
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 1008,
-                                        columnNumber: 17
-                                    }, this)
-                                ]
-                            }, void 0, true, {
+                                    children: authText.logout
+                                }, void 0, false, {
+                                    fileName: "[project]/app/navbar/page.tsx",
+                                    lineNumber: 404,
+                                    columnNumber: 17
+                                }, this)
+                            }, void 0, false, {
                                 fileName: "[project]/app/navbar/page.tsx",
-                                lineNumber: 993,
+                                lineNumber: 403,
                                 columnNumber: 15
                             }, this) : // Not logged in - show signup button
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1249,44 +634,44 @@ function Navbar() {
                                             children: authText.signup
                                         }, void 0, false, {
                                             fileName: "[project]/app/navbar/page.tsx",
-                                            lineNumber: 1024,
+                                            lineNumber: 420,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/navbar/page.tsx",
-                                        lineNumber: 1023,
+                                        lineNumber: 419,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/navbar/page.tsx",
-                                    lineNumber: 1022,
+                                    lineNumber: 418,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/navbar/page.tsx",
-                                lineNumber: 1021,
+                                lineNumber: 417,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/navbar/page.tsx",
-                        lineNumber: 967,
+                        lineNumber: 377,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/navbar/page.tsx",
-                    lineNumber: 958,
+                    lineNumber: 368,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/navbar/page.tsx",
-            lineNumber: 739,
+            lineNumber: 219,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/navbar/page.tsx",
-        lineNumber: 727,
+        lineNumber: 207,
         columnNumber: 5
     }, this);
 }
@@ -1319,6 +704,7 @@ function Signup() {
     const [isDarkMode, setIsDarkMode] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
     const [language, setLanguage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('en');
     const canvasRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({
         firstName: '',
         lastName: '',
@@ -1461,24 +847,27 @@ function Signup() {
         e.preventDefault();
         setMessage('');
         setIsError(false);
+        setIsLoading(true);
         // Validate passwords match
         if (formData.password !== formData.confirmPassword) {
             setMessage('Passwords do not match');
             setIsError(true);
+            setIsLoading(false);
+            return;
+        }
+        // Validate password strength
+        if (formData.password.length < 8) {
+            setMessage('Password must be at least 8 characters long');
+            setIsError(true);
+            setIsLoading(false);
             return;
         }
         try {
-            console.log('Sending data:', {
-                firstName: formData.firstName,
-                lastName: formData.lastName,
-                username: formData.username,
-                email: formData.email,
-                password: formData.password
-            });
-            const response = await fetch('https://ceylonminebackend.up.railway.app/auth/signup', {
+            const response = await fetch('/api/auth/signup', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({
                     firstName: formData.firstName,
@@ -1486,10 +875,18 @@ function Signup() {
                     username: formData.username,
                     email: formData.email,
                     password: formData.password
-                })
+                }),
+                credentials: 'include'
             });
-            const data = await response.json();
-            console.log('Response:', data);
+            let data;
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                data = await response.json();
+            } else {
+                const text = await response.text();
+                console.error('Non-JSON response:', text);
+                throw new Error('Server configuration error. Please check your environment variables and try again.');
+            }
             if (response.ok) {
                 setMessage('Signup successful! You can now login.');
                 setIsError(false);
@@ -1502,14 +899,21 @@ function Signup() {
                     password: '',
                     confirmPassword: ''
                 });
+                // Redirect to login page after a short delay
+                setTimeout(()=>{
+                    window.location.href = '/login';
+                }, 2000);
             } else {
-                setMessage(data.error || 'Signup failed');
+                setMessage(data.error || 'Signup failed. Please try again.');
                 setIsError(true);
             }
         } catch (error) {
             console.error('Error:', error);
-            setMessage('Error connecting to server');
+            const errorMessage = error instanceof Error ? error.message : 'Error connecting to server. Please try again.';
+            setMessage(errorMessage);
             setIsError(true);
+        } finally{
+            setIsLoading(false);
         }
     };
     const handleChange = (e)=>{
@@ -1527,7 +931,7 @@ function Signup() {
                         children: "Sign Up | CeylonMine"
                     }, void 0, false, {
                         fileName: "[project]/app/sign/page.tsx",
-                        lineNumber: 262,
+                        lineNumber: 284,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1535,7 +939,7 @@ function Signup() {
                         content: "Sign up for CeylonMine, the digital platform for mining licensing and royalty calculation in Sri Lanka."
                     }, void 0, false, {
                         fileName: "[project]/app/sign/page.tsx",
-                        lineNumber: 263,
+                        lineNumber: 285,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("link", {
@@ -1543,18 +947,18 @@ function Signup() {
                         href: "/favicon.ico"
                     }, void 0, false, {
                         fileName: "[project]/app/sign/page.tsx",
-                        lineNumber: 267,
+                        lineNumber: 289,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/sign/page.tsx",
-                lineNumber: 261,
+                lineNumber: 283,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$navbar$2f$page$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/sign/page.tsx",
-                lineNumber: 270,
+                lineNumber: 292,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1581,7 +985,7 @@ function Signup() {
                                     children: t.signUp
                                 }, void 0, false, {
                                     fileName: "[project]/app/sign/page.tsx",
-                                    lineNumber: 276,
+                                    lineNumber: 298,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].p, {
@@ -1601,13 +1005,13 @@ function Signup() {
                                     children: t.joinCommunity
                                 }, void 0, false, {
                                     fileName: "[project]/app/sign/page.tsx",
-                                    lineNumber: 284,
+                                    lineNumber: 306,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/sign/page.tsx",
-                            lineNumber: 275,
+                            lineNumber: 297,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1631,7 +1035,7 @@ function Signup() {
                                         children: t.createAccount
                                     }, void 0, false, {
                                         fileName: "[project]/app/sign/page.tsx",
-                                        lineNumber: 306,
+                                        lineNumber: 328,
                                         columnNumber: 15
                                     }, this),
                                     message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1639,7 +1043,7 @@ function Signup() {
                                         children: message
                                     }, void 0, false, {
                                         fileName: "[project]/app/sign/page.tsx",
-                                        lineNumber: 309,
+                                        lineNumber: 331,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1657,7 +1061,7 @@ function Signup() {
                                                                 children: t.firstName
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/sign/page.tsx",
-                                                                lineNumber: 321,
+                                                                lineNumber: 343,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1671,13 +1075,13 @@ function Signup() {
                                                                 required: true
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/sign/page.tsx",
-                                                                lineNumber: 324,
+                                                                lineNumber: 346,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/sign/page.tsx",
-                                                        lineNumber: 320,
+                                                        lineNumber: 342,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1688,7 +1092,7 @@ function Signup() {
                                                                 children: t.lastName
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/sign/page.tsx",
-                                                                lineNumber: 340,
+                                                                lineNumber: 362,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1702,19 +1106,19 @@ function Signup() {
                                                                 required: true
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/sign/page.tsx",
-                                                                lineNumber: 343,
+                                                                lineNumber: 365,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/sign/page.tsx",
-                                                        lineNumber: 339,
+                                                        lineNumber: 361,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/sign/page.tsx",
-                                                lineNumber: 319,
+                                                lineNumber: 341,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1725,7 +1129,7 @@ function Signup() {
                                                         children: t.username
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/sign/page.tsx",
-                                                        lineNumber: 361,
+                                                        lineNumber: 383,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1739,13 +1143,13 @@ function Signup() {
                                                         required: true
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/sign/page.tsx",
-                                                        lineNumber: 364,
+                                                        lineNumber: 386,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/sign/page.tsx",
-                                                lineNumber: 360,
+                                                lineNumber: 382,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1756,7 +1160,7 @@ function Signup() {
                                                         children: t.email
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/sign/page.tsx",
-                                                        lineNumber: 381,
+                                                        lineNumber: 403,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1770,13 +1174,13 @@ function Signup() {
                                                         required: true
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/sign/page.tsx",
-                                                        lineNumber: 384,
+                                                        lineNumber: 406,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/sign/page.tsx",
-                                                lineNumber: 380,
+                                                lineNumber: 402,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1790,7 +1194,7 @@ function Signup() {
                                                                 children: t.password
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/sign/page.tsx",
-                                                                lineNumber: 402,
+                                                                lineNumber: 424,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1804,13 +1208,13 @@ function Signup() {
                                                                 minLength: 8
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/sign/page.tsx",
-                                                                lineNumber: 405,
+                                                                lineNumber: 427,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/sign/page.tsx",
-                                                        lineNumber: 401,
+                                                        lineNumber: 423,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1821,7 +1225,7 @@ function Signup() {
                                                                 children: t.confirmPassword
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/sign/page.tsx",
-                                                                lineNumber: 421,
+                                                                lineNumber: 443,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1835,40 +1239,41 @@ function Signup() {
                                                                 minLength: 8
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/sign/page.tsx",
-                                                                lineNumber: 424,
+                                                                lineNumber: 446,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/sign/page.tsx",
-                                                        lineNumber: 420,
+                                                        lineNumber: 442,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/sign/page.tsx",
-                                                lineNumber: 400,
+                                                lineNumber: 422,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].button, {
                                                     type: "submit",
-                                                    className: "bg-orange-500 hover:bg-orange-600 text-white py-3 px-8 rounded-md text-lg font-medium transition-colors w-full md:w-auto",
+                                                    disabled: isLoading,
+                                                    className: `bg-orange-500 hover:bg-orange-600 text-white py-3 px-8 rounded-md text-lg font-medium transition-colors w-full md:w-auto ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`,
                                                     whileHover: {
-                                                        scale: 1.05
+                                                        scale: isLoading ? 1 : 1.05
                                                     },
                                                     whileTap: {
-                                                        scale: 0.95
+                                                        scale: isLoading ? 1 : 0.95
                                                     },
-                                                    children: t.signUpButton
+                                                    children: isLoading ? 'Signing up...' : t.signUpButton
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/sign/page.tsx",
-                                                    lineNumber: 442,
+                                                    lineNumber: 464,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/sign/page.tsx",
-                                                lineNumber: 441,
+                                                lineNumber: 463,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1884,46 +1289,46 @@ function Signup() {
                                                             children: t.loginHere
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/sign/page.tsx",
-                                                            lineNumber: 454,
+                                                            lineNumber: 479,
                                                             columnNumber: 44
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/sign/page.tsx",
-                                                    lineNumber: 453,
+                                                    lineNumber: 478,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/sign/page.tsx",
-                                                lineNumber: 452,
+                                                lineNumber: 477,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/sign/page.tsx",
-                                        lineNumber: 318,
+                                        lineNumber: 340,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/sign/page.tsx",
-                                lineNumber: 298,
+                                lineNumber: 320,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/sign/page.tsx",
-                            lineNumber: 297,
+                            lineNumber: 319,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/sign/page.tsx",
-                    lineNumber: 273,
+                    lineNumber: 295,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/sign/page.tsx",
-                lineNumber: 272,
+                lineNumber: 294,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("canvas", {
@@ -1931,13 +1336,13 @@ function Signup() {
                 className: "fixed inset-0 w-full h-full z-0"
             }, void 0, false, {
                 fileName: "[project]/app/sign/page.tsx",
-                lineNumber: 465,
+                lineNumber: 490,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/sign/page.tsx",
-        lineNumber: 256,
+        lineNumber: 278,
         columnNumber: 5
     }, this);
 }

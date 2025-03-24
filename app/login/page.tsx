@@ -7,18 +7,31 @@ import * as THREE from 'three';
 import Head from 'next/head';
 import Link from 'next/link';
 import Navbar from "../navbar/page";
+import Swal from 'sweetalert2';
 
 export default function LoginPage() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [language, setLanguage] = useState('en');
   const canvasRef = useRef(null);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  // Check if user is already logged in
+  useEffect(() => {
+    const checkAuth = async () => {
+      const response = await fetch('/api/auth/check', {
+        credentials: 'include'
+      });
+      if (response.ok) {
+        router.push('/');
+      }
+    };
+    checkAuth();
+  }, [router]);
 
   useEffect(() => {
     const handleThemeChange = (event: CustomEvent<{ isDarkMode: boolean }>) => {
@@ -151,7 +164,9 @@ export default function LoginPage() {
       resetHere: "Reset it here",
       noAccount: "Don't have an account?",
       signUp: "Sign up here",
-      allRightsReserved: "All rights reserved."
+      allRightsReserved: "All rights reserved.",
+      invalidCredentials: "Invalid email or password",
+      serverError: "Error connecting to server"
     },
     si: {
       login: "පිවිසෙන්න",
@@ -162,69 +177,59 @@ export default function LoginPage() {
       resetHere: "මෙතැනින් යළි සකසන්න",
       noAccount: "ගිණුමක් නැද්ද?",
       signUp: "මෙතැනින් ලියාපදිංචි වන්න",
-      allRightsReserved: "සියලු හිමිකම් ඇවිරිණි."
+      allRightsReserved: "සියලු හිමිකම් ඇවිරිණි.",
+      invalidCredentials: "තැපැල් ලිපිනය හෝ රහස් පදය වැරදිය.",
+      serverError: "සේවාදායකයට ප්‍රවේශය නොවේ"
     }
   };
 
   // Fix for the language indexing issue
   const t = translations[language as keyof typeof translations];
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setMessage('');
-    setIsError(false);
+    setLoading(true);
 
     try {
-      console.log('Attempting login...');
-      const response = await fetch('https://ceylonminebackend.up.railway.app/auth/login', {
+      const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password
-        }),
+        body: JSON.stringify({ email, password }),
+        credentials: 'include',
       });
 
       const data = await response.json();
-      console.log('Login response:', data);
 
-      if (response.ok && data.token) {
-        // Store token in a cookie
-        document.cookie = `token=${data.token}; path=/; max-age=86400; secure; samesite=strict`;
-        
-        // Store user data if available
-        if (data.user) {
-          localStorage.setItem('user', JSON.stringify(data.user));
-        }
-
-        // Clear any error messages
-        setMessage('Login successful! Redirecting...');
-        setIsError(false);
-
-        // Add a small delay before redirecting to show the success message
-        setTimeout(() => {
-          router.push('/home');
-        }, 1000);
-      } else {
-        // Handle specific error messages from the backend
-        const errorMessage = data.error || data.message || 'Login failed. Please check your credentials.';
-        setMessage(errorMessage);
-        setIsError(true);
+      if (!response.ok) {
+        throw new Error(data.error || 'Login failed');
       }
+
+      // Show success message
+      await Swal.fire({
+        title: 'Success!',
+        text: 'Login successful',
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false
+      });
+
+      // Wait for the success message before redirecting
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Redirect based on user role and license status
+      window.location.href = data.redirectTo;
     } catch (error) {
       console.error('Login error:', error);
-      setMessage('Unable to connect to the server. Please try again later.');
-      setIsError(true);
+      Swal.fire({
+        title: 'Error!',
+        text: error instanceof Error ? error.message : 'Login failed',
+        icon: 'error'
+      });
+    } finally {
+      setLoading(false);
     }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
   };
 
   return (
@@ -273,8 +278,8 @@ export default function LoginPage() {
                   type="email"
                   id="email"
                   name="email"
-                  value={formData.email}
-                  onChange={handleChange}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className={`w-full px-4 py-3 rounded-md focus:outline-none ${
                     isDarkMode 
                       ? 'bg-gray-800 border border-gray-700 focus:border-orange-500' 
@@ -292,8 +297,8 @@ export default function LoginPage() {
                   type="password"
                   id="password"
                   name="password"
-                  value={formData.password}
-                  onChange={handleChange}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className={`w-full px-4 py-3 rounded-md focus:outline-none ${
                     isDarkMode 
                       ? 'bg-gray-800 border border-gray-700 focus:border-orange-500' 
@@ -309,8 +314,13 @@ export default function LoginPage() {
                   className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 rounded-md text-lg font-medium transition-colors"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  disabled={loading}
                 >
-                  {t.loginButton}
+                  {loading ? (
+                    <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
+                  ) : (
+                    t.loginButton
+                  )}
                 </motion.button>
               </div>
 
@@ -337,12 +347,8 @@ export default function LoginPage() {
         </div>
       </main>
 
-
       {/* Three.js Canvas Background */}
       <canvas ref={canvasRef} className="fixed inset-0 w-full h-full z-0" />
-
-     
     </div>
-    
   );
 }

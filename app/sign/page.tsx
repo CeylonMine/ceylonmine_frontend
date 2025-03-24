@@ -16,6 +16,7 @@ export default function Signup() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [language, setLanguage] = useState<Language>('en');
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -188,27 +189,30 @@ export default function Signup() {
     e.preventDefault();
     setMessage('');
     setIsError(false);
+    setIsLoading(true);
 
     // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
       setMessage('Passwords do not match');
       setIsError(true);
+      setIsLoading(false);
+      return;
+    }
+
+    // Validate password strength
+    if (formData.password.length < 8) {
+      setMessage('Password must be at least 8 characters long');
+      setIsError(true);
+      setIsLoading(false);
       return;
     }
 
     try {
-      console.log('Sending data:', {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        username: formData.username,
-        email: formData.email,
-        password: formData.password
-      });
-
-      const response = await fetch('https://ceylonminebackend.up.railway.app/auth/signup', {
+      const response = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify({
           firstName: formData.firstName,
@@ -217,10 +221,18 @@ export default function Signup() {
           email: formData.email,
           password: formData.password
         }),
+        credentials: 'include'
       });
       
-      const data = await response.json();
-      console.log('Response:', data);
+      let data;
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        console.error('Non-JSON response:', text);
+        throw new Error('Server configuration error. Please check your environment variables and try again.');
+      }
       
       if (response.ok) {
         setMessage('Signup successful! You can now login.');
@@ -234,14 +246,24 @@ export default function Signup() {
           password: '',
           confirmPassword: ''
         });
+        
+        // Redirect to login page after a short delay
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
       } else {
-        setMessage(data.error || 'Signup failed');
+        setMessage(data.error || 'Signup failed. Please try again.');
         setIsError(true);
       }
     } catch (error) {
       console.error('Error:', error);
-      setMessage('Error connecting to server');
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : 'Error connecting to server. Please try again.';
+      setMessage(errorMessage);
       setIsError(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -441,11 +463,14 @@ export default function Signup() {
                 <div>
                   <motion.button
                     type="submit"
-                    className="bg-orange-500 hover:bg-orange-600 text-white py-3 px-8 rounded-md text-lg font-medium transition-colors w-full md:w-auto"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    disabled={isLoading}
+                    className={`bg-orange-500 hover:bg-orange-600 text-white py-3 px-8 rounded-md text-lg font-medium transition-colors w-full md:w-auto ${
+                      isLoading ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                    whileHover={{ scale: isLoading ? 1 : 1.05 }}
+                    whileTap={{ scale: isLoading ? 1 : 0.95 }}
                   >
-                    {t.signUpButton}
+                    {isLoading ? 'Signing up...' : t.signUpButton}
                   </motion.button>
                 </div>
                 

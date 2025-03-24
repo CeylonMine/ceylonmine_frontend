@@ -1,4 +1,4 @@
-'use client'
+/*'use client'
 import { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import Navbar from '../../../navbar/page';
@@ -121,4 +121,4 @@ export default function AdminApplicationView() {
       </div>
     </main>
   );
-} 
+} */
