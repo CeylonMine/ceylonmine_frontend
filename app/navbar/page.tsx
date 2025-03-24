@@ -1,3 +1,5 @@
+
+
 // "use client"
 
 // import Link from 'next/link'
@@ -16,7 +18,7 @@
 //   const [isOpen, setIsOpen] = useState(false)
 //   const [scrolled, setScrolled] = useState(false)
 //   const [isDarkMode, setIsDarkMode] = useState(true) // Default to dark mode
-//   const [language, setLanguage] = useState<'en' | 'si'>('en')     // Default language
+//   const [language, setLanguage] = useState<'en' | 'si'>('en') // Default language
 //   const [isLoggedIn, setIsLoggedIn] = useState(false) // Authentication state
 //   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false)
 //   const [userData, setUserData] = useState<UserData | null>(null)
@@ -520,6 +522,7 @@
 // }
 
 
+
 "use client"
 
 import Link from 'next/link'
@@ -569,23 +572,22 @@ export default function Navbar() {
 
   // Check authentication status on component mount
   useEffect(() => {
-    const checkAuth = () => {
-      const token = document.cookie
-        .split('; ')
-        .find(row => row.startsWith('token='))
-        ?.split('=')[1];
-      
-      const storedUser = localStorage.getItem('user');
-      
-      if (token && storedUser) {
-        setIsLoggedIn(true);
-        try {
-          const userData = JSON.parse(storedUser);
-          setUserData(userData);
-        } catch (e) {
-          console.error('Error parsing user data:', e);
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/auth/check', {
+          credentials: 'include'
+        });
+        const data = await response.json();
+        
+        if (data.authenticated) {
+          setIsLoggedIn(true);
+          setUserData(data.user);
+        } else {
+          setIsLoggedIn(false);
+          setUserData(null);
         }
-      } else {
+      } catch (error) {
+        console.error('Auth check error:', error);
         setIsLoggedIn(false);
         setUserData(null);
       }
@@ -603,22 +605,25 @@ export default function Navbar() {
   }, []);
 
   // Handle logout
-  const handleLogout = () => {
-    // Clear auth token cookie
-    document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=strict';
-    
-    // Clear user data from localStorage
-    localStorage.removeItem('user');
-    
-    setIsLoggedIn(false);
-    setUserData(null);
-    setProfileDropdownOpen(false);
-    
-    // Dispatch auth change event
-    window.dispatchEvent(new CustomEvent('authChange'));
-    
-    // Redirect to home page
-    window.location.href = '/';
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include'
+      });
+      
+      setIsLoggedIn(false);
+      setUserData(null);
+      setProfileDropdownOpen(false);
+      
+      // Dispatch auth change event
+      window.dispatchEvent(new CustomEvent('authChange'));
+      
+      // Redirect to home page
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   // Theme toggle logic
@@ -698,12 +703,12 @@ export default function Navbar() {
   }
 
   // Get display name
-  const getDisplayName = () => {
-    if (userData && userData.firstName) {
-      return `${userData.firstName}`
-    }
-    return authText.profile
-  }
+  // const getDisplayName = () => {
+  //   if (userData && userData.firstName) {
+  //     return `${userData.firstName}`
+  //   }
+  //   return authText.profile
+  // }
 
   // Framer Motion variants
   const navAnimation = {
@@ -823,89 +828,19 @@ export default function Navbar() {
 
             {/* Authentication Section */}
             {isLoggedIn ? (
-              // Logged in - show profile dropdown
-              <div className="hidden md:block relative" ref={dropdownRef}>
+              // Logged in - show logout button
+              <motion.div variants={itemAnimation}>
                 <motion.button
-                  onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+                  onClick={handleLogout}
+                  className="bg-[#FFA500] text-[#0A192F] px-4 py-2 rounded-lg 
+                    hover:bg-[#FFD700] transition-colors duration-200 cursor-pointer
+                    font-semibold"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`
-                    p-2 rounded-full flex items-center space-x-2
-                    ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}
-                    hover:bg-[rgba(255,165,0,0.2)] transition-all
-                    border-2 border-[#FFA500]
-                  `}
                 >
-                  {/* Profile Icon */}
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    className="h-6 w-6" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" 
-                    />
-                  </svg>
-                  <span className="text-[#FFA500] font-medium">{getDisplayName()}</span>
-                  
-                  {/* Dropdown Arrow */}
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    className={`h-4 w-4 transition-transform duration-200 ${profileDropdownOpen ? 'rotate-180' : ''}`}
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M19 9l-7 7-7-7" 
-                    />
-                  </svg>
+                  {authText.logout}
                 </motion.button>
-
-                {/* Profile Dropdown Menu */}
-                {profileDropdownOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    className={`
-                      absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1
-                      ${isDarkMode ? 'bg-[#112240] border border-gray-700' : 'bg-white border border-gray-200'}
-                    `}
-                  >
-                    <Link href="/constructor">
-                      <span 
-                        className={`
-                          block px-4 py-2 text-sm
-                          ${isDarkMode ? 'text-[#E6F1FF] hover:bg-[#1D3557]' : 'text-gray-700 hover:bg-gray-100'}
-                          cursor-pointer
-                        `}
-                        onClick={() => setProfileDropdownOpen(false)}
-                      >
-                        {authText.dashboard}
-                      </span>
-                    </Link>
-                    <button 
-                      onClick={handleLogout}
-                      className={`
-                        block w-full text-left px-4 py-2 text-sm
-                        ${isDarkMode ? 'text-[#E6F1FF] hover:bg-[#1D3557]' : 'text-gray-700 hover:bg-gray-100'}
-                      `}
-                    >
-                      {authText.logout}
-                    </button>
-                  </motion.div>
-                )}
-              </div>
+              </motion.div>
             ) : (
               // Not logged in - show signup button
               <div className="hidden md:flex items-center">
@@ -989,22 +924,8 @@ export default function Navbar() {
 
             {/* Mobile Auth Buttons */}
             {isLoggedIn ? (
-              // Mobile profile options when logged in
+              // Mobile logout button when logged in
               <div className="space-y-2 pt-2">
-                <Link href="/constructor">
-                  <span
-                    className={`
-                      block w-full text-center border border-[#FFA500]
-                      ${isDarkMode ? 'text-[#E6F1FF]' : 'text-gray-900'}
-                      px-4 py-2 rounded-lg
-                      hover:bg-[rgba(255,165,0,0.1)]
-                      transition-colors duration-200
-                    `}
-                  >
-                    {authText.dashboard}
-                  </span>
-                </Link>
-                
                 <button
                   onClick={handleLogout}
                   className={`
