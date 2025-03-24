@@ -868,7 +868,7 @@ export default function MiningEducation() {
     {
       title: "Mining Safety and Regulations",
      
-      description: "Comprehensive overview of safety protocols, regulatory frameworks, and compliance requirements in mining.",
+      description: "Comprehensive overview of safety protocols, regulatory laws, and compliance requirements in mining.",
       topics: ["Risk assessment", "Emergency protocols", "Regulatory compliance", "Safety culture"],
       image: "/images/16.jpg"
     }
