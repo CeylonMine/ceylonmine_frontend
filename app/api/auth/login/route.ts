@@ -61,7 +61,7 @@ export async function POST(request: Request) {
       needsLicensePortal,
       redirectTo: needsLicensePortal ? '/license-portal' : 
                  userData.role === 'public' ? '/' : 
-                 userData.role === 'miner' ? '/royalty' : '/'
+                 userData.role === 'miner' ? '/constructor' : '/'
     });
     
     // Set HTTP-only cookie with token
